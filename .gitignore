@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Environment and secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# Databricks and local runtime
+.databricks/
+.ipynb_checkpoints/
+*.dbc
+
+# Local data
+data/
+downloads/
+tmp/
+temp/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
