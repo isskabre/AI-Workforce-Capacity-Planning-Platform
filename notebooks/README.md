@@ -1,39 +1,15 @@
-\# Notebooks
+notebooks/
 
+source/
+    Production Databricks notebooks.
 
+These notebooks are the authoritative source for the project.
 
-This directory contains Databricks notebook exports in multiple formats.
+Each notebook is version-controlled through Databricks Git integration.
 
+Notebook order:
 
-
-\## ipynb/
-
-
-
-Editable Jupyter notebook exports from Databricks.
-
-
-
-\## source/
-
-
-
-Python source exports used for Git history, code review, searching, and readable diffs.
-
-
-
-\## Export Convention
-
-
-
-For each completed implementation, export the affected Databricks notebooks as:
-
-
-
-\- `.ipynb` into `notebooks/ipynb/`
-
-\- `.py` into `notebooks/source/`
-
-\- `.html` into `exports/databricks\_html/`
-
-
+00_project_setup
+01_dataset_evaluation
+02_data_pipeline
+03_dataset_registry
