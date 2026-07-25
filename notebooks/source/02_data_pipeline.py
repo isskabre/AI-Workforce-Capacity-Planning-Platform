@@ -1474,6 +1474,12 @@ print(
 # Section 3.7 — Enterprise Manifest Execution
 # ============================================================
 
+dataset_name = dataset_config["dataset_name"]
+dataset_key = dataset_config["dataset_key"]
+dataset_version = dataset_config["dataset_version"]
+source_type = dataset_config["source_type"]
+source_reference = dataset_config["source_reference"]
+
 manifest = build_acquisition_manifest(
     dataset_name=dataset_name,
     dataset_key=dataset_key,
@@ -1508,6 +1514,384 @@ print(
 )
 
 print("=" * 70)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC # Section 04 — Bronze Layer
+# MAGIC
+# MAGIC Convert validated Landing files into standardized Parquet datasets.
+# MAGIC
+# MAGIC Bronze responsibilities:
+# MAGIC
+# MAGIC - Preserve all source records
+# MAGIC - Standardize column names
+# MAGIC - Add technical lineage metadata
+# MAGIC - Write idempotent Parquet outputs to S3
+# MAGIC - Validate persisted Bronze datasets
+
+# COMMAND ----------
+
+# ============================================================
+# Section 04.1 — Bronze Layer Utilities
+# ============================================================
+
+import re
+from typing import Any
+
+from pyspark.sql import DataFrame
+from pyspark.sql import functions as F
+
+
+SUPPORTED_BRONZE_FORMATS = {
+    "csv",
+    "json",
+    "parquet",
+}
+
+PRIMARY_SOURCE_FILES = {
+    "dataco_supply_chain": "DataCoSupplyChainDataset.csv",
+}
+
+def normalize_column_name(column_name: str) -> str:
+    """
+    Convert a source column name into a stable Spark-compatible name.
+    """
+
+    normalized = column_name.strip().lower()
+    normalized = re.sub(r"[^a-z0-9]+", "_", normalized)
+    normalized = re.sub(r"_+", "_", normalized)
+    normalized = normalized.strip("_")
+
+    if not normalized:
+        raise ValueError(
+            f"Column name cannot be normalized: {column_name!r}"
+        )
+
+    return normalized
+
+
+def standardize_column_names(df: DataFrame) -> DataFrame:
+    """
+    Normalize all source column names and prevent duplicate names.
+    """
+
+    normalized_columns = [
+        normalize_column_name(column_name)
+        for column_name in df.columns
+    ]
+
+    duplicates = sorted(
+        {
+            column_name
+            for column_name in normalized_columns
+            if normalized_columns.count(column_name) > 1
+        }
+    )
+
+    if duplicates:
+        raise ValueError(
+            "Column normalization produced duplicate columns: "
+            f"{duplicates}"
+        )
+
+    return df.toDF(*normalized_columns)
+
+
+def read_landing_dataset(
+    *,
+    landing_path: str,
+    source_format: str,
+    dataset_key: str,
+) -> DataFrame:
+    """
+    Read the primary business file for one validated Landing dataset.
+    """
+
+    normalized_format = source_format.strip().lower()
+
+    if normalized_format not in SUPPORTED_BRONZE_FORMATS:
+        raise ValueError(
+            f"Unsupported Bronze source format: {source_format!r}. "
+            f"Supported formats: {sorted(SUPPORTED_BRONZE_FORMATS)}"
+        )
+
+    primary_file_name = PRIMARY_SOURCE_FILES.get(dataset_key)
+
+    if not primary_file_name:
+        raise ValueError(
+            "No primary source file is configured for dataset: "
+            f"{dataset_key}"
+        )
+
+    source_path = f"{landing_path.rstrip('/')}/{primary_file_name}"
+
+    print(f"Primary source file: {source_path}")
+
+    if normalized_format == "csv":
+        return (
+            spark.read
+            .option("header", True)
+            .option("inferSchema", True)
+            .option("multiLine", True)
+            .option("escape", '"')
+            .option("quote", '"')
+            .option("mode", "FAILFAST")
+            .csv(source_path)
+        )
+
+    if normalized_format == "json":
+        return (
+            spark.read
+            .option("multiLine", True)
+            .option("mode", "FAILFAST")
+            .json(source_path)
+        )
+
+    return spark.read.parquet(source_path)
+
+
+def add_bronze_metadata(
+    df: DataFrame,
+    *,
+    dataset_key: str,
+    dataset_name: str,
+    dataset_version: str,
+) -> DataFrame:
+    """
+    Add technical lineage columns without changing source records.
+    """
+
+    return (
+        df
+        .withColumn(
+            "_source_file",
+            F.col("_metadata.file_path"),
+        )
+        .withColumn(
+            "_dataset_key",
+            F.lit(dataset_key),
+        )
+        .withColumn(
+            "_dataset_name",
+            F.lit(dataset_name),
+        )
+        .withColumn(
+            "_dataset_version",
+            F.lit(dataset_version),
+        )
+        .withColumn(
+            "_bronze_ingested_at_utc",
+            F.current_timestamp(),
+        )
+        .withColumn(
+            "_bronze_load_date",
+            F.current_date(),
+        )
+    )
+
+
+def build_bronze_path(dataset_key: str) -> str:
+    """
+    Return the persistent Bronze S3 path for one dataset.
+    """
+
+    normalized_key = normalize_column_name(dataset_key)
+
+    return f"{BRONZE_ROOT}/{normalized_key}"
+
+
+def write_bronze_dataset(
+    df: DataFrame,
+    bronze_path: str,
+) -> None:
+    """
+    Persist a complete Bronze snapshot as Parquet.
+
+    Overwrite is intentional because the current public source dataset
+    is registry-versioned and processed as a reproducible snapshot.
+    """
+
+    (
+        df.write
+        .mode("overwrite")
+        .option("compression", "snappy")
+        .parquet(bronze_path)
+    )
+
+
+def validate_bronze_dataset(
+    *,
+    bronze_path: str,
+    expected_row_count: int,
+    expected_columns: list[str],
+) -> dict[str, Any]:
+    """
+    Read the persisted Bronze dataset and validate its integrity.
+    """
+
+    persisted_df = spark.read.parquet(bronze_path)
+
+    actual_row_count = persisted_df.count()
+    actual_columns = persisted_df.columns
+
+    missing_columns = sorted(
+        set(expected_columns) - set(actual_columns)
+    )
+
+    if actual_row_count != expected_row_count:
+        raise RuntimeError(
+            "Bronze row-count validation failed. "
+            f"Expected {expected_row_count:,}; "
+            f"found {actual_row_count:,}."
+        )
+
+    if missing_columns:
+        raise RuntimeError(
+            "Bronze schema validation failed. "
+            f"Missing columns: {missing_columns}"
+        )
+
+    return {
+        "bronze_path": bronze_path,
+        "row_count": actual_row_count,
+        "column_count": len(actual_columns),
+        "status": "PASSED",
+    }
+
+
+def create_bronze_dataset(
+    dataset: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    Execute the complete Landing-to-Bronze process for one dataset.
+    """
+
+    dataset_key = dataset["dataset_key"]
+    dataset_name = dataset["dataset_name"]
+    dataset_version = dataset["dataset_version"]
+    source_format = dataset["source_format"]
+    landing_folder = dataset["landing_folder"]
+
+    landing_path = build_landing_path(landing_folder)
+    bronze_path = build_bronze_path(dataset_key)
+
+    landing_df = read_landing_dataset(
+        landing_path=landing_path,
+        source_format=source_format,
+        dataset_key=dataset_key,
+    )
+
+    bronze_df = standardize_column_names(landing_df)
+
+    bronze_df = add_bronze_metadata(
+        bronze_df,
+        dataset_key=dataset_key,
+        dataset_name=dataset_name,
+        dataset_version=dataset_version,
+    )
+
+    expected_row_count = bronze_df.count()
+    expected_columns = bronze_df.columns
+
+    if expected_row_count == 0:
+        raise RuntimeError(
+            f"Bronze creation rejected empty dataset: {dataset_key}"
+        )
+
+    write_bronze_dataset(
+        df=bronze_df,
+        bronze_path=bronze_path,
+    )
+
+    validation = validate_bronze_dataset(
+        bronze_path=bronze_path,
+        expected_row_count=expected_row_count,
+        expected_columns=expected_columns,
+    )
+
+    return {
+        "dataset_key": dataset_key,
+        "dataset_name": dataset_name,
+        "dataset_version": dataset_version,
+        **validation,
+    }
+
+# COMMAND ----------
+
+# ============================================================
+# Section 04.2 — Execute Bronze Processing
+# ============================================================
+
+bronze_results: list[dict[str, Any]] = []
+
+registry_records = [
+    row.asDict(recursive=True)
+    for row in ready_registry_df.collect()
+]
+
+if not registry_records:
+    raise RuntimeError(
+        "No acquisition-ready datasets are available for Bronze processing."
+    )
+
+for dataset in registry_records:
+    dataset_key = dataset["dataset_key"]
+
+    print()
+    print("=" * 70)
+    print(f"Creating Bronze dataset: {dataset_key}")
+    print("=" * 70)
+
+    result = create_bronze_dataset(dataset)
+    bronze_results.append(result)
+
+    print(f"Status:       {result['status']}")
+    print(f"Rows:         {result['row_count']:,}")
+    print(f"Columns:      {result['column_count']}")
+    print(f"Bronze path:  {result['bronze_path']}")
+
+# COMMAND ----------
+
+# ============================================================
+# Section 04.3 — Bronze Processing Summary
+# ============================================================
+
+bronze_summary_df = spark.createDataFrame(bronze_results)
+
+display(
+    bronze_summary_df.select(
+        "dataset_key",
+        "dataset_name",
+        "dataset_version",
+        "row_count",
+        "column_count",
+        "status",
+        "bronze_path",
+    )
+)
+
+failed_bronze_datasets = [
+    result
+    for result in bronze_results
+    if result["status"] != "PASSED"
+]
+
+if failed_bronze_datasets:
+    raise RuntimeError(
+        "One or more Bronze datasets failed validation: "
+        f"{failed_bronze_datasets}"
+    )
+
+print()
+print("=" * 70)
+print("BRONZE LAYER COMPLETED SUCCESSFULLY")
+print("=" * 70)
+print(f"Datasets processed: {len(bronze_results)}")
+print(
+    "Total rows written: "
+    f"{sum(result['row_count'] for result in bronze_results):,}"
+)
 
 # COMMAND ----------
 
