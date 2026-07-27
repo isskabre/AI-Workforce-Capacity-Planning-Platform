@@ -1,3 +1,37 @@
+# Version 2.2.0
+
+## Added
+
+### Implementation 06 — Enterprise Data Quality Validation Framework
+
+Introduced a reusable enterprise data quality framework supporting
+validation across Bronze, Silver, and Gold layers.
+
+### Features
+
+- Validation engine
+- Validation report model
+- Validation status model
+- Validation exceptions
+- Validation rule framework
+- Required columns validation
+- Minimum row-count validation
+- Business-key uniqueness validation
+- Numeric range validation
+- Null threshold validation
+- Validation report persistence
+- Validation evidence generation
+- Bronze validation
+- Silver validation
+- Gold validation
+
+### Documentation
+
+- Implementation 06
+- ADR-003 Enterprise Data Quality Validation
+
+---
+
 # Changelog
 
 This document records all major engineering milestones of the AI Workforce Capacity Planning Platform.
