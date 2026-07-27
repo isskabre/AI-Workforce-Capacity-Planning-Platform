@@ -3,21 +3,21 @@
 # MAGIC # AI Workforce Capacity Planning Platform
 # MAGIC ## Notebook 02 — Enterprise Data Foundation Pipeline
 # MAGIC
-# MAGIC This notebook implements the complete metadata-driven data foundation:
+# MAGIC This notebook implements the complete enterprise data foundation:
 # MAGIC
-# MAGIC 1. runtime initialization,
-# MAGIC 2. dataset registry,
-# MAGIC 3. source acquisition,
-# MAGIC 4. Bronze persistence,
-# MAGIC 5. enterprise manifest,
-# MAGIC 6. Silver cleansing and schema enforcement,
-# MAGIC 7. Gold daily workload aggregation,
-# MAGIC 8. data-quality validation,
-# MAGIC 9. pipeline execution summary.
+# MAGIC 1. Runtime initialization
+# MAGIC 2. Dataset registry
+# MAGIC 3. Source acquisition
+# MAGIC 4. Bronze persistence
+# MAGIC 5. Enterprise manifest generation
+# MAGIC 6. Silver cleansing and schema enforcement
+# MAGIC 7. Gold daily workload aggregation
+# MAGIC 8. Data quality validation
+# MAGIC 9. Pipeline execution summary
 # MAGIC
-# MAGIC **Design decision:** Bronze is the first persistent layer. The source CSV
-# MAGIC is downloaded to temporary driver storage, read with Python, converted to
-# MAGIC Spark, and written directly to S3. No Landing-zone file copy is used.
+# MAGIC **Design decision:** Bronze is the first persistent layer. The source CSV is downloaded to temporary driver storage, read with Python, converted to a Spark DataFrame, and written directly to Amazon S3. No Landing Zone copy is maintained.
+# MAGIC
+# MAGIC **Notebook design:** The dataset registry is implemented within this notebook to preserve the streamlined three-notebook architecture. A separate 03_dataset_registry notebook is intentionally omitted.
 
 # COMMAND ----------
 
@@ -29,17 +29,24 @@
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC ## Section 01 — Runtime Initialization
+# MAGIC
+# MAGIC This section initializes pipeline identity, execution metadata, dependencies, logging, temporary storage, and project-storage validation.
+
+# COMMAND ----------
+
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any
 import hashlib
 import json
 import logging
 import re
 import shutil
 import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
 
 import kagglehub
 import pandas as pd
@@ -72,18 +79,21 @@ if STORAGE_CONNECTION_OK is not True:
 print("=" * 72)
 print("AI WORKFORCE CAPACITY PLANNING — DATA FOUNDATION")
 print("=" * 72)
-print(f"Pipeline run ID : {PIPELINE_RUN_ID}")
-print(f"Environment     : {ENVIRONMENT}")
-print(f"Project root    : {PROJECT_ROOT}")
+print(f"Pipeline name    : {PIPELINE_NAME}")
+print(f"Pipeline version : {PIPELINE_VERSION}")
+print(f"Pipeline run ID  : {PIPELINE_RUN_ID}")
+print(f"Environment      : {ENVIRONMENT}")
+print(f"Started UTC      : {PIPELINE_STARTED_AT_UTC.isoformat()}")
+print(f"Project root     : {PROJECT_ROOT}")
+print("Storage status   : PASSED")
 print("=" * 72)
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 01 — Enterprise Dataset Registry
+# MAGIC ## Section 02 — Dataset registry
 # MAGIC
-# MAGIC The registry is embedded in this pipeline so the project remains limited
-# MAGIC to three operational notebooks. It is also persisted to S3 for auditability.
+# MAGIC The registry is embedded in this pipeline so the project remains limited to three operational notebooks. It defines the approved source contract and is persisted to Amazon S3 for auditability.
 
 # COMMAND ----------
 
@@ -162,10 +172,9 @@ display(registry_df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 02 — Source Acquisition
+# MAGIC ## Section 03 — Source Acquisition
 # MAGIC
-# MAGIC Kaggle files are downloaded to temporary driver storage. The configured
-# MAGIC primary CSV is selected explicitly; auxiliary files are not ingested.
+# MAGIC Kaggle files are downloaded to temporary driver storage. The configured primary CSV is selected explicitly; auxiliary files are not ingested.
 
 # COMMAND ----------
 
@@ -226,10 +235,9 @@ print(f"Source SHA-256      : {source_sha256}")
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 03 — Bronze Layer
+# MAGIC ## Section 04 — Bronze Layer
 # MAGIC
-# MAGIC Bronze preserves source values as strings, normalizes column names,
-# MAGIC adds lineage metadata, and writes a reproducible Parquet snapshot to S3.
+# MAGIC Bronze preserves source values as strings, normalizes column names, adds lineage metadata, and writes a reproducible Parquet snapshot to Amazon S3.
 
 # COMMAND ----------
 
@@ -322,9 +330,9 @@ print("=" * 72)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 04 — Enterprise Manifest
+# MAGIC ## Section 05 — Enterprise Manifest
 # MAGIC
-# MAGIC The manifest records source integrity and the persisted Bronze outcome.
+# MAGIC The manifest records source integrity, pipeline lineage, and the persisted Bronze outcome.
 
 # COMMAND ----------
 
@@ -379,10 +387,9 @@ manifest_df.write.mode("overwrite").json(manifest_path)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 05 — Silver Layer
+# MAGIC ## Section 06 — Silver Layer
 # MAGIC
-# MAGIC Silver removes direct PII, enforces analytical types, rejects unusable
-# MAGIC records, deduplicates order lines, and adds deterministic audit columns.
+# MAGIC Silver removes direct PII, enforces analytical types, rejects unusable records, deduplicates order lines, and adds deterministic audit columns.
 
 # COMMAND ----------
 
@@ -551,10 +558,9 @@ print("=" * 72)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 06 — Gold Daily Workload Dataset
+# MAGIC ## Section 07 — Gold Daily Workload Dataset
 # MAGIC
-# MAGIC Gold produces one row per operational day for forecasting and future
-# MAGIC workforce-capacity calculations.
+# MAGIC Gold produces one row per operational day for forecasting and future workforce-capacity calculations.
 
 # COMMAND ----------
 
@@ -640,7 +646,9 @@ print("=" * 72)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 07 — Data Quality and Pipeline Summary
+# MAGIC ## Section 08 — Data Quality Validation
+# MAGIC
+# MAGIC This section records execution metrics and persists the validation evidence for the current pipeline run.
 
 # COMMAND ----------
 
@@ -698,6 +706,28 @@ validation_path = (
 
 quality_metrics_df.write.mode("overwrite").parquet(validation_path)
 
+quality_check_count = quality_metrics_df.count()
+failed_quality_check_count = quality_metrics_df.filter(
+    F.col("status") != F.lit("PASSED")
+).count()
+
+if failed_quality_check_count:
+    raise RuntimeError(
+        "Data-quality validation failed: "
+        f"{failed_quality_check_count} check(s) did not pass."
+    )
+
+display(quality_metrics_df.orderBy("metric_name"))
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Section 09 — Pipeline Execution Summary
+# MAGIC
+# MAGIC This section persists the pipeline run log and presents one consolidated execution report. All counts and timestamps are generated from the current run.
+
+# COMMAND ----------
+
 summary_row = [
     (
         PIPELINE_RUN_ID,
@@ -745,20 +775,41 @@ pipeline_log_path = (
 
 pipeline_summary_df.write.mode("overwrite").json(pipeline_log_path)
 
-display(quality_metrics_df)
 display(pipeline_summary_df)
 
 print()
 print("=" * 72)
-print("DATA FOUNDATION PIPELINE COMPLETED SUCCESSFULLY")
+print("PIPELINE EXECUTION SUMMARY")
 print("=" * 72)
-print(f"Pipeline run ID : {PIPELINE_RUN_ID}")
-print(f"Dataset         : {dataset_config['dataset_key']}")
-print(f"Bronze rows     : {bronze_row_count:,}")
-print(f"Silver rows     : {silver_row_count:,}")
-print(f"Gold daily rows : {gold_row_count:,}")
-print(f"Duration        : {PIPELINE_DURATION_SECONDS:,.2f} seconds")
-print("Status          : PASSED")
+print(f"Pipeline name       : {PIPELINE_NAME}")
+print(f"Pipeline version    : {PIPELINE_VERSION}")
+print(f"Project version     : {PROJECT_VERSION}")
+print(f"Pipeline run ID     : {PIPELINE_RUN_ID}")
+print(f"Environment         : {ENVIRONMENT}")
+print(f"Dataset             : {dataset_config['dataset_key']}")
+print(f"Status              : PASSED")
+print("-" * 72)
+print(f"Started UTC         : {PIPELINE_STARTED_AT_UTC.isoformat()}")
+print(f"Finished UTC        : {PIPELINE_FINISHED_AT_UTC.isoformat()}")
+print(f"Duration            : {PIPELINE_DURATION_SECONDS:,.2f} seconds")
+print("-" * 72)
+print(f"Source rows         : {len(source_pdf):,}")
+print(f"Bronze rows         : {bronze_row_count:,}")
+print(f"Silver rows         : {silver_row_count:,}")
+print(f"Gold daily rows     : {gold_row_count:,}")
+print("-" * 72)
+print(f"Quality checks      : {quality_check_count}")
+print(f"Failed checks       : {failed_quality_check_count}")
+print("Data quality status : PASSED")
+print("-" * 72)
+print(f"Bronze path         : {bronze_path}")
+print(f"Silver path         : {silver_path}")
+print(f"Gold path           : {gold_path}")
+print(f"Manifest path       : {manifest_path}")
+print(f"Validation path     : {validation_path}")
+print(f"Pipeline log path   : {pipeline_log_path}")
+print("=" * 72)
+print("DATA FOUNDATION PIPELINE COMPLETED SUCCESSFULLY")
 print("=" * 72)
 
 # COMMAND ----------
