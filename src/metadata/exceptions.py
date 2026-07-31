@@ -25,3 +25,22 @@ class MetadataPersistenceError(MetadataError):
 
 class UnsupportedDatasetError(MetadataError):
     """Raised when the supplied dataset type is unsupported."""
+
+class MetadataCatalogError(MetadataError):
+    """Base exception for enterprise metadata catalog errors."""
+
+
+class CatalogEntryNotFoundError(MetadataCatalogError):
+    """Raised when a requested metadata catalog entry does not exist."""
+
+
+class CatalogEntryAlreadyExistsError(MetadataCatalogError):
+    """Raised when a metadata catalog entry already exists."""
+
+
+class CatalogPersistenceError(MetadataCatalogError):
+    """Raised when catalog metadata cannot be persisted or loaded."""
+
+
+class CatalogValidationError(MetadataCatalogError):
+    """Raised when a catalog entry or catalog operation is invalid."""

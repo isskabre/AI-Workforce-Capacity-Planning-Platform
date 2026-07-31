@@ -1,84 +1,192 @@
-# Version 2.2.0
+# Changelog
 
-## Added
+This document records the major engineering milestones of the AI Workforce Capacity Planning Platform.
 
-### Implementation 06 — Enterprise Data Quality Validation Framework
+---
 
-Introduced a reusable enterprise data quality framework supporting
-validation across Bronze, Silver, and Gold layers.
+## Version 2.0.0
 
-### Features
+### Implementation 01 — Project Initialization
 
-- Validation engine
+**Added**
+
+- Enterprise repository structure
+- Initial documentation
+- Databricks project organization
+- GitHub repository
+- S3 storage architecture
+- Development standards
+
+**Status**
+
+Completed
+
+---
+
+### Implementation 02 — Enterprise Dataset Evaluation
+
+**Added**
+
+- Dataset evaluation notebook
+- Source dataset assessment
+- Schema profiling
+- Data quality assessment
+- Forecasting suitability analysis
+
+**Status**
+
+Completed
+
+---
+
+### Implementation 03 — Enterprise Dataset Registry
+
+**Added**
+
+- Metadata-driven dataset registry
+- Dataset configuration models
+- Dataset version management
+- Registry persistence
+- Dataset validation
+- Registry service layer
+
+**Status**
+
+Completed
+
+---
+
+### Implementation 04 — Enterprise Dataset Acquisition and Data Foundation
+
+**Added**
+
+- Registry-driven acquisition framework
+- Provider abstraction
+- Kaggle integration
+- File verification
+- SHA-256 checksum generation
+- Acquisition manifests
+- Acquisition metadata
+- Landing, Bronze, Silver and Gold layers
+
+**Status**
+
+Completed
+
+---
+
+### Implementation 05 — Enterprise Parameter Framework
+
+**Added**
+
+- Enterprise parameter framework
+- Centralized project configuration
+- Storage configuration
+- Pipeline configuration
+- Forecast parameters
+- Capacity-planning parameters
+- AI assistant parameters
+- Runtime parameter validation
+
+**Changed**
+
+- Removed hardcoded runtime values
+- Centralized platform configuration
+
+**Status**
+
+Completed
+
+---
+
+### Implementation 06 — Enterprise Configuration Modules
+
+**Added**
+
+- Modular configuration dictionaries
+- Shared runtime configuration
+- Storage configuration modules
+- Pipeline configuration modules
+- Forecast configuration modules
+- Metadata configuration
+- Bootstrap improvements in `00_project_setup`
+
+**Status**
+
+Completed
+
+---
+
+### Implementation 07 — Enterprise Data Quality Validation
+
+**Added**
+
+- Enterprise validation engine
 - Validation report model
 - Validation status model
 - Validation exceptions
 - Validation rule framework
-- Required columns validation
+- Required-column validation
 - Minimum row-count validation
 - Business-key uniqueness validation
-- Numeric range validation
-- Null threshold validation
-- Validation report persistence
-- Validation evidence generation
+- Numeric-range validation
+- Null-threshold validation
 - Bronze validation
 - Silver validation
 - Gold validation
+- Persistent validation reports
+- Validation evidence generation
+- End-to-end validation notebook
 
-### Documentation
+**Validated**
 
-- Implementation 06
-- ADR-003 Enterprise Data Quality Validation
+- Validation framework
+- Rule execution
+- Validation reporting
+- Notebook execution
 
----
+**Status**
 
-# Changelog
-
-This document records all major engineering milestones of the AI Workforce Capacity Planning Platform.
-
----
-
-## Implementation 01 — Project Initialization
-
-- Repository created
-- Initial project structure
+Completed
 
 ---
 
-## Implementation 02 — Enterprise Dataset Evaluation
+### Implementation 08 — Enterprise Metadata Management
 
-- Dataset assessment framework
-- Data quality evaluation
+**Added**
 
----
+- Enterprise metadata models
+- Spark dataset profiler
+- Column profiling
+- Dataset statistics
+- Dataset fingerprint generation
+- Metadata catalog
+- Parquet-backed catalog persistence
+- Metadata service layer
+- Dataset registration
+- Dataset refresh
+- Dataset upsert
+- Catalog search
+- Catalog DataFrame export
+- End-to-end metadata notebook
 
-## Implementation 03 — Enterprise Dataset Registry
+**Changed**
 
-- Enterprise dataset registry
-- Metadata-driven dataset configuration
+- Centralized metadata storage configuration
+- Unity Catalog Volume integration
+- Removed hardcoded metadata paths
+- Standardized metadata persistence
 
----
+**Validated**
 
-## Implementation 04 — Enterprise Dataset Acquisition Framework
+- Metadata registration workflow
+- Dataset profiling
+- Dataset fingerprinting
+- Catalog persistence
+- Catalog retrieval
+- Catalog search
+- Notebook execution
 
-- Registry-driven acquisition
-- Provider abstraction
-- Landing framework
-- SHA-256 checksum validation
-- Enterprise manifest generation
-- Manifest persistence
-- Manifest validation
-- Acquisition metadata
+**Status**
 
----
-
-## Implementation 05 — Enterprise Parameter Framework
-
-- Introduced the Enterprise Parameter Framework as the centralized configuration layer for the platform.
-- Centralized project, storage, pipeline, forecasting, model, capacity, and AI parameters.
-- Added reusable configuration validation with early-failure checks.
-- Added runtime forecast-horizon resolution using configurable parameters.
-- Added dedicated storage roots for forecasts, AI decisions, and reporting.
-- Preserved full backward compatibility with the validated enterprise data pipeline.
-
----
+Completed
