@@ -1,0 +1,311 @@
+# ADR-004 — Enterprise Metadata Management Framework
+
+**Status:** Accepted
+
+**Date:** 2026-07-31
+
+**Version:** 2.3.0
+
+**Decision Owner:** AI Workforce Capacity Planning Platform Engineering Team
+
+---
+
+# Context
+
+As enterprise data platforms grow, understanding what data exists, where it originated, how it has changed, and whether it can be trusted becomes increasingly difficult.
+
+Traditional analytics projects often treat metadata as a secondary concern. Dataset definitions, schemas, storage locations, and lineage are frequently maintained manually or embedded directly within notebooks.
+
+This approach introduces several long-term challenges:
+
+- duplicated dataset definitions
+- inconsistent schemas
+- limited discoverability
+- weak governance
+- difficult impact analysis
+- poor lineage
+- manual documentation
+- reduced maintainability
+
+The AI Workforce Capacity Planning Platform required an enterprise approach where metadata becomes a managed platform asset rather than passive documentation.
+
+---
+
+# Decision
+
+The platform adopts a centralized **Enterprise Metadata Management Framework**.
+
+Metadata is managed independently from business datasets and is persisted as governed platform data.
+
+The framework is responsible for discovering, profiling, cataloging, versioning, and exposing metadata services to every downstream platform component.
+
+Rather than allowing each notebook to maintain its own dataset definitions, all metadata is generated and maintained through reusable framework services.
+
+---
+
+# Architecture
+
+```text
+                 Enterprise Datasets
+                         │
+                         ▼
+                Metadata Profiler
+                         │
+                         ▼
+               Schema Discovery Engine
+                         │
+                         ▼
+                Dataset Statistics
+                         │
+                         ▼
+              Fingerprint Generation
+                         │
+                         ▼
+             Enterprise Metadata Models
+                         │
+                         ▼
+             Enterprise Metadata Catalog
+                         │
+                         ▼
+          Metadata Services & Search API
+```
+
+---
+
+# Metadata Domains
+
+The framework manages multiple metadata categories.
+
+---
+
+## Dataset Metadata
+
+Examples include:
+
+- dataset name
+- business description
+- storage location
+- owner
+- version
+- creation timestamp
+- update timestamp
+
+---
+
+## Schema Metadata
+
+Examples include:
+
+- column names
+- data types
+- nullable status
+- schema evolution
+- field counts
+
+---
+
+## Statistical Metadata
+
+Examples include:
+
+- row counts
+- column counts
+- null percentages
+- distinct values
+- numeric summaries
+
+---
+
+## Operational Metadata
+
+Examples include:
+
+- execution timestamps
+- processing duration
+- acquisition history
+- validation status
+- pipeline version
+
+---
+
+## Lineage Metadata
+
+Prepared to support future capabilities including:
+
+- upstream dependencies
+- downstream consumers
+- transformation history
+- dataset relationships
+
+---
+
+# Metadata Lifecycle
+
+```text
+Dataset
+    │
+    ▼
+Metadata Profiling
+    │
+    ▼
+Schema Analysis
+    │
+    ▼
+Statistics Generation
+    │
+    ▼
+Fingerprint Generation
+    │
+    ▼
+Metadata Catalog
+    │
+    ▼
+Enterprise Services
+```
+
+---
+
+# Benefits
+
+## Governance
+
+Centralized metadata improves enterprise governance and consistency.
+
+---
+
+## Discoverability
+
+Datasets become searchable and easier to understand.
+
+---
+
+## Reusability
+
+Metadata is generated once and reused throughout the platform.
+
+---
+
+## Data Lineage
+
+Provides the foundation for future lineage visualization and impact analysis.
+
+---
+
+## Platform Automation
+
+Future platform capabilities can consume metadata directly instead of relying on manually maintained configuration.
+
+---
+
+## Scalability
+
+Supports onboarding additional datasets without architectural redesign.
+
+---
+
+# Consequences
+
+## Positive
+
+- centralized metadata management
+- improved governance
+- reusable metadata services
+- simplified dataset onboarding
+- preparation for lineage
+- improved maintainability
+
+---
+
+## Trade-offs
+
+- additional storage
+- metadata refresh operations
+- catalog maintenance
+
+These trade-offs are acceptable because metadata becomes a strategic enterprise asset.
+
+---
+
+# Alternatives Considered
+
+## Notebook-Level Metadata
+
+Rejected.
+
+Reasons:
+
+- duplicated logic
+- inconsistent documentation
+- difficult maintenance
+
+---
+
+## Manual Metadata Documentation
+
+Rejected.
+
+Reasons:
+
+- quickly becomes outdated
+- not machine-readable
+- unsuitable for automation
+
+---
+
+## External Enterprise Catalog
+
+Deferred.
+
+Reasons:
+
+Enterprise catalog products may be integrated in future production deployments.
+
+The current framework establishes the architectural foundation while remaining lightweight and portable.
+
+---
+
+# Rationale
+
+Metadata is one of the foundational capabilities of modern enterprise data platforms.
+
+By elevating metadata to a managed platform service, the AI Workforce Capacity Planning Platform supports:
+
+- Enterprise Data Governance
+- Dataset Discovery
+- Data Quality Certification
+- Demand Intelligence
+- Forecast Dataset Generation
+- Future Feature Store integration
+- Future Model Registry integration
+
+The Metadata Framework also establishes a clear migration path toward enterprise governance solutions without changing downstream platform components.
+
+---
+
+# Decision Outcome
+
+The AI Workforce Capacity Planning Platform formally adopts a centralized Enterprise Metadata Management Framework.
+
+Metadata is treated as a governed platform asset rather than implementation-specific information.
+
+Every dataset introduced into the platform must be profiled, cataloged, and registered before becoming available to downstream analytical or AI components.
+
+---
+
+# Related Documents
+
+- PROJECT_OVERVIEW.md
+- PLATFORM_ARCHITECTURE.md
+- IMPLEMENTATION_08_ENTERPRISE_METADATA_MANAGEMENT.md
+- ADR-001 — Enterprise Lakehouse & Medallion Architecture
+- ADR-003 — Enterprise Data Quality Validation Framework
+
+---
+
+**Status:** Accepted
+
+**Architecture Version:** Enterprise Platform Architecture v2.3
+
+**Supersedes:** None
+
+**Next Related ADR:** ADR-005 — Enterprise Demand Intelligence Architecture
