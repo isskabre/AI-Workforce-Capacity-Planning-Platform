@@ -84,6 +84,11 @@ def get_forecast_profile(profile_name: str) -> ForecastProfile:
         If the requested profile is not registered.
     """
 
+    if not isinstance(profile_name, str) or not profile_name.strip():
+        raise ValueError(
+            "Forecast profile name must be a non-empty string."
+        )
+
     normalized_name = profile_name.strip().lower()
 
     if normalized_name not in FORECAST_PROFILES:
