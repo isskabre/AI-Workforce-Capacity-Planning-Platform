@@ -2,8 +2,8 @@
 
 > **An Enterprise AI Platform for Workforce Forecasting, Capacity Planning, and Operational Decision Intelligence**
 
-![Platform Status](https://img.shields.io/badge/Status-Enterprise%20Data%20Engineering%20Foundation%20Complete-success)
-![Version](https://img.shields.io/badge/Version-v2.3.0-blue)
+![Platform Status](https://img.shields.io/badge/Status-Enterprise%20AI%20Engineering%20Foundation%20Complete-success)
+![Version](https://img.shields.io/badge/Version-v2.4.0-blue)
 ![Documentation](https://img.shields.io/badge/Documentation-Enterprise%20Ready-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
@@ -13,9 +13,9 @@
 
 The **AI Workforce Capacity Planning Platform** is an enterprise-grade Decision Intelligence platform designed to help warehouse and distribution center operations forecast workload, estimate workforce requirements, optimize labor planning, and support overtime decisions using Artificial Intelligence.
 
-Unlike many machine learning projects that begin directly with model development, this platform first establishes a complete **Enterprise Data Engineering Foundation** built on governance, validation, metadata management, reproducibility, and modular architecture.
+Unlike many machine learning projects that begin directly with model development, this platform first establishes a complete **Enterprise Data Engineering Foundation** followed by an **Enterprise AI Engineering Foundation** built on governance, validation, metadata management, reproducibility, modular architecture, and standardized AI engineering practices.
 
-The result is a scalable platform prepared for production-grade forecasting and AI-driven operational decision support.
+The result is a scalable enterprise platform prepared for production-grade forecasting, intelligent workforce planning, and AI-driven operational decision support.
 
 ---
 
@@ -33,7 +33,7 @@ Typical questions include:
 
 Many organizations still answer these questions using spreadsheets, manual analysis, and historical experience.
 
-This platform replaces reactive planning with **predictive, data-driven decision support**.
+This platform replaces reactive planning with **predictive, data-driven decision support** built upon modern enterprise data engineering and artificial intelligence engineering practices.
 
 ---
 
@@ -48,7 +48,7 @@ The long-term vision is to build an Enterprise AI platform capable of:
 - Explaining AI predictions
 - Supporting operational decision-making through conversational AI
 
-The platform evolves through incremental enterprise implementations, where each implementation delivers an independently validated capability.
+The platform evolves through incremental enterprise implementations, where each implementation delivers an independently validated architectural capability while contributing to the long-term vision of **Enterprise Workforce Decision Intelligence**.
 
 ---
 

@@ -1,63 +1,207 @@
-# Platform Architecture
+# PLATFORM_ARCHITECTURE.md
 
-**Document Version:** 2.3.0  
-**Status:** Active  
-**Architecture Version:** Enterprise Platform Architecture v2.3  
+**Document Version:** 2.4.0  
+**Status:** Current  
+**Architecture Version:** Enterprise Platform Architecture v2.4  
 **Project:** AI Workforce Capacity Planning Platform
+
+---
+
+# AI Workforce Capacity Planning Platform
+
+# Enterprise Platform Architecture
 
 ---
 
 # Executive Summary
 
-The AI Workforce Capacity Planning Platform follows a modern **Enterprise Lakehouse Architecture** designed to support scalable data engineering, machine learning, and AI-driven operational decision support.
+The **AI Workforce Capacity Planning Platform** is a layered enterprise artificial intelligence platform designed to transform operational warehouse data into intelligent workforce planning decisions through enterprise data engineering, forecasting, machine learning, and decision intelligence.
 
-Unlike traditional machine learning projects that begin directly with model development, this platform establishes a governed Enterprise Data Foundation before introducing predictive analytics.
+Rather than treating forecasting as an isolated machine learning task, the platform establishes a governed enterprise architecture where trusted operational data progresses through standardized engineering services before reaching forecasting, capacity planning, and business decision support.
 
-The architecture emphasizes:
+The architecture follows modern enterprise software engineering principles that emphasize:
 
-- Scalability
-- Reusability
-- Governance
-- Data Quality
-- Metadata Management
+- Separation of concerns
+- Modular engineering
+- Reusable platform services
+- Enterprise governance
+- Data quality validation
+- Metadata-driven engineering
 - Reproducibility
-- Explainable AI
-- Enterprise Maintainability
+- Scalability
+- Explainable artificial intelligence
 
-Every architectural layer has a clearly defined responsibility and independently validated outputs.
+Each architectural layer performs a clearly defined responsibility while exposing standardized interfaces to downstream components. This design enables the platform to evolve incrementally without introducing unnecessary coupling between enterprise data engineering, artificial intelligence engineering, and future business-facing decision intelligence.
 
 ---
 
-# Architectural Philosophy
+# Architectural Principles
 
-The platform is designed around one central principle:
+The Enterprise Platform Architecture is guided by one central principle:
 
-> **Trusted AI begins with trusted data.**
+> **Trusted workforce decisions require trusted enterprise data, standardized artificial intelligence engineering, and governed model lifecycle management.**
 
-Every downstream AI capability depends on:
+To support this principle, the architecture is organized around several foundational concepts.
 
-- reliable data ingestion
+---
+
+## Layered Enterprise Architecture
+
+Every platform capability belongs to a dedicated architectural layer responsible for a specific engineering concern.
+
+Data engineering, metadata management, forecasting, model governance, and business decision support remain independent while collaborating through well-defined interfaces.
+
+---
+
+## Enterprise Before Artificial Intelligence
+
+Artificial intelligence is intentionally positioned as a consumer of governed enterprise data rather than the starting point of the platform.
+
+Reliable forecasting depends upon:
+
+- trusted acquisition
+- standardized transformations
 - validated datasets
 - governed metadata
-- reproducible transformations
-- standardized business logic
+- reproducible feature engineering
+- enterprise lifecycle management
 
-Machine learning is therefore treated as a consumer of enterprise data rather than the foundation of the platform.
+This ordering significantly improves long-term maintainability and production readiness.
 
 ---
 
-# High-Level Platform Architecture
+## Standardized AI Engineering
+
+Every forecasting algorithm participates in the same engineering lifecycle.
+
+Regardless of implementation technology, every model follows standardized processes for:
+
+- training
+- evaluation
+- inference
+- registration
+- lifecycle management
+
+This provider-independent architecture allows forecasting algorithms to evolve without changing surrounding platform services.
+
+---
+
+## Enterprise Modularity
+
+Every implementation contributes a permanent architectural capability with clearly defined responsibilities.
+
+Modules communicate through contracts rather than direct implementation dependencies, allowing the platform to scale incrementally while preserving architectural stability.
+
+---
+
+## Documentation-Driven Architecture
+
+Architecture documentation evolves together with implementation.
+
+Major engineering decisions, implementation guides, architectural references, and governance documents remain synchronized with the software, ensuring the documentation accurately reflects the implemented platform.
+
+---
+
+# Architecture Evolution
+
+The AI Workforce Capacity Planning Platform has been intentionally engineered through incremental architectural phases rather than monolithic development.
+
+Each phase introduces reusable enterprise capabilities while preparing the foundation for subsequent architectural evolution.
 
 ```text
-                    Enterprise AI Workforce Capacity Planning Platform
+Phase I
+
+Enterprise Data Engineering Foundation
+
+        │
+        ▼
+
+Phase II
+
+Enterprise AI Engineering Foundation
+
+        │
+        ▼
+
+Phase III
+
+Enterprise Workforce Decision Intelligence
+
+        │
+        ▼
+
+Enterprise Production Platform
+```
+
+This methodology minimizes technical debt, simplifies testing, and enables long-term architectural scalability.
+
+---
+
+## Phase I — Enterprise Data Engineering Foundation
+
+The first architectural phase established the governed enterprise data platform supporting every downstream artificial intelligence capability.
+
+Major capabilities introduced include:
+
+- Enterprise Dataset Acquisition Framework
+- Enterprise Lakehouse Architecture
+- Enterprise Validation Framework
+- Enterprise Metadata Framework
+- Enterprise Demand Intelligence Engine
+- Enterprise Forecast Dataset Framework
+
+This phase produces trusted, reproducible, machine-learning-ready enterprise data products.
+
+---
+
+## Phase II — Enterprise AI Engineering Foundation
+
+The second architectural phase introduces standardized artificial intelligence engineering.
+
+Rather than implementing isolated forecasting models, this phase establishes reusable enterprise AI services responsible for:
+
+- forecast modeling
+- algorithm abstraction
+- enterprise training
+- objective evaluation
+- production inference
+- model governance
+
+These capabilities collectively establish the Enterprise AI Engineering Foundation.
+
+---
+
+## Phase III — Enterprise Workforce Decision Intelligence
+
+The next architectural phase transforms forecasting outputs into operational recommendations.
+
+Future enterprise capabilities include:
+
+- Capacity Planning Engine
+- Overtime Recommendation Engine
+- AI Workforce Assistant
+- Enterprise MLOps
+- Executive Dashboards
+- Production Deployment Services
+
+These capabilities build directly upon the completed enterprise foundations without requiring architectural redesign.
+
+---
+
+# Complete Enterprise Platform Architecture
+
+The AI Workforce Capacity Planning Platform follows a layered enterprise architecture in which every engineering capability contributes to a unified operational intelligence platform.
+
+```text
+                    AI Workforce Capacity Planning Platform
 
 ┌────────────────────────────────────────────────────────────────────────────┐
-│                         Enterprise Data Sources                            │
+│                     Enterprise Operational Data Sources                    │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│                Enterprise Dataset Acquisition Framework                    │
+│             Enterprise Dataset Acquisition Framework                       │
 │                                                                            │
 │ • Dataset Registry                                                         │
 │ • Provider Abstraction                                                     │
@@ -65,106 +209,163 @@ Machine learning is therefore treated as a consumer of enterprise data rather th
 │ • Acquisition Metadata                                                     │
 │ • Landing Zone Management                                                  │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│                    Enterprise Lakehouse Architecture                       │
+│                 Enterprise Lakehouse Architecture                          │
 │                                                                            │
 │ Landing → Bronze → Silver → Gold                                           │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│              Enterprise Data Quality Validation Framework                  │
+│            Enterprise Data Quality Validation Framework                    │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│              Enterprise Metadata Management Framework                      │
+│             Enterprise Metadata Management Framework                       │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│                 Enterprise Demand Intelligence Engine                      │
+│                Enterprise Demand Intelligence Engine                       │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│             Enterprise Forecast Dataset Framework                          │
+│              Enterprise Forecast Dataset Framework                         │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│          Enterprise Forecast Modeling Framework (Implementation 11)        │
+│             Enterprise Forecast Modeling Framework                         │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│                  Capacity Planning & Decision Intelligence                 │
+│             Enterprise Forecast Algorithm Library                          │
 └────────────────────────────────────────────────────────────────────────────┘
-                 │
-                 ▼
+                                │
+                                ▼
 ┌────────────────────────────────────────────────────────────────────────────┐
-│                      AI Workforce Planning Assistant                       │
+│                Enterprise Training Framework                               │
+└────────────────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│               Enterprise Evaluation Framework                              │
+└────────────────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                Enterprise Inference Framework                              │
+└────────────────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│                   Enterprise Model Registry                                │
+└────────────────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│             Enterprise Workforce Decision Intelligence                     │
+│                                                                            │
+│ • Capacity Planning Engine                                                 │
+│ • Overtime Recommendation Engine                                           │
+│ • AI Workforce Assistant                                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌────────────────────────────────────────────────────────────────────────────┐
+│          Enterprise MLOps & Production Operations                          │
+│                                                                            │
+│ • Monitoring                                                               │
+│ • Automated Retraining                                                     │
+│ • Drift Detection                                                          │
+│ • Executive Dashboards                                                     │
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
+The architecture intentionally separates enterprise data engineering, artificial intelligence engineering, and business decision intelligence into independent but interoperable architectural domains.
+
+Each layer exposes reusable enterprise services while consuming standardized outputs from upstream components, creating a scalable architecture capable of supporting future datasets, forecasting models, operational workflows, and production deployment without requiring structural redesign.
+
 ---
+
+*End of Part 1*
 
 # Architectural Layers
 
-## Layer 1 — Enterprise Data Sources
+The AI Workforce Capacity Planning Platform separates enterprise responsibilities into independent architectural layers.
+
+Each layer has a single engineering responsibility, produces standardized outputs, and provides reusable services to downstream consumers.
+
+This separation of concerns minimizes coupling while improving maintainability, governance, scalability, and long-term platform evolution.
+
+---
+
+## Layer 1 — Enterprise Operational Data Sources
 
 The platform is intentionally provider-independent.
 
-Current provider:
+Operational data may originate from multiple enterprise systems without requiring architectural changes to downstream processing.
 
-- Kaggle
+### Current Provider
 
-Future providers:
+- Kaggle DataCo SMART Supply Chain Dataset
+
+### Future Providers
 
 - Amazon S3
 - SharePoint
 - REST APIs
 - FTP / SFTP
-- Enterprise Databases
+- Enterprise Data Warehouses
 - ERP Systems
 - Warehouse Management Systems
 - Manufacturing Systems
+- Enterprise Data Lakes
 
-The acquisition framework isolates provider-specific logic from the rest of the platform.
+Provider-specific implementation remains isolated inside the Enterprise Dataset Acquisition Framework.
 
 ---
 
-## Layer 2 — Enterprise Dataset Acquisition
+## Layer 2 — Enterprise Dataset Acquisition Framework
 
-Purpose:
+### Purpose
 
-Standardize how datasets enter the platform.
+Standardize how enterprise datasets enter the platform.
 
-Major components:
+The acquisition framework separates provider-specific logic from enterprise processing while ensuring acquisition consistency and traceability.
+
+### Primary Components
 
 - Dataset Registry
 - Provider Dispatcher
-- Runtime Validation
 - Acquisition Manager
+- Runtime Validation
 - Landing Manager
-- Manifest Generator
+- Acquisition Metadata
+- Manifest Generation
 
-Responsibilities:
+### Responsibilities
 
 - dataset discovery
 - provider selection
-- file acquisition
+- dataset acquisition
 - integrity verification
-- acquisition metadata
+- acquisition auditing
+- metadata generation
 - landing persistence
+
+This layer establishes the first governed entry point into the enterprise platform.
 
 ---
 
-## Layer 3 — Enterprise Lakehouse
+## Layer 3 — Enterprise Lakehouse Architecture
 
-The platform follows a Medallion Architecture.
+The platform adopts a Medallion Architecture to progressively improve dataset quality while preserving reproducibility.
 
 ```text
 Landing
@@ -179,356 +380,704 @@ Silver
 Gold
 ```
 
-### Landing
+### Landing Layer
 
 Purpose:
 
-Store immutable raw datasets exactly as received.
+Persist immutable source datasets exactly as received.
 
 Characteristics:
 
-- no transformation
-- reproducible
+- immutable storage
 - provider traceability
+- reproducibility
+- no transformations
 
 ---
 
-### Bronze
+### Bronze Layer
 
 Purpose:
 
-Standardize raw datasets.
+Standardize raw enterprise datasets.
 
-Typical operations:
+Typical processing includes:
 
 - schema enforcement
-- data type normalization
+- datatype normalization
 - ingestion metadata
 - audit columns
 
 ---
 
-### Silver
+### Silver Layer
 
 Purpose:
 
-Produce business-ready datasets.
+Produce validated business datasets.
 
-Typical operations:
+Typical processing includes:
 
 - cleansing
-- business rules
-- deduplication
 - standardization
+- deduplication
+- business rules
+- data enrichment
 
 ---
 
-### Gold
+### Gold Layer
 
 Purpose:
 
-Generate analytical datasets.
+Generate certified analytical datasets.
 
-Characteristics:
+Primary consumers include:
 
-- reporting
-- forecasting
-- business intelligence
-- AI consumption
-
----
-
-# Enterprise Validation Framework
-
-Validation occurs throughout the platform rather than at a single stage.
-
-```text
-Dataset
-      │
-      ▼
-Validation Engine
-      │
-      ├── Schema Validation
-      ├── Required Columns
-      ├── Null Threshold
-      ├── Numeric Rules
-      ├── Business Keys
-      └── Custom Rules
-      │
-      ▼
-Validation Report
-```
-
-Benefits:
-
-- trusted downstream data
-- auditability
-- governance
-- reproducibility
+- Enterprise Demand Intelligence Engine
+- Forecast Dataset Framework
+- Forecast Modeling Framework
+- Reporting
+- Executive Dashboards
 
 ---
 
-# Enterprise Metadata Framework
+## Layer 4 — Enterprise Data Quality Validation Framework
 
-Metadata is treated as a first-class platform asset.
+Validation is implemented as an independent enterprise service rather than notebook-specific logic.
 
-The Metadata Framework provides:
+Every downstream architectural component consumes certified datasets produced by this framework.
+
+### Responsibilities
+
+- schema validation
+- required-column validation
+- business-key validation
+- null threshold validation
+- numeric validation
+- business rule validation
+- validation reporting
+- audit evidence generation
+
+### Outputs
+
+- Validation Results
+- Validation Reports
+- Validation Metadata
+- Quality Certification
+
+---
+
+## Layer 5 — Enterprise Metadata Management Framework
+
+Metadata is treated as a first-class enterprise asset.
+
+The Metadata Framework provides centralized metadata management supporting governance, discoverability, and future automation.
+
+### Responsibilities
 
 - dataset catalog
+- dataset profiling
 - schema profiling
-- dataset statistics
 - column profiling
+- dataset statistics
 - fingerprint generation
 - metadata persistence
+- catalog services
 
-Benefits:
+### Benefits
 
 - governance
 - discoverability
-- lineage preparation
-- future automation
+- traceability
+- future lineage
+- reusable metadata services
 
 ---
 
-# Enterprise Demand Intelligence Engine
+## Layer 6 — Enterprise Demand Intelligence Engine
 
-Implementation 09 introduces the business intelligence layer.
+The Demand Intelligence Engine transforms operational datasets into reusable business intelligence suitable for forecasting.
 
-Responsibilities include:
+### Responsibilities
 
 - calendar intelligence
 - temporal feature engineering
 - historical aggregation
-- demand trend generation
+- demand analytics
 - operational metrics
+- business feature engineering
 - forecasting feature preparation
 
-Output:
+### Outputs
 
-Business-ready demand intelligence.
+Business-ready demand intelligence supporting enterprise forecasting.
 
 ---
 
-# Enterprise Forecast Dataset Framework
+## Layer 7 — Enterprise Forecast Dataset Framework
 
-Implementation 10 transforms demand intelligence into machine-learning-ready datasets.
+The Forecast Dataset Framework converts demand intelligence into reproducible machine-learning-ready datasets.
 
-Responsibilities:
+### Responsibilities
 
 - feature alignment
 - target generation
-- forecast horizon support
+- forecast horizon management
 - supervised dataset creation
-- reproducible datasets
+- inference dataset preparation
+- forecast metadata generation
 
-Output:
+### Outputs
 
-Training and inference datasets ready for forecasting models.
+Standardized training and inference datasets.
 
 ---
 
-# Forecast Modeling Architecture
+## Layer 8 — Enterprise Forecast Modeling Framework
 
-Implementation 11 introduces the forecasting layer.
+The Forecast Modeling Framework establishes standardized forecasting contracts independent of any specific forecasting algorithm.
+
+### Responsibilities
+
+- forecasting contracts
+- immutable forecasting models
+- execution contexts
+- forecasting configuration
+- provider-independent abstractions
+- standardized interfaces
+
+This framework defines how forecasting components interact throughout the platform.
+
+---
+
+## Layer 9 — Enterprise Forecast Algorithm Library
+
+Forecasting algorithms are implemented through a shared estimator abstraction.
+
+Supported forecasting algorithms participate in a common engineering lifecycle regardless of implementation technology.
+
+### Responsibilities
+
+- algorithm registration
+- estimator abstraction
+- standardized prediction interface
+- shared execution lifecycle
+- algorithm extensibility
+
+Future algorithms can be introduced without modifying surrounding enterprise services.
+
+---
+
+## Layer 10 — Enterprise Training Framework
+
+The Training Framework standardizes enterprise model development.
+
+### Responsibilities
+
+- training orchestration
+- callback execution
+- artifact generation
+- experiment reproducibility
+- training metadata
+- persistence preparation
+
+This layer separates model training from forecasting algorithm implementation.
+
+---
+
+## Layer 11 — Enterprise Evaluation Framework
+
+Evaluation is standardized across every forecasting implementation.
+
+### Responsibilities
+
+- metric computation
+- model comparison
+- benchmark generation
+- evaluation reporting
+- champion model selection
+- evaluation metadata
+
+Every forecasting model is evaluated through the same enterprise workflow.
+
+---
+
+## Layer 12 — Enterprise Inference Framework
+
+The Inference Framework standardizes production forecasting.
+
+### Responsibilities
+
+- single forecast execution
+- batch forecasting
+- inference requests
+- inference responses
+- serving interfaces
+- prediction orchestration
+
+This architecture separates production prediction from model implementation.
+
+---
+
+## Layer 13 — Enterprise Model Registry
+
+The Model Registry governs forecasting models throughout their lifecycle.
+
+### Responsibilities
+
+- model registration
+- semantic versioning
+- lifecycle management
+- promotion workflows
+- deployment metadata
+- governance services
+
+The registry establishes enterprise AI governance across every forecasting implementation.
+
+---
+
+## Layer 14 — Enterprise Workforce Decision Intelligence
+
+This architectural layer transforms forecasting outputs into operational recommendations.
+
+Planned capabilities include:
+
+- Capacity Planning Engine
+- Overtime Recommendation Engine
+- AI Workforce Assistant
+- Workforce Simulation
+- Executive Decision Support
+
+This layer represents the transition from predictive analytics into enterprise operational intelligence.
+
+---
+
+# Enterprise Data Flow
+
+Enterprise information progresses through a governed sequence of architectural layers.
 
 ```text
-Forecast Dataset
-        │
-        ▼
-Forecast Model Factory
-        │
-        ├── XGBoost
-        ├── LightGBM
-        ├── CatBoost
-        ├── Random Forest
-        ├── Prophet
-        ├── ARIMA
-        ├── SARIMA
-        ├── LSTM
-        └── Future Models
-        │
-        ▼
-Forecast Output
-```
-
-Every forecasting model will implement a common interface to support standardized training, evaluation, and inference.
-
----
-
-# Decision Intelligence Layer
-
-Future implementations extend forecasting into operational planning.
-
-Capabilities include:
-
-- workforce estimation
-- productivity modeling
-- capacity-gap analysis
-- overtime recommendations
-- scenario simulation
-- explainable recommendations
-
-The objective is to provide decision support rather than raw predictions.
-
----
-
-# Platform Data Flow
-
-```text
-External Data
-      │
-      ▼
-Dataset Acquisition
-      │
-      ▼
+Operational Data Sources
+          │
+          ▼
+Enterprise Dataset Acquisition
+          │
+          ▼
 Landing
-      │
-      ▼
+          │
+          ▼
 Bronze
-      │
-      ▼
+          │
+          ▼
 Silver
-      │
-      ▼
+          │
+          ▼
 Gold
-      │
-      ▼
-Validation
-      │
-      ▼
-Metadata
-      │
-      ▼
+          │
+          ▼
+Enterprise Validation
+          │
+          ▼
+Enterprise Metadata
+          │
+          ▼
 Demand Intelligence
-      │
-      ▼
+          │
+          ▼
 Forecast Dataset
-      │
-      ▼
-Forecast Models
-      │
-      ▼
+          │
+          ▼
+Forecast Modeling
+          │
+          ▼
+Forecast Algorithms
+          │
+          ▼
+Training
+          │
+          ▼
+Evaluation
+          │
+          ▼
+Inference
+          │
+          ▼
+Model Registry
+          │
+          ▼
 Capacity Planning
-      │
-      ▼
+          │
+          ▼
 Decision Intelligence
-      │
-      ▼
-AI Assistant
 ```
 
+Each stage consumes certified outputs from upstream components while producing standardized inputs for downstream enterprise services.
+
 ---
+
+# Enterprise AI Lifecycle
+
+The Enterprise AI Engineering Foundation standardizes the lifecycle of every forecasting model.
+
+```text
+Forecast Dataset
+        │
+        ▼
+Forecast Modeling Framework
+        │
+        ▼
+Forecast Algorithm Library
+        │
+        ▼
+Enterprise Training Framework
+        │
+        ▼
+Enterprise Evaluation Framework
+        │
+        ▼
+Champion Model Selection
+        │
+        ▼
+Enterprise Inference Framework
+        │
+        ▼
+Enterprise Model Registry
+        │
+        ▼
+Capacity Planning Engine
+```
+
+This lifecycle guarantees that every forecasting algorithm follows the same engineering process for development, validation, deployment preparation, and operational governance, regardless of the underlying forecasting technique.
+
+---
+
+*End of Part 2*
 
 # Configuration Architecture
 
-All platform behavior is centralized.
+Enterprise configuration is centralized through a modular configuration framework that separates runtime behavior from implementation logic.
 
-Configuration domains include:
+Rather than embedding operational values inside notebooks or Python modules, configuration is organized into independent domains that collectively govern platform execution.
 
-- project
-- storage
-- pipeline
-- forecasting
-- metadata
-- validation
-- capacity planning
-- AI services
+This architecture improves maintainability, environment portability, governance, and long-term operational flexibility.
 
-Benefits:
+```text
+                 Enterprise Configuration Framework
 
-- reduced hardcoding
-- runtime flexibility
-- environment portability
-- simplified maintenance
+                           Project
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ▼                     ▼                     ▼
+   Storage Config      Pipeline Config      Validation Config
+        │                     │                     │
+        ├─────────────────────┼─────────────────────┤
+        ▼                     ▼                     ▼
+ Forecast Config     Metadata Config      Capacity Planning Config
+                              │
+                              ▼
+                      AI Configuration
+                              │
+                              ▼
+                 Enterprise Platform Execution
+```
+
+## Configuration Domains
+
+### Project Configuration
+
+Defines the overall identity and execution context of the platform.
+
+Examples include:
+
+- project name
+- platform version
+- execution environment
+- runtime metadata
+- engineering defaults
+
+---
+
+### Storage Configuration
+
+Centralizes all enterprise storage locations.
+
+Examples include:
+
+- Landing
+- Bronze
+- Silver
+- Gold
+- Metadata
+- Registry
+- Models
+- Reports
+- Experiments
+- Validation
+
+---
+
+### Pipeline Configuration
+
+Controls enterprise data engineering execution.
+
+Examples include:
+
+- execution behavior
+- logging
+- checkpointing
+- scheduling defaults
+- pipeline runtime options
+
+---
+
+### Forecast Configuration
+
+Standardizes forecasting behavior.
+
+Examples include:
+
+- forecast horizons
+- model defaults
+- training configuration
+- inference configuration
+- experiment settings
+
+---
+
+### Metadata Configuration
+
+Defines enterprise metadata behavior.
+
+Examples include:
+
+- profiling settings
+- catalog behavior
+- fingerprint generation
+- metadata persistence
+
+---
+
+### Validation Configuration
+
+Controls enterprise validation.
+
+Examples include:
+
+- validation thresholds
+- rule activation
+- report generation
+- quality requirements
+
+---
+
+### Capacity Planning Configuration *(Future)*
+
+Supports workforce planning services.
+
+Examples include:
+
+- productivity assumptions
+- planning thresholds
+- simulation parameters
+- workforce policies
+
+---
+
+### AI Configuration *(Future)*
+
+Supports enterprise AI services.
+
+Examples include:
+
+- provider selection
+- explanation settings
+- conversational behavior
+- recommendation policies
 
 ---
 
 # Enterprise Design Principles
 
-The platform follows these architectural principles:
-
-### Metadata First
-
-Business behavior is driven through metadata.
+The Enterprise Platform Architecture is governed by a consistent set of engineering principles that influence every architectural decision.
 
 ---
 
-### Configuration over Code
+## Metadata First
 
-Operational settings are externalized.
+Enterprise metadata drives platform governance, discoverability, and future automation.
 
----
-
-### Separation of Concerns
-
-Each layer has a single responsibility.
+Metadata is treated as a permanent enterprise asset rather than implementation by-product.
 
 ---
 
-### Validation Before Consumption
+## Configuration over Code
 
-Data quality is verified before downstream processing.
+Business behavior is controlled through centralized configuration instead of embedded implementation logic.
 
----
-
-### Reusable Components
-
-Framework services are independent of notebooks.
+This approach simplifies maintenance and supports multiple execution environments.
 
 ---
 
-### Scalability
+## Separation of Concerns
 
-The platform supports new datasets, providers, and models without architectural redesign.
+Each architectural layer performs one clearly defined responsibility.
+
+Engineering services communicate through standardized interfaces rather than tightly coupled implementations.
+
+---
+
+## Validation Before Consumption
+
+Every downstream enterprise capability consumes certified datasets produced by the Enterprise Validation Framework.
+
+Forecasting models never operate directly on unverified operational data.
+
+---
+
+## Reusable Enterprise Services
+
+Common engineering functionality is implemented through reusable platform services.
+
+Examples include:
+
+- acquisition services
+- validation services
+- metadata services
+- forecasting services
+- training services
+- inference services
+- registry services
+
+---
+
+## Provider Independence
+
+The platform isolates provider-specific implementation from enterprise processing.
+
+New acquisition providers and forecasting algorithms can be introduced without modifying existing architectural layers.
+
+---
+
+## Enterprise AI Governance
+
+Forecasting models are governed throughout their lifecycle using standardized engineering workflows for:
+
+- training
+- evaluation
+- inference
+- registration
+- lifecycle management
+
+This ensures architectural consistency across every forecasting implementation.
+
+---
+
+## Scalability by Design
+
+The architecture is intentionally modular so future capabilities can be introduced through extension rather than redesign.
+
+Every implementation contributes a permanent architectural capability.
 
 ---
 
 # Scalability Strategy
 
-The architecture is designed to scale horizontally by supporting:
+The platform has been engineered to support long-term enterprise growth.
 
-- multiple datasets
-- multiple acquisition providers
-- multiple forecasting models
-- multiple business domains
-- additional AI services
+The architecture scales horizontally by supporting:
 
-New capabilities are added through modular implementations rather than modifying existing architecture.
+## Multiple Operational Datasets
+
+Additional business datasets can be introduced through the Enterprise Dataset Acquisition Framework while reusing existing downstream services.
+
+---
+
+## Multiple Data Providers
+
+Future providers may include:
+
+- cloud storage
+- enterprise databases
+- ERP systems
+- warehouse management systems
+- manufacturing systems
+- REST APIs
+
+---
+
+## Multiple Forecasting Algorithms
+
+The Enterprise Forecast Algorithm Library allows new statistical, machine learning, and deep learning algorithms to participate in the standardized AI lifecycle.
+
+---
+
+## Multiple Business Domains
+
+Although initially developed for workforce planning, the architecture supports future expansion into additional operational planning domains without architectural redesign.
+
+---
+
+## Enterprise AI Services
+
+Future artificial intelligence capabilities can reuse:
+
+- metadata services
+- forecasting services
+- inference services
+- registry services
+- governance services
+
+This minimizes duplication while improving maintainability.
 
 ---
 
 # Future Production Architecture
 
-Future enterprise enhancements include:
+The current architecture establishes a stable engineering foundation for future enterprise production deployment.
 
-- Model Registry
-- Feature Store
-- MLflow Integration
-- Automated Retraining
-- Data Drift Detection
-- Model Drift Detection
-- Scheduled Pipelines
-- REST APIs
-- Executive Dashboards
-- Real-Time Forecasting
-- Enterprise Authentication
-- Monitoring & Alerting
+Planned architectural extensions include:
 
-These capabilities can be integrated without redesigning the current platform.
+- MLflow experiment tracking
+- Enterprise Feature Store
+- Automated model retraining
+- Data drift detection
+- Model drift monitoring
+- Scheduled pipeline orchestration
+- REST API services
+- Enterprise authentication
+- Monitoring and alerting
+- Executive workforce dashboards
+- CI/CD integration
+- Infrastructure automation
+
+These capabilities extend the existing architecture without modifying the completed Enterprise Data Engineering Foundation or Enterprise AI Engineering Foundation.
+
+The modular architecture intentionally separates production infrastructure from core engineering services, enabling incremental operational maturity while preserving architectural consistency.
 
 ---
 
 # Architecture Summary
 
-The AI Workforce Capacity Planning Platform is architected as a layered enterprise system where each component performs a well-defined responsibility.
+The AI Workforce Capacity Planning Platform has been engineered as a layered enterprise artificial intelligence platform in which every architectural capability performs a clearly defined responsibility while contributing to a unified operational intelligence solution.
 
-The completion of the Enterprise Data Engineering Foundation establishes a governed, validated, metadata-driven environment capable of supporting advanced forecasting, operational optimization, and AI-assisted workforce planning.
+The platform now consists of two completed architectural foundations:
 
-This architecture enables the platform to evolve from a data engineering solution into a scalable Enterprise AI Decision Intelligence Platform while maintaining maintainability, reproducibility, and long-term operational sustainability.
+- ✅ Enterprise Data Engineering Foundation
+- ✅ Enterprise AI Engineering Foundation
+
+Together, these foundations provide governed enterprise data, standardized artificial intelligence engineering, reusable platform services, and enterprise model governance capable of supporting future workforce planning and operational decision intelligence.
+
+The next phase of development introduces Enterprise Workforce Decision Intelligence, where forecasting outputs become explainable operational recommendations supporting workforce planning, overtime optimization, and executive decision making.
+
+Because the architecture emphasizes modularity, standardized interfaces, reusable services, and enterprise governance, future capabilities can be introduced without redesigning existing engineering foundations.
+
+This architectural approach establishes the AI Workforce Capacity Planning Platform as a scalable enterprise software system capable of evolving from governed data engineering into a comprehensive Enterprise Workforce Decision Intelligence Platform.
 
 ---
 
-**Document Version:** 2.3.0  
-**Architecture Version:** Enterprise Platform Architecture v2.3  
-**Status:** Active  
-**Next Architecture Milestone:** Enterprise Forecast Modeling Framework (Implementation 11)
+**Document Version:** 2.4.0  
+**Architecture Version:** Enterprise Platform Architecture v2.4  
+**Status:** Current  
+**Current Architectural Milestone:** Enterprise AI Engineering Foundation Complete  
+**Next Architectural Milestone:** Enterprise Workforce Decision Intelligence

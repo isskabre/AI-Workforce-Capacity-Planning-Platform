@@ -1,6 +1,6 @@
 """
 AI Workforce Capacity Planning Platform
-Implementation 12 - Enterprise Forecast Training Framework
+Implementation 13 - Enterprise Training Framework
 
 Module:
     forecast.training.orchestrator

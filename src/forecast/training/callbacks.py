@@ -1,5 +1,6 @@
 """
-Enterprise Forecast Training Callbacks.
+AI Workforce Capacity Planning Platform
+Implementation 13 - Enterprise Training Framework
 
 Defines extensible lifecycle hooks for the enterprise
 forecast training framework.

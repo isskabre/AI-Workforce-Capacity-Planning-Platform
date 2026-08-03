@@ -1,416 +1,324 @@
-# Changelog
+# AI Workforce Capacity Planning Platform
 
-This document records the engineering history of the **AI Workforce Capacity Planning Platform**.
+> **An Enterprise AI Engineering Platform for Workforce Forecasting, Capacity Planning, and Decision Intelligence**
 
-The project follows an incremental enterprise engineering approach in which every implementation introduces a complete, validated capability before progressing to the next milestone.
-
-The changelog provides traceability for architectural evolution, platform capabilities, documentation releases, and future AI engineering milestones.
-
----
-
-# Version History
-
-| Version | Release | Status |
-|----------|---------|--------|
-| v1.0.0 | Project Initialization | Complete |
-| v2.0.0 | Enterprise Data Engineering Foundation | Complete |
-| v2.1.0 | Enterprise Validation Framework | Complete |
-| v2.2.0 | Enterprise Metadata Framework | Complete |
-| **v2.3.0** | **Demand Intelligence, Forecast Dataset Framework & Enterprise Documentation** | **Current** |
+[![Documentation](https://img.shields.io/badge/Documentation-v2.4.0-blue)](#documentation)
+[![Architecture](https://img.shields.io/badge/Architecture-Enterprise-success)](#enterprise-architecture)
+[![Status](https://img.shields.io/badge/Status-Active-brightgreen)](#current-project-status)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
 
 ---
 
-# Version 2.3.0
+# Project Overview
 
-## Enterprise Documentation Release
+The **AI Workforce Capacity Planning Platform** is an enterprise artificial intelligence platform designed to transform operational warehouse data into intelligent workforce planning decisions through enterprise data engineering, forecasting, machine learning, and decision intelligence.
 
-**Status**
+Unlike traditional forecasting projects that focus primarily on model development, this platform was intentionally engineered using modern enterprise software engineering principles. It establishes a governed data foundation, reusable artificial intelligence frameworks, standardized engineering services, and enterprise model governance before introducing business-facing decision intelligence capabilities.
 
-Current
-
----
-
-## Added
-
-### Implementation 09 — Enterprise Demand Intelligence Engine
-
-Introduced the Enterprise Demand Intelligence Engine responsible for transforming validated operational data into business-ready demand intelligence.
-
-New capabilities include:
-
-- Enterprise calendar intelligence
-- Time-based feature engineering
-- Historical demand aggregation
-- Demand trend generation
-- Temporal feature creation
-- Forecast feature preparation
-- Business-ready demand metrics
-- Reusable demand intelligence pipeline
+The result is a modular, scalable platform capable of evolving from enterprise data engineering to production artificial intelligence without requiring architectural redesign.
 
 ---
 
-### Implementation 10 — Enterprise Forecast Dataset Framework
+# Business Problem
 
-Introduced the Enterprise Forecast Dataset Framework responsible for generating reproducible machine-learning-ready datasets.
+Warehouse operations make critical labor planning decisions every day.
 
-New capabilities include:
+These decisions include:
 
-- Forecast dataset builder
-- Feature alignment
-- Target variable generation
-- Forecast horizon support
-- Training dataset creation
-- Inference dataset creation
-- Forecast metadata
-- Reproducible dataset generation
+- How much workload is expected tomorrow?
+- Will current staffing levels satisfy operational demand?
+- Is overtime required?
+- How many additional associates are needed?
+- Which recommendation best balances service level and labor cost?
 
----
+Many organizations continue to answer these questions using spreadsheets, historical averages, or manual operational experience.
 
-### Documentation Release v2.3.0
-
-Completely refreshed enterprise documentation.
-
-Documentation improvements include:
-
-- Documentation portal redesign
-- Updated project timeline
-- Enterprise changelog
-- Implementation documentation updates
-- Architecture documentation improvements
-- Enterprise README redesign
-- Documentation consistency improvements
+This platform demonstrates how enterprise artificial intelligence can transform those decisions into a repeatable, data-driven planning process supported by governed enterprise data, forecasting models, and explainable recommendations.
 
 ---
 
-## Changed
+# Platform Vision
 
-- Improved enterprise documentation standards.
-- Standardized engineering terminology across documentation.
-- Updated implementation roadmap to reflect completed platform capabilities.
-- Improved platform evolution documentation.
-- Refined engineering milestone descriptions.
-- Updated project status following completion of the Enterprise Data Engineering Foundation.
+The long-term vision is to build a comprehensive **Enterprise Workforce Decision Intelligence Platform** capable of:
 
----
+- Forecasting operational demand
+- Predicting workforce requirements
+- Optimizing labor allocation
+- Recommending overtime strategies
+- Explaining AI-driven recommendations
+- Supporting operational decision making
+- Governing enterprise AI model lifecycles
+- Enabling continuous enterprise learning
+- Delivering executive workforce intelligence
 
-## Validated
-
-The following platform capabilities have been fully validated.
-
-### Enterprise Data Foundation
-
-- Dataset acquisition
-- Landing layer
-- Bronze layer
-- Silver layer
-- Gold layer
+Rather than treating forecasting as an isolated machine learning problem, the platform integrates enterprise data engineering, artificial intelligence, governance, and business decision support into a unified architecture.
 
 ---
 
-### Enterprise Platform Controls
+# Enterprise Architecture
 
-- Enterprise parameter framework
-- Enterprise configuration framework
-- Enterprise validation framework
-- Enterprise metadata framework
+The platform evolves through three major architectural phases.
 
----
+```text
+Enterprise Data Engineering Foundation
+                │
+                ▼
+Enterprise AI Engineering Foundation
+                │
+                ▼
+Enterprise Workforce Decision Intelligence
+                │
+                ▼
+Enterprise Production Platform
+```
 
-### Enterprise Intelligence
+Each phase introduces independently validated enterprise capabilities while extending the existing architecture.
 
-- Demand Intelligence Engine
-- Forecast Dataset Framework
-
----
-
-### Documentation
-
-- Documentation portal
-- Project timeline
-- Engineering changelog
-- Implementation roadmap
+This incremental engineering methodology minimizes technical debt, promotes modularity, and enables long-term platform scalability.
 
 ---
 
-## Business Outcome
-
-Version 2.3.0 completes the **Enterprise Data Engineering Foundation**.
-
-The platform now provides:
-
-- governed enterprise datasets
-- reusable metadata services
-- enterprise validation
-- demand intelligence
-- machine-learning-ready datasets
-
-The project is now ready to begin the Enterprise AI Engineering phase.
-
----
-
-# Version 2.2.0
-
-## Implementation 08 — Enterprise Metadata Management
-
-**Status**
-
-Completed
-
----
-
-## Added
-
-- Enterprise metadata models
-- Spark dataset profiler
-- Column profiling
-- Dataset statistics
-- Dataset fingerprint generation
-- Metadata catalog
-- Parquet-backed catalog persistence
-- Metadata service layer
-- Dataset registration
-- Dataset refresh
-- Dataset upsert
-- Catalog search
-- Catalog DataFrame export
-- Unity Catalog Volume integration
-
----
-
-## Changed
-
-- Centralized metadata storage configuration
-- Removed hardcoded metadata paths
-- Standardized metadata persistence
-- Improved metadata governance
-
----
-
-## Validated
-
-- Metadata registration workflow
-- Dataset profiling
-- Dataset fingerprint generation
-- Catalog persistence
-- Catalog retrieval
-- Metadata search
-- Notebook execution
-
----
-
-# Version 2.1.0
-
-## Implementation 07 — Enterprise Data Quality Validation
-
-**Status**
-
-Completed
-
----
-
-## Added
-
-- Enterprise validation engine
-- Validation report model
-- Validation status model
-- Validation exception hierarchy
-- Validation rule framework
-- Required-column validation
-- Minimum row-count validation
-- Business-key uniqueness validation
-- Numeric-range validation
-- Null-threshold validation
-- Bronze validation
-- Silver validation
-- Gold validation
-- Persistent validation reports
-- Validation evidence generation
-- End-to-end validation notebook
-
----
-
-## Validated
-
-- Validation framework
-- Validation rule execution
-- Validation reporting
-- End-to-end notebook execution
-
----
-
-# Version 2.0.0
+# Platform Capabilities
 
 ## Enterprise Data Engineering Foundation
 
-This release established the core enterprise architecture supporting all future platform capabilities.
+Completed capabilities include:
 
----
-
-### Implementation 01 — Project Initialization
-
-#### Added
-
-- Enterprise repository structure
-- Initial documentation
-- Databricks project organization
-- GitHub repository
-- Enterprise storage architecture
-- Development standards
-
-**Status**
-
-Completed
-
----
-
-### Implementation 02 — Enterprise Dataset Evaluation
-
-#### Added
-
-- Dataset evaluation notebook
-- Source dataset assessment
-- Schema profiling
-- Data-quality assessment
-- Forecast suitability analysis
-
-**Status**
-
-Completed
-
----
-
-### Implementation 03 — Enterprise Dataset Registry
-
-#### Added
-
-- Metadata-driven dataset registry
-- Dataset configuration models
-- Dataset version management
-- Registry persistence
-- Dataset validation
-- Registry service layer
-
-**Status**
-
-Completed
-
----
-
-### Implementation 04 — Enterprise Data Acquisition & Data Foundation
-
-#### Added
-
-- Registry-driven acquisition framework
-- Provider abstraction
-- Kaggle integration
-- File verification
-- SHA-256 checksum generation
-- Acquisition manifests
-- Acquisition metadata
-- Landing layer
-- Bronze layer
-- Silver layer
-- Gold layer
-
-**Status**
-
-Completed
-
----
-
-### Implementation 05 — Enterprise Parameter Framework
-
-#### Added
-
+- Enterprise data acquisition
+- Provider-independent ingestion
+- Enterprise data lake architecture
+- Landing, Bronze, Silver, and Gold layers
+- Dataset registry
 - Enterprise parameter framework
-- Centralized project configuration
-- Storage configuration
-- Pipeline configuration
-- Forecast parameters
-- Capacity planning parameters
-- AI assistant parameters
-- Runtime parameter validation
-
-#### Changed
-
-- Removed hardcoded runtime values
-- Centralized platform configuration
-
-**Status**
-
-Completed
+- Modular configuration framework
+- Enterprise validation framework
+- Enterprise metadata framework
+- Demand intelligence engine
+- Forecast dataset framework
 
 ---
 
-### Implementation 06 — Enterprise Configuration Framework
+## Enterprise AI Engineering Foundation
 
-#### Added
+Completed capabilities include:
 
-- Modular configuration dictionaries
-- Shared runtime configuration
-- Storage configuration modules
-- Pipeline configuration modules
-- Forecast configuration modules
-- Metadata configuration
-- Bootstrap improvements
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
 
-**Status**
-
-Completed
+These capabilities establish a reusable enterprise AI platform capable of supporting multiple forecasting algorithms through standardized engineering workflows.
 
 ---
 
-# Upcoming Release
+## Enterprise Workforce Decision Intelligence *(Planned)*
 
-## Version 3.0.0
+Future capabilities include:
 
-### Enterprise Forecast Modeling Framework
+- Capacity Planning Engine
+- Overtime Recommendation Engine
+- AI Workforce Assistant
+- Enterprise MLOps & Operational Monitoring
+- Production Deployment
+- Executive Dashboards
 
-**Planned**
+---
 
-Implementation 11 introduces the first enterprise forecasting engine built on the Enterprise Data Engineering Foundation.
+# Engineering Journey
 
-Planned capabilities include:
+The project has been developed using an incremental enterprise engineering methodology in which every implementation introduces a complete architectural capability.
 
-- Forecast model abstraction
-- Multi-model experimentation
-- Unified training framework
-- Model persistence
-- Experiment tracking
-- Forecast inference
-- Evaluation pipeline
-- Reproducible AI workflows
+Current architectural milestones include:
 
-Candidate forecasting models include:
+| Milestone | Status |
+|-----------|--------|
+| Enterprise Data Engineering Foundation | ✅ Complete |
+| Enterprise AI Engineering Foundation | ✅ Complete |
+| Enterprise Workforce Decision Intelligence | 🚧 Planned |
+| Enterprise Production Platform | 📅 Future |
 
+This engineering approach ensures that every capability becomes a permanent part of the platform architecture and can be extended without redesigning existing components.
+
+---
+
+# Repository Structure
+
+```text
+AI-Workforce-Capacity-Planning-Platform/
+│
+├── docs/
+│   ├── architecture/
+│   ├── implementation/
+│   ├── reference/
+│   └── README.md
+│
+├── notebooks/
+│
+├── src/
+│
+├── tests/
+│
+├── exports/
+│
+├── README.md
+├── PROJECT_TIMELINE.md
+└── CHANGELOG.md
+```
+
+The repository is organized to separate architecture, implementation, validation, documentation, and reusable source code into clearly defined engineering domains.
+
+---
+
+# Technology Stack
+
+## Languages
+
+- Python
+
+## Data Engineering
+
+- Apache Spark
+- Databricks
+- Delta Lake
+- Parquet
+
+## Machine Learning
+
+- Scikit-learn
 - XGBoost
 - LightGBM
 - CatBoost
-- Random Forest
 - Prophet
 - ARIMA
 - SARIMA
-- LSTM
-- GRU
+- LSTM *(planned evaluation)*
 
-Version 3.0.0 marks the transition from **Enterprise Data Engineering** to **Enterprise AI Engineering**.
+## Data Management
 
----
+- Kaggle
+- Unity Catalog
+- Enterprise Metadata Framework
 
-# Engineering Milestones
+## Development
 
-| Milestone | Status |
-|------------|--------|
-| Enterprise Data Engineering Foundation | ✅ Complete |
-| Enterprise Documentation Release v2.3.0 | ✅ Current |
-| Enterprise Forecast Modeling Framework | ▶ Next |
-| Capacity Planning Engine | Planned |
-| AI Workforce Assistant | Planned |
-| Enterprise MLOps | Planned |
-| Production Deployment | Planned |
+- Git
+- GitHub
+- Databricks Git
 
 ---
 
-**Document Version:** 2.3.0  
-**Status:** Current  
-**Next Release:** Version 3.0.0 – Enterprise Forecast Modeling Framework
+# Documentation
+
+The repository documentation is organized as an integrated engineering knowledge base.
+
+| Document | Purpose |
+|----------|---------|
+| `README.md` | Executive project overview |
+| `PROJECT_TIMELINE.md` | Master architectural roadmap |
+| `CHANGELOG.md` | Engineering history |
+| `docs/README.md` | Documentation portal |
+| `docs/architecture/` | Enterprise architecture |
+| `docs/implementation/` | Implementation guides |
+| `docs/architecture/adr/` | Architecture Decision Records |
+
+The documentation evolves together with the platform and reflects the current implementation rather than future intentions unless explicitly identified as roadmap content.
+
+---
+
+# Current Project Status
+
+**Current Release**
+
+Documentation Release **v2.4.0**
+
+**Completed Architectural Foundations**
+
+- ✅ Enterprise Data Engineering Foundation
+- ✅ Enterprise AI Engineering Foundation
+
+**Current Repository Status**
+
+Enterprise Architecture Complete
+
+Enterprise Documentation Complete
+
+Repository Ready for Public Portfolio Publication
+
+---
+
+# Roadmap
+
+The next engineering phase focuses on transforming enterprise forecasting into operational workforce decision intelligence.
+
+Planned initiatives include:
+
+- Capacity Planning Engine
+- Overtime Recommendation Engine
+- AI Workforce Assistant
+- Enterprise MLOps
+- Executive Dashboards
+- Production Deployment
+
+Each future implementation will build directly upon the completed enterprise architecture without requiring structural redesign.
+
+---
+
+# Getting Started
+
+Clone the repository.
+
+```bash
+git clone https://github.com/isskabre/AI-Workforce-Capacity-Planning-Platform.git
+```
+
+Review the documentation in the following order:
+
+1. README.md
+2. PROJECT_TIMELINE.md
+3. Platform Architecture
+4. Architecture Decision Records
+5. Implementation Documentation
+6. CHANGELOG.md
+
+This sequence provides a complete understanding of the platform's business objectives, engineering philosophy, architecture, implementation strategy, and evolution.
+
+---
+
+# Engineering Principles
+
+The platform is developed according to the following principles:
+
+- Enterprise-first architecture
+- Incremental engineering
+- Modular platform design
+- Validation-first development
+- Reusable AI services
+- Immutable engineering contracts
+- Documentation-driven development
+- Long-term maintainability
+
+These principles guide every architectural decision throughout the platform lifecycle.
+
+---
+
+# Acknowledgements
+
+This project was created as an enterprise AI engineering portfolio demonstrating modern approaches to:
+
+- Enterprise Data Engineering
+- Machine Learning Engineering
+- Forecasting Systems
+- AI Platform Architecture
+- Workforce Decision Intelligence
+- Production-Ready Software Engineering
+
+The platform continues to evolve through incremental architectural milestones while maintaining a strong emphasis on engineering quality, scalability, governance, and maintainability.
+
+---
+
+**Documentation Release:** v2.4.0  
+**Repository Status:** Active Development  
+**Architecture Status:** Enterprise AI Engineering Foundation Complete
+

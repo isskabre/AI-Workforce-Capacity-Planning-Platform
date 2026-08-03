@@ -1,6 +1,6 @@
 """
 AI Workforce Capacity Planning Platform
-Implementation 11 - Enterprise Forecast Modeling Framework
+Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
     forecast.algorithms.base.serializer

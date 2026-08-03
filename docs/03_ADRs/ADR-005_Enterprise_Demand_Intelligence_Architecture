@@ -1,12 +1,35 @@
 # ADR-005 — Enterprise Demand Intelligence Architecture
 
-**Status:** Accepted
+| Attribute | Value |
+|------------|-------|
+| **ADR** | ADR-005 |
+| **Title** | Enterprise Demand Intelligence Architecture |
+| **Status** | Accepted |
+| **Document Version** | 2.4.0 |
+| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Decision Date** | 2026-07-31 |
+| **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
+| **Category** | Enterprise Business Intelligence & AI Engineering |
 
-**Date:** 2026-07-31
+---
 
-**Version:** 2.3.0
+# Decision Summary
 
-**Decision Owner:** AI Workforce Capacity Planning Platform Engineering Team
+This Architecture Decision Record establishes the **Enterprise Demand Intelligence Architecture** as the standardized business intelligence layer positioned between the Enterprise Data Engineering Foundation and the Enterprise AI Engineering Foundation.
+
+Rather than allowing individual forecasting models to perform independent feature engineering, the platform centralizes business intelligence generation through a reusable enterprise service responsible for transforming certified operational datasets into standardized predictive intelligence.
+
+This decision improves consistency, explainability, reproducibility, governance, and long-term maintainability while providing a common intelligence layer supporting forecasting, capacity planning, simulation, and future enterprise AI capabilities.
+
+---
+
+# Status
+
+**Accepted**
+
+The Enterprise Demand Intelligence Architecture is the authoritative business intelligence layer supporting every forecasting workflow within the AI Workforce Capacity Planning Platform.
+
+Forecasting algorithms must consume standardized Demand Intelligence outputs rather than implementing independent feature engineering.
 
 ---
 
@@ -14,11 +37,17 @@
 
 Machine learning models are only as effective as the data they consume.
 
-Although the Gold Layer provides trusted analytical datasets, it is not intended to be the direct input for forecasting models.
+Although the Enterprise Gold Layer provides trusted analytical datasets, it is not intended to serve as the direct input for forecasting models.
 
-Gold datasets primarily support reporting and business analytics. Forecasting models require an additional layer that transforms historical operational data into predictive signals capable of representing temporal behavior, seasonality, workload evolution, and business patterns.
+Gold datasets primarily support enterprise reporting and business analytics. Forecasting requires an additional architectural layer capable of transforming historical operational information into predictive intelligence representing:
 
-Embedding feature engineering directly inside forecasting notebooks introduces several architectural challenges:
+- temporal behavior
+- seasonality
+- workload evolution
+- business patterns
+- operational trends
+
+Embedding feature engineering directly inside forecasting implementations introduces several engineering challenges:
 
 - duplicated feature engineering
 - inconsistent model inputs
@@ -27,23 +56,46 @@ Embedding feature engineering directly inside forecasting notebooks introduces s
 - tightly coupled pipelines
 - inconsistent feature definitions
 - reduced maintainability
-- difficult onboarding of new forecasting models
+- difficult onboarding of new forecasting algorithms
 
-The platform therefore required an independent enterprise layer responsible for transforming validated operational data into reusable demand intelligence.
+The platform therefore required a reusable enterprise intelligence layer responsible for producing standardized predictive intelligence independent of forecasting implementation.
+
+---
+
+# Problem Statement
+
+The platform required an enterprise architecture capable of:
+
+- generating standardized predictive intelligence
+- centralizing business feature engineering
+- supporting multiple forecasting algorithms
+- improving experiment reproducibility
+- preserving feature consistency
+- supporting future AI services
+- enabling enterprise explainability
+- separating intelligence generation from model implementation
+
+Without an independent Demand Intelligence layer, every forecasting implementation would generate its own business features, resulting in duplicated logic, inconsistent predictive signals, and reduced architectural maintainability.
 
 ---
 
 # Decision
 
-The platform adopts an independent **Enterprise Demand Intelligence Architecture** positioned between the Enterprise Data Foundation and the Machine Learning layer.
+The AI Workforce Capacity Planning Platform formally adopts an independent **Enterprise Demand Intelligence Architecture**.
 
-Demand Intelligence is treated as a reusable enterprise service rather than a notebook-specific preprocessing step.
+Demand Intelligence is implemented as a reusable enterprise service positioned between the Enterprise Data Engineering Foundation and the Enterprise Forecast Dataset Framework.
 
-Its responsibility is to convert certified Gold datasets into standardized business intelligence products that can be consumed consistently by forecasting models, capacity planning, simulation, and future AI services.
+Its responsibilities include:
 
-Forecasting models never perform business feature engineering independently.
+- calendar intelligence
+- historical demand aggregation
+- temporal feature engineering
+- workload analytics
+- operational business metrics
+- demand pattern generation
+- standardized predictive feature creation
 
-Instead, every model consumes the same certified Demand Intelligence outputs.
+Forecasting algorithms consume certified Demand Intelligence outputs rather than implementing independent business intelligence logic.
 
 ---
 
@@ -68,35 +120,18 @@ Instead, every model consumes the same certified Demand Intelligence outputs.
                         │
                         ▼
          Enterprise Forecast Dataset Framework
+                        │
+                        ▼
+      Enterprise AI Engineering Foundation
 ```
 
----
-
-# Responsibilities
-
-The Enterprise Demand Intelligence Engine is responsible for transforming validated operational datasets into reusable forecasting intelligence.
-
-Primary responsibilities include:
-
-- calendar intelligence
-- historical demand aggregation
-- workload trend generation
-- temporal feature engineering
-- operational business metrics
-- demand pattern preparation
-- forecasting feature standardization
-
-Demand Intelligence does **not** train forecasting models.
-
-Its responsibility ends with producing standardized business-ready demand intelligence.
+The Enterprise Demand Intelligence Engine transforms certified enterprise data into standardized predictive intelligence supporting every downstream forecasting capability.
 
 ---
 
-# Business Intelligence Domains
+# Intelligence Strategy
 
-The framework organizes intelligence into multiple domains.
-
----
+The Enterprise Demand Intelligence Architecture organizes predictive intelligence into reusable business domains.
 
 ## Calendar Intelligence
 
@@ -119,7 +154,7 @@ Examples include:
 
 - historical demand evolution
 - rolling demand behavior
-- lag-based demand
+- lag features
 - trend indicators
 - seasonality preparation
 
@@ -141,9 +176,10 @@ Examples include:
 
 Examples include:
 
-- standardized forecasting features
-- reusable predictive attributes
-- model-independent business signals
+- standardized predictive features
+- reusable business signals
+- model-independent intelligence
+- forecast-ready analytical attributes
 
 ---
 
@@ -169,105 +205,121 @@ Operational Metrics
         │
         ▼
 Enterprise Demand Intelligence Dataset
+        │
+        ▼
+Enterprise Forecast Dataset Framework
 ```
 
-The resulting dataset becomes the single source of business intelligence for all downstream forecasting activities.
+The resulting dataset becomes the standardized source of predictive intelligence for every downstream forecasting workflow.
+
+---
+
+# Rationale
+
+Demand Intelligence represents the architectural transition between Enterprise Data Engineering and Enterprise AI Engineering.
+
+Separating business intelligence generation from forecasting implementation establishes a clear architectural boundary where:
+
+- Enterprise Data Engineering produces trusted enterprise information.
+- Enterprise Demand Intelligence produces standardized predictive intelligence.
+- Enterprise AI Engineering consumes consistent forecasting inputs.
+
+This architectural decision directly supports:
+
+- Enterprise Forecast Dataset Framework
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+It also enables future Feature Store integration, explainable AI, reusable forecasting workflows, and enterprise decision intelligence.
 
 ---
 
 # Benefits
 
-## Standardized Features
+## Standardized Predictive Features
 
-Every forecasting model consumes identical business intelligence.
+Every forecasting algorithm consumes identical business intelligence.
 
 ---
 
 ## Model Independence
 
-Business intelligence is separated from forecasting implementation.
+Business intelligence remains independent of forecasting implementation.
 
-New forecasting models require no changes to feature engineering logic.
+New forecasting algorithms require no changes to enterprise feature engineering.
 
 ---
 
 ## Reproducibility
 
-Demand Intelligence datasets can be regenerated from certified Gold datasets.
+Demand Intelligence datasets can always be regenerated from certified Gold datasets.
 
 ---
 
 ## Reusability
 
-The same intelligence supports:
+The same predictive intelligence supports:
 
 - forecasting
 - capacity planning
-- simulations
-- reporting
+- workforce simulations
+- executive reporting
 - AI assistants
 
 ---
 
 ## Explainability
 
-Business intelligence remains understandable to operational stakeholders because features are generated through standardized enterprise logic.
+Business features remain understandable to operational stakeholders because they are generated through standardized enterprise logic.
 
 ---
 
 ## Scalability
 
-Additional intelligence modules can be introduced without affecting forecasting models.
+Additional intelligence domains can be introduced without modifying forecasting models.
 
 ---
 
-# Consequences
+# Trade-offs
 
-## Positive
+The architecture introduces:
 
-- reusable forecasting intelligence
-- standardized feature engineering
-- simplified model experimentation
-- improved explainability
-- cleaner architecture
-- easier maintenance
-- future AI readiness
-
----
-
-## Trade-offs
-
-- additional processing layer
+- additional processing
 - additional storage
-- additional metadata management
+- metadata management
+- governance overhead
 
-These trade-offs are acceptable because they significantly improve architectural consistency and forecasting reliability.
+These trade-offs are acceptable because they significantly improve consistency, explainability, and enterprise AI readiness.
 
 ---
 
 # Alternatives Considered
 
-## Feature Engineering Inside Each Model
+## Feature Engineering Inside Each Forecasting Model
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
 - duplicated logic
 - inconsistent features
 - difficult maintenance
-- unreliable comparisons between models
+- unreliable model comparison
 
 ---
 
 ## Direct Forecasting from Gold Layer
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
-- Gold datasets are analytical, not predictive
-- feature engineering becomes fragmented
+- Gold datasets are analytical rather than predictive
+- fragmented feature engineering
 - reduced explainability
 - poor scalability
 
@@ -275,62 +327,128 @@ Reasons:
 
 ## Notebook-Specific Feature Engineering
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
-- inconsistent implementations
-- difficult governance
+- inconsistent implementation
 - duplicated business logic
-- poor reusability
+- difficult governance
+- poor reuse
 
 ---
 
-# Rationale
+# Consequences
 
-Demand Intelligence represents the transition between Enterprise Data Engineering and Enterprise AI Engineering.
+## Positive Consequences
 
-Separating business intelligence from forecasting creates a clean architectural boundary where:
+The decision establishes:
 
-- enterprise data engineering produces trusted information
-- enterprise AI consumes standardized predictive intelligence
+- reusable predictive intelligence
+- standardized feature engineering
+- improved experimentation
+- greater explainability
+- cleaner architecture
+- easier maintenance
+- enterprise AI readiness
 
-This enables:
+Demand Intelligence becomes a permanent enterprise capability rather than notebook-specific preprocessing.
 
-- fair model comparison
-- reusable forecasting pipelines
-- explainable AI
-- future Feature Store integration
-- future real-time forecasting
-- enterprise decision intelligence
+---
+
+# Relationship to Current Architecture
+
+The Enterprise Demand Intelligence Architecture has become the architectural bridge between the completed Enterprise Data Engineering Foundation and the Enterprise AI Engineering Foundation.
+
+## Enterprise Data Engineering Foundation
+
+Consumes outputs from:
+
+- Enterprise Lakehouse Architecture
+- Enterprise Data Quality Validation Framework
+- Enterprise Metadata Management Framework
+
+## Enterprise AI Engineering Foundation
+
+Provides standardized predictive intelligence to:
+
+- Enterprise Forecast Dataset Framework
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+This decision establishes the standardized business intelligence contract supporting every forecasting workflow across the platform.
+
+---
+
+# Future Evolution
+
+The Enterprise Demand Intelligence Architecture naturally supports future capabilities including:
+
+- multivariate demand intelligence
+- hierarchical demand modeling
+- real-time operational intelligence
+- enterprise Feature Store integration
+- Enterprise MLOps
+- workforce simulations
+- overtime recommendation services
+- Enterprise Workforce Decision Intelligence
+
+These capabilities extend the architecture while preserving the original decision documented in this ADR.
 
 ---
 
 # Decision Outcome
 
-The AI Workforce Capacity Planning Platform formally adopts an independent Enterprise Demand Intelligence Architecture.
+The AI Workforce Capacity Planning Platform formally adopts the Enterprise Demand Intelligence Architecture as its permanent predictive intelligence architecture.
 
-Demand Intelligence becomes a permanent enterprise layer responsible for producing standardized business intelligence before any forecasting model is executed.
+Demand Intelligence becomes the standardized enterprise layer responsible for producing reusable business intelligence before forecasting dataset generation and artificial intelligence processing.
 
-All future forecasting models, simulations, optimization engines, and AI services must consume Enterprise Demand Intelligence outputs rather than performing independent feature engineering.
+This decision establishes the architectural bridge connecting Enterprise Data Engineering with Enterprise AI Engineering.
 
 ---
 
 # Related Documents
 
+### Repository Documentation
+
+- README.md
 - PROJECT_OVERVIEW.md
+- PROJECT_TIMELINE.md
+- CHANGELOG.md
+
+### Architecture Documentation
+
 - PLATFORM_ARCHITECTURE.md
-- IMPLEMENTATION_09_DEMAND_INTELLIGENCE.md
 - ADR-001 — Enterprise Lakehouse & Medallion Architecture
 - ADR-003 — Enterprise Data Quality Validation Framework
 - ADR-004 — Enterprise Metadata Management Framework
+- ADR-006 — Enterprise Forecast Dataset Architecture
+
+### Implementation Documentation
+
+- IMPLEMENTATION_09_ENTERPRISE_DEMAND_INTELLIGENCE_ENGINE.md
 
 ---
 
-**Status:** Accepted
+# Conclusion
 
-**Architecture Version:** Enterprise Platform Architecture v2.3
+The adoption of the Enterprise Demand Intelligence Architecture established predictive business intelligence as a reusable enterprise capability rather than a forecasting model responsibility.
 
-**Supersedes:** None
+By centralizing business feature engineering, temporal intelligence, demand aggregation, and operational metrics, the platform provides standardized predictive intelligence supporting every forecasting workflow.
 
-**Next Related ADR:** ADR-006 — Enterprise Forecast Dataset Architecture
+This architectural decision forms the critical bridge between the Enterprise Data Engineering Foundation and the Enterprise AI Engineering Foundation while enabling future Enterprise Workforce Decision Intelligence capabilities.
+
+---
+
+| Attribute | Value |
+|------------|-------|
+| **Status** | Accepted |
+| **Document Version** | 2.4.0 |
+| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Supersedes** | ADR-005 Version 2.3.0 |
+| **Previous Related ADR** | ADR-004 — Enterprise Metadata Management Framework |
+| **Next Related ADR** | ADR-006 — Enterprise Forecast Dataset Architecture |

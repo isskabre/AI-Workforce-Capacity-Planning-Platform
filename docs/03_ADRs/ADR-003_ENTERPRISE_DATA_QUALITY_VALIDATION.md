@@ -1,301 +1,257 @@
 # ADR-003 — Enterprise Data Quality Validation Framework
 
-**Status:** Accepted
+| Attribute | Value |
+|------------|-------|
+| **ADR** | ADR-003 |
+| **Title** | Enterprise Data Quality Validation Framework |
+| **Status** | Accepted |
+| **Document Version** | 2.4.0 |
+| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Decision Date** | 2026-07-31 |
+| **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
+| **Category** | Enterprise Data Governance |
 
-**Date:** 2026-07-31
+---
 
-**Version:** 2.3.0
+# Decision Summary
 
-**Decision Owner:** AI Workforce Capacity Planning Platform Engineering Team
+This Architecture Decision Record establishes the **Enterprise Data Quality Validation Framework** as the standardized data governance capability for the AI Workforce Capacity Planning Platform.
+
+Rather than embedding validation logic within individual notebooks or data pipelines, validation is implemented as an independent enterprise framework responsible for certifying dataset quality before downstream analytical, forecasting, or artificial intelligence processing.
+
+This decision provides a reusable, scalable, and auditable validation architecture that supports enterprise governance throughout the complete data lifecycle.
+
+---
+
+# Status
+
+**Accepted**
+
+The Enterprise Data Quality Validation Framework is the mandatory validation mechanism for every enterprise dataset processed by the platform.
+
+No dataset may progress to downstream enterprise services unless it satisfies the configured validation requirements.
 
 ---
 
 # Context
 
-Enterprise Artificial Intelligence platforms are only as reliable as the quality of the data they consume.
+Enterprise Artificial Intelligence systems depend upon trusted operational data.
 
-As operational datasets move through ingestion, transformation, feature engineering, and forecasting pipelines, undetected data quality issues can propagate into downstream analytics and machine learning models.
+As datasets progress through ingestion, transformation, feature engineering, forecasting, and operational decision support, undetected quality issues may propagate into downstream analytics and machine learning models.
 
-Common enterprise data quality risks include:
+Typical enterprise data quality risks include:
 
-- Missing required business columns
-- Unexpected null values
-- Duplicate business keys
-- Invalid numeric values
-- Empty datasets
-- Schema drift
-- Inconsistent aggregations
-- Corrupted analytical datasets
+- missing required business columns
+- unexpected null values
+- duplicate business keys
+- invalid numeric values
+- schema drift
+- empty datasets
+- inconsistent aggregations
+- corrupted analytical products
 
-Without automated validation, these issues may remain undetected until business users observe incorrect dashboards, inaccurate forecasts, or unreliable operational recommendations.
+If validation is inconsistent or omitted, business users may ultimately receive inaccurate forecasts, unreliable operational recommendations, and misleading executive reporting.
 
-Because the AI Workforce Capacity Planning Platform is intended to support enterprise workforce planning, data quality must be verified before information is consumed by downstream components.
+The platform therefore required a reusable enterprise validation capability independent of individual notebooks and implementation logic.
+
+---
+
+# Problem Statement
+
+The platform required a validation architecture capable of:
+
+- enforcing consistent quality standards
+- validating datasets at multiple architectural layers
+- supporting reusable validation rules
+- generating standardized validation reports
+- preserving audit evidence
+- preventing propagation of invalid datasets
+- supporting future enterprise governance
+
+Without a centralized validation framework, every notebook would implement its own validation logic, leading to duplicated code, inconsistent quality standards, and reduced maintainability.
 
 ---
 
 # Decision
 
-The platform adopts a reusable **Enterprise Data Quality Validation Framework**.
+The AI Workforce Capacity Planning Platform formally adopts a reusable **Enterprise Data Quality Validation Framework**.
 
-Validation is implemented as an independent platform capability rather than embedding validation logic inside individual notebooks.
+Validation is implemented as an independent enterprise service.
 
-Every validation rule is implemented as a reusable component responsible for evaluating one aspect of dataset quality.
+Validation rules execute automatically throughout enterprise processing and certify dataset quality before downstream analytical consumption.
 
-Validation executes automatically throughout the Enterprise Data Engineering pipeline.
+Each validation execution produces standardized outputs including:
 
-Each execution produces:
-
-- standardized validation results
+- validation results
 - validation reports
-- execution evidence
+- execution metadata
+- audit evidence
 - validation history
 
-Datasets that fail critical validation rules are prevented from progressing to downstream processing.
+Datasets failing critical validation rules are prevented from progressing to downstream architectural layers.
 
 ---
 
 # Architecture
 
 ```text
-                     Enterprise Dataset
+                    Enterprise Dataset
                              │
                              ▼
-               Enterprise Validation Engine
+              Enterprise Validation Framework
                              │
       ┌──────────────────────┼──────────────────────┐
       ▼                      ▼                      ▼
- Schema Validation     Business Rules      Data Integrity Rules
+ Schema Validation     Business Rules      Data Integrity
       │                      │                      │
       ├──────────────────────┼──────────────────────┤
       ▼                      ▼                      ▼
-Required Columns      Business Keys        Numeric Validation
+Required Columns      Business Keys      Numeric Validation
       │                      │                      │
       ├──────────────────────┼──────────────────────┤
       ▼                      ▼                      ▼
-Null Thresholds       Row Counts         Custom Enterprise Rules
+ Null Thresholds      Aggregation Rules    Custom Enterprise Rules
                              │
                              ▼
-                 Enterprise Validation Report
+              Enterprise Validation Report
                              │
                              ▼
-             Validation Metadata & Audit History
+          Validation Metadata & Audit History
+                             │
+                             ▼
+                 Certified Enterprise Dataset
 ```
+
+The Validation Framework operates independently of individual notebooks and serves every downstream enterprise capability.
 
 ---
 
 # Validation Strategy
 
-Validation is applied independently at each layer of the Lakehouse Architecture.
+Validation responsibilities are distributed across the Lakehouse Architecture.
 
-Different layers require different quality standards.
+## Landing Layer
 
----
+Primary objectives:
 
-## Landing Validation
-
-Purpose:
-
-Verify acquisition integrity immediately after ingestion.
-
-Typical validation includes:
-
-- file availability
-- acquisition success
-- checksum verification
+- acquisition integrity
+- file verification
+- checksum validation
 - metadata generation
 - manifest validation
 
 ---
 
-## Bronze Validation
+## Bronze Layer
 
-Purpose:
+Primary objectives:
 
-Verify successful ingestion into standardized storage.
-
-Typical validation includes:
-
-- dataset existence
 - schema validation
 - required columns
 - ingestion metadata
 - minimum row count
+- storage verification
 
 ---
 
-## Silver Validation
+## Silver Layer
 
-Purpose:
+Primary objectives:
 
-Verify business-ready datasets.
-
-Typical validation includes:
-
-- business key uniqueness
+- business key validation
 - duplicate detection
-- null thresholds
 - datatype validation
 - business rule enforcement
-- numeric constraints
+- numeric validation
+- null thresholds
 
 ---
 
-## Gold Validation
+## Gold Layer
 
-Purpose:
-
-Certify analytical datasets consumed by downstream AI components.
-
-Typical validation includes:
+Primary objectives:
 
 - aggregation integrity
 - reporting completeness
-- KPI validation
 - analytical business rules
 - certified reporting datasets
+- AI-ready analytical products
 
-Only validated Gold datasets become eligible for Demand Intelligence and Forecast Dataset generation.
-
----
-
-# Validation Components
-
-The Enterprise Validation Framework consists of reusable components.
-
-## Validation Rules
-
-Examples include:
-
-- RequiredColumnsRule
-- MinimumRowCountRule
-- NotNullRule
-- UniqueKeyRule
-- NumericRangeRule
-- RowCountConsistencyRule
-
-Each rule evaluates one quality dimension and returns a standardized result.
+Only validated Gold datasets become eligible for downstream enterprise AI services.
 
 ---
 
-## Validation Engine
+# Rationale
 
-The Enterprise Validation Engine coordinates execution of all configured validation rules.
+Enterprise AI systems require trusted data before trustworthy predictions can be produced.
 
-Responsibilities include:
+Separating validation from transformation logic establishes validation as an enterprise governance capability rather than notebook-specific implementation logic.
 
-- rule orchestration
-- execution sequencing
-- error handling
-- report generation
-- status determination
+This architectural decision directly supports:
 
----
+- Enterprise Lakehouse Architecture
+- Enterprise Metadata Management Framework
+- Enterprise Demand Intelligence Engine
+- Enterprise Forecast Dataset Framework
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
 
-## Validation Models
-
-The framework standardizes validation output through shared models.
-
-Examples include:
-
-- ValidationResult
-- ValidationReport
-- ValidationStatus
-
-These models ensure consistent reporting across all datasets.
-
----
-
-# Validation Lifecycle
-
-```text
-Dataset
-    │
-    ▼
-Validation Engine
-    │
-    ▼
-Rule Execution
-    │
-    ▼
-Validation Results
-    │
-    ▼
-Validation Report
-    │
-    ▼
-Audit Metadata
-    │
-    ▼
-Pipeline Decision
-```
-
-If validation succeeds, processing continues.
-
-If validation fails, execution stops before downstream processing.
+The framework also provides a clear migration path toward enterprise monitoring, automated quality reporting, governance dashboards, and production operational controls.
 
 ---
 
 # Benefits
 
-The Enterprise Validation Framework provides significant operational and architectural benefits.
+## Trusted Enterprise Data
 
-## Data Reliability
-
-Ensures downstream analytics consume trusted datasets.
+Ensures downstream services consume certified analytical datasets.
 
 ---
 
 ## Enterprise Governance
 
-Provides consistent validation across all datasets.
+Provides consistent validation across every enterprise dataset.
 
 ---
 
 ## Auditability
 
-Maintains permanent evidence of validation execution.
+Maintains permanent validation evidence supporting governance and operational transparency.
 
 ---
 
 ## Reusability
 
-Validation rules are independent of notebook implementations.
+Validation rules remain independent of notebook implementations.
 
 ---
 
 ## Maintainability
 
-New validation rules can be added without modifying existing pipelines.
+New validation rules can be introduced without modifying existing pipelines.
 
 ---
 
-## Machine Learning Readiness
+## AI Readiness
 
-Forecasting models consume certified datasets rather than unverified operational data.
-
----
-
-# Consequences
-
-## Positive
-
-- standardized validation
-- reusable validation rules
-- improved data governance
-- early detection of quality issues
-- consistent reporting
-- enterprise auditability
-- increased forecasting reliability
+Forecasting models consume governed analytical products instead of unverified operational data.
 
 ---
 
-## Trade-offs
+# Trade-offs
+
+The framework introduces:
 
 - additional execution time
-- additional metadata storage
-- ongoing maintenance of validation rules
+- metadata storage requirements
+- ongoing validation rule maintenance
+- governance overhead
 
-These trade-offs are acceptable because they significantly improve platform quality and operational confidence.
+These trade-offs are acceptable because they significantly improve reliability, auditability, and enterprise production readiness.
 
 ---
 
@@ -303,7 +259,7 @@ These trade-offs are acceptable because they significantly improve platform qual
 
 ## Notebook-Specific Validation
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
@@ -316,73 +272,141 @@ Reasons:
 
 ## SQL-Only Validation
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
 - limited extensibility
+- reduced framework reuse
 - difficult unit testing
-- reduced object-oriented design
-- weaker framework reuse
+- weaker object-oriented design
 
 ---
 
-## Third-Party Data Quality Framework
+## Third-Party Validation Framework
 
-Deferred.
+**Decision:** Deferred
 
-Reasons:
+Enterprise validation platforms may be integrated during future production deployments.
 
-Although enterprise products such as Great Expectations or similar frameworks may be integrated in future production deployments, implementing a native validation framework provides:
+A native validation framework was selected because it provides:
 
-- complete architectural control
-- educational value
+- architectural control
 - lightweight dependencies
-- easier customization
+- educational value
+- enterprise customization
 
 ---
 
-# Rationale
+# Consequences
 
-Enterprise AI systems require trusted data before trustworthy predictions can be produced.
+## Positive Consequences
 
-By separating validation from transformation logic, the platform creates a reusable governance capability that supports:
+The decision establishes:
 
-- Enterprise Metadata Framework
-- Demand Intelligence Engine
-- Forecast Dataset Framework
-- Forecast Modeling Framework
-- Capacity Planning Engine
-- AI Workforce Assistant
+- reusable validation services
+- standardized governance
+- trusted analytical datasets
+- improved auditability
+- early quality detection
+- increased forecasting reliability
 
-The validation framework also establishes a clear migration path toward enterprise monitoring, data quality dashboards, and automated operational alerts.
+Validation becomes a permanent architectural capability rather than a notebook responsibility.
+
+---
+
+# Relationship to Current Architecture
+
+The Enterprise Validation Framework has become a core governance capability supporting every completed architectural phase.
+
+## Enterprise Data Engineering Foundation
+
+Supports:
+
+- Enterprise Dataset Acquisition Framework
+- Enterprise Lakehouse Architecture
+- Enterprise Metadata Management Framework
+- Enterprise Demand Intelligence Engine
+- Enterprise Forecast Dataset Framework
+
+## Enterprise AI Engineering Foundation
+
+Supports:
+
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+Every forecasting model and AI service ultimately depends upon datasets certified by the Enterprise Validation Framework.
+
+---
+
+# Future Evolution
+
+The validation architecture naturally supports future enterprise capabilities including:
+
+- automated quality monitoring
+- enterprise governance dashboards
+- data quality scorecards
+- drift detection
+- production monitoring
+- Enterprise MLOps
+- executive operational reporting
+- Workforce Decision Intelligence
+
+These capabilities extend the framework while preserving the architectural decision established by this ADR.
 
 ---
 
 # Decision Outcome
 
-The AI Workforce Capacity Planning Platform formally adopts a reusable Enterprise Data Quality Validation Framework.
+The AI Workforce Capacity Planning Platform formally adopts the Enterprise Data Quality Validation Framework as its permanent enterprise validation architecture.
 
-Validation is treated as an independent enterprise service responsible for certifying datasets before they are consumed by downstream analytics, forecasting, or artificial intelligence components.
+Every enterprise dataset must be validated before becoming eligible for downstream analytical, forecasting, or artificial intelligence processing.
 
-Every future implementation introducing new datasets or transformations must integrate with the Enterprise Validation Framework before reaching production readiness.
+This decision remains a foundational governance capability supporting the long-term evolution of the platform.
 
 ---
 
 # Related Documents
 
+### Repository Documentation
+
+- README.md
 - PROJECT_OVERVIEW.md
+- PROJECT_TIMELINE.md
+- CHANGELOG.md
+
+### Architecture Documentation
+
 - PLATFORM_ARCHITECTURE.md
-- IMPLEMENTATION_07_ENTERPRISE_DATA_QUALITY_VALIDATION_FRAMEWORK.md
 - ADR-001 — Enterprise Lakehouse & Medallion Architecture
 - ADR-002 — Parameter-Driven Platform Configuration
+- ADR-004 — Enterprise Metadata Management Framework
+
+### Implementation Documentation
+
+- IMPLEMENTATION_07_ENTERPRISE_DATA_QUALITY_VALIDATION_FRAMEWORK.md
 
 ---
 
-**Status:** Accepted
+# Conclusion
 
-**Architecture Version:** Enterprise Platform Architecture v2.3
+The adoption of the Enterprise Data Quality Validation Framework established validation as a permanent enterprise governance capability rather than an implementation-specific activity.
 
-**Supersedes:** Previous ADR-003 Version 1.0
+By separating validation from ingestion, transformation, and forecasting logic, the platform ensures that every downstream analytical product, forecasting model, and artificial intelligence capability operates on certified, trusted enterprise datasets.
 
-**Next Related ADR:** ADR-004 — Enterprise Metadata Management Framework
+This architectural decision continues to provide the governance foundation required for Enterprise Workforce Decision Intelligence and future enterprise production deployment.
+
+---
+
+| Attribute | Value |
+|------------|-------|
+| **Status** | Accepted |
+| **Document Version** | 2.4.0 |
+| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Supersedes** | ADR-003 Version 2.3.0 |
+| **Next Related ADR** | ADR-004 — Enterprise Metadata Management Framework |
