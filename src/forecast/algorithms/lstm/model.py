@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.lstm.model
+    src.forecast.algorithms.lstm.model
 
 Description:
     Implements the enterprise LSTM forecasting model.
@@ -29,37 +29,37 @@ from pathlib import Path
 from time import perf_counter
 from typing import Any, Self
 
-from forecast.algorithms.base.forecast_model import (
+from src.forecast.algorithms.base.forecast_model import (
     EnterpriseForecastModel,
 )
-from forecast.algorithms.base.serializer import (
+from src.forecast.algorithms.base.serializer import (
     EnterpriseSerializer,
 )
-from forecast.algorithms.lstm.estimator import (
+from src.forecast.algorithms.lstm.estimator import (
     LSTMEstimator,
 )
-from forecast.modeling.artifacts import (
+from src.forecast.modeling.artifacts import (
     ForecastArtifact,
     ForecastArtifactStatus,
 )
-from forecast.modeling.contexts import (
+from src.forecast.modeling.contexts import (
     ForecastEvaluationContext,
     ForecastPredictionContext,
     ForecastTrainingContext,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     ForecastModelCapability,
     ForecastModelCategory,
     ForecastModelState,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastEvaluationError,
     ForecastPersistenceError,
     ForecastPredictionError,
     ForecastStateError,
     ForecastTrainingError,
 )
-from forecast.modeling.results import (
+from src.forecast.modeling.results import (
     ForecastEvaluationResult,
     ForecastExecutionStatus,
     ForecastPredictionResult,

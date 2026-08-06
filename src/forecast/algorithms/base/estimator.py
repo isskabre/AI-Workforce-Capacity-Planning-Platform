@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.base.estimator
+    src.forecast.algorithms.base.estimator
 
 Description:
     Defines the framework-independent enterprise estimator contract used by

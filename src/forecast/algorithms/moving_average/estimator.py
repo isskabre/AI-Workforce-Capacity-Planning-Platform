@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.moving_average.estimator
+    src.forecast.algorithms.moving_average.estimator
 
 Description:
     Implements the enterprise Moving Average forecasting estimator.
@@ -26,13 +26,13 @@ from os import PathLike
 from pathlib import Path
 from typing import Any, Self
 
-from forecast.algorithms.base.estimator import EnterpriseEstimator
-from forecast.algorithms.base.serializer import EnterpriseSerializer
+from src.forecast.algorithms.base.estimator import EnterpriseEstimator
+from src.forecast.algorithms.base.serializer import EnterpriseSerializer
 
 
 class MovingAverageEstimator(EnterpriseEstimator):
     """
-    Enterprise estimator implementing a simple moving-average forecast.
+    Enterprise estimator implementing a simple moving-average src.forecast.
 
     During fitting, the estimator retains the most recent ``window_size``
     target observations. Prediction repeats their arithmetic mean for the

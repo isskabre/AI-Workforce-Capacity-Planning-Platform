@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.naive.estimator
+    src.forecast.algorithms.naive.estimator
 
 Description:
     Implements the Naive Last-Value forecasting estimator.
@@ -27,8 +27,8 @@ from os import PathLike
 from pathlib import Path
 from typing import Any, Self
 
-from forecast.algorithms.base.estimator import EnterpriseEstimator
-from forecast.algorithms.base.serializer import EnterpriseSerializer
+from src.forecast.algorithms.base.estimator import EnterpriseEstimator
+from src.forecast.algorithms.base.serializer import EnterpriseSerializer
 
 
 class NaiveLastValueEstimator(EnterpriseEstimator):

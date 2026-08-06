@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.base
+    src.forecast.algorithms.base
 
 Description:
     Public package interface for reusable forecasting algorithm foundations.
@@ -19,13 +19,13 @@ Version:
     2.4.0
 """
 
-from forecast.algorithms.base.estimator import (
+from src.forecast.algorithms.base.estimator import (
     EnterpriseEstimator,
 )
-from forecast.algorithms.base.forecast_model import (
+from src.forecast.algorithms.base.forecast_model import (
     EnterpriseForecastModel,
 )
-from forecast.algorithms.base.serializer import (
+from src.forecast.algorithms.base.serializer import (
     EnterpriseSerializer,
 )
 

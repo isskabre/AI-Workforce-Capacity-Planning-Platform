@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.random_forest.estimator
+    src.forecast.algorithms.random_forest.estimator
 
 Description:
     Implements the enterprise Random Forest regression estimator.
@@ -31,8 +31,8 @@ from typing import Any, Self
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 
-from forecast.algorithms.base.estimator import EnterpriseEstimator
-from forecast.algorithms.base.serializer import EnterpriseSerializer
+from src.forecast.algorithms.base.estimator import EnterpriseEstimator
+from src.forecast.algorithms.base.serializer import EnterpriseSerializer
 
 
 class RandomForestEstimator(EnterpriseEstimator):

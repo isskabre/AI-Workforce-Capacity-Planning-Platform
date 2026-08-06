@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.base.serializer
+    src.forecast.algorithms.base.serializer
 
 Description:
     Enterprise serialization framework used by forecasting models and

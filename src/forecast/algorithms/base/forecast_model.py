@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.base.forecast_model
+    src.forecast.algorithms.base.forecast_model
 
 Description:
     Defines the reusable enterprise parent class implemented by every
@@ -26,19 +26,19 @@ from collections.abc import Mapping
 from os import PathLike
 from typing import Any, Self
 
-from forecast.modeling.artifacts import ForecastArtifact
-from forecast.modeling.contexts import (
+from src.forecast.modeling.artifacts import ForecastArtifact
+from src.forecast.modeling.contexts import (
     ForecastEvaluationContext,
     ForecastPredictionContext,
     ForecastTrainingContext,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     BaseForecastModel,
     ForecastModelCapability,
     ForecastModelCategory,
     ForecastModelState,
 )
-from forecast.modeling.results import (
+from src.forecast.modeling.results import (
     ForecastEvaluationResult,
     ForecastPredictionResult,
     ForecastTrainingResult,

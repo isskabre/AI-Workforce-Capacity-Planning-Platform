@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.naive
+    src.forecast.algorithms.naive
 
 Description:
     Public package interface and factory registration for the enterprise
@@ -18,21 +18,21 @@ Version:
 
 from __future__ import annotations
 
-from forecast.algorithms.naive.estimator import (
+from src.forecast.algorithms.naive.estimator import (
     NaiveLastValueEstimator,
 )
-from forecast.algorithms.naive.model import (
+from src.forecast.algorithms.naive.model import (
     NaiveForecastModel,
 )
-from forecast.modeling.configuration import (
+from src.forecast.modeling.configuration import (
     EnterpriseForecastConfiguration,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     BaseForecastModel,
     ForecastModelCapability,
     ForecastModelCategory,
 )
-from forecast.modeling.factory import (
+from src.forecast.modeling.factory import (
     register_forecast_model,
 )
 

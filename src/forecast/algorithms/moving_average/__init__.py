@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.moving_average
+    src.forecast.algorithms.moving_average
 
 Description:
     Public package interface and factory registration for the enterprise
@@ -21,21 +21,21 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any
 
-from forecast.algorithms.moving_average.estimator import (
+from src.forecast.algorithms.moving_average.estimator import (
     MovingAverageEstimator,
 )
-from forecast.algorithms.moving_average.model import (
+from src.forecast.algorithms.moving_average.model import (
     MovingAverageForecastModel,
 )
-from forecast.modeling.configuration import (
+from src.forecast.modeling.configuration import (
     EnterpriseForecastConfiguration,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     BaseForecastModel,
     ForecastModelCapability,
     ForecastModelCategory,
 )
-from forecast.modeling.factory import (
+from src.forecast.modeling.factory import (
     register_forecast_model,
 )
 

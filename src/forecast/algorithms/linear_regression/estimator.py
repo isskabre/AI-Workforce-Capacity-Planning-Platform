@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 12 - Enterprise Forecast Algorithm Library
 
 Module:
-    forecast.algorithms.linear_regression.estimator
+    src.forecast.algorithms.linear_regression.estimator
 
 Description:
     Implements a framework-independent multivariate linear-regression
@@ -31,8 +31,8 @@ from typing import Any, Self
 
 import numpy as np
 
-from forecast.algorithms.base.estimator import EnterpriseEstimator
-from forecast.algorithms.base.serializer import EnterpriseSerializer
+from src.forecast.algorithms.base.estimator import EnterpriseEstimator
+from src.forecast.algorithms.base.serializer import EnterpriseSerializer
 
 
 class LinearRegressionEstimator(EnterpriseEstimator):
