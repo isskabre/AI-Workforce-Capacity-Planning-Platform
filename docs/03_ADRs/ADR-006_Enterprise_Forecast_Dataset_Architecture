@@ -5,8 +5,8 @@
 | **ADR** | ADR-006 |
 | **Title** | Enterprise Forecast Dataset Architecture |
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Decision Date** | 2026-07-31 |
 | **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
 | **Category** | Enterprise AI Data Engineering |
@@ -399,8 +399,8 @@ This architectural decision completes the Enterprise Data Engineering Foundation
 | Attribute | Value |
 |------------|-------|
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Supersedes** | ADR-006 Version 2.3.0 |
 | **Previous Related ADR** | ADR-005 — Enterprise Demand Intelligence Architecture |
 | **Next Architectural Phase** | Enterprise Workforce Decision Intelligence |

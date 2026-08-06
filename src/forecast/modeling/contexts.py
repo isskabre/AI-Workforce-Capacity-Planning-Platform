@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.contexts
+    src.forecast.modeling.contexts
 
 Description:
     Immutable execution context objects shared throughout the Enterprise

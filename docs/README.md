@@ -1,324 +1,170 @@
 # AI Workforce Capacity Planning Platform
 
-> **An Enterprise AI Engineering Platform for Workforce Forecasting, Capacity Planning, and Decision Intelligence**
+# Documentation Portal
 
-[![Documentation](https://img.shields.io/badge/Documentation-v2.4.0-blue)](#documentation)
-[![Architecture](https://img.shields.io/badge/Architecture-Enterprise-success)](#enterprise-architecture)
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen)](#current-project-status)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+Version: 3.0.0
 
----
-
-# Project Overview
-
-The **AI Workforce Capacity Planning Platform** is an enterprise artificial intelligence platform designed to transform operational warehouse data into intelligent workforce planning decisions through enterprise data engineering, forecasting, machine learning, and decision intelligence.
-
-Unlike traditional forecasting projects that focus primarily on model development, this platform was intentionally engineered using modern enterprise software engineering principles. It establishes a governed data foundation, reusable artificial intelligence frameworks, standardized engineering services, and enterprise model governance before introducing business-facing decision intelligence capabilities.
-
-The result is a modular, scalable platform capable of evolving from enterprise data engineering to production artificial intelligence without requiring architectural redesign.
+Status: Release Candidate
 
 ---
 
-# Business Problem
+# Purpose
 
-Warehouse operations make critical labor planning decisions every day.
+This directory contains the complete engineering documentation for the AI Workforce Capacity Planning Platform.
 
-These decisions include:
+The documentation is organized to explain the project from business objectives through architecture, implementation, validation, and release history.
 
-- How much workload is expected tomorrow?
-- Will current staffing levels satisfy operational demand?
-- Is overtime required?
-- How many additional associates are needed?
-- Which recommendation best balances service level and labor cost?
-
-Many organizations continue to answer these questions using spreadsheets, historical averages, or manual operational experience.
-
-This platform demonstrates how enterprise artificial intelligence can transform those decisions into a repeatable, data-driven planning process supported by governed enterprise data, forecasting models, and explainable recommendations.
+Rather than serving as standalone documents, the files in this directory form an integrated engineering knowledge base.
 
 ---
 
-# Platform Vision
+# Documentation Structure
 
-The long-term vision is to build a comprehensive **Enterprise Workforce Decision Intelligence Platform** capable of:
-
-- Forecasting operational demand
-- Predicting workforce requirements
-- Optimizing labor allocation
-- Recommending overtime strategies
-- Explaining AI-driven recommendations
-- Supporting operational decision making
-- Governing enterprise AI model lifecycles
-- Enabling continuous enterprise learning
-- Delivering executive workforce intelligence
-
-Rather than treating forecasting as an isolated machine learning problem, the platform integrates enterprise data engineering, artificial intelligence, governance, and business decision support into a unified architecture.
-
----
-
-# Enterprise Architecture
-
-The platform evolves through three major architectural phases.
-
-```text
-Enterprise Data Engineering Foundation
-                │
-                ▼
-Enterprise AI Engineering Foundation
-                │
-                ▼
-Enterprise Workforce Decision Intelligence
-                │
-                ▼
-Enterprise Production Platform
 ```
+docs/
 
-Each phase introduces independently validated enterprise capabilities while extending the existing architecture.
-
-This incremental engineering methodology minimizes technical debt, promotes modularity, and enables long-term platform scalability.
-
----
-
-# Platform Capabilities
-
-## Enterprise Data Engineering Foundation
-
-Completed capabilities include:
-
-- Enterprise data acquisition
-- Provider-independent ingestion
-- Enterprise data lake architecture
-- Landing, Bronze, Silver, and Gold layers
-- Dataset registry
-- Enterprise parameter framework
-- Modular configuration framework
-- Enterprise validation framework
-- Enterprise metadata framework
-- Demand intelligence engine
-- Forecast dataset framework
-
----
-
-## Enterprise AI Engineering Foundation
-
-Completed capabilities include:
-
-- Enterprise Forecast Modeling Framework
-- Enterprise Forecast Algorithm Library
-- Enterprise Training Framework
-- Enterprise Evaluation Framework
-- Enterprise Inference Framework
-- Enterprise Model Registry
-
-These capabilities establish a reusable enterprise AI platform capable of supporting multiple forecasting algorithms through standardized engineering workflows.
-
----
-
-## Enterprise Workforce Decision Intelligence *(Planned)*
-
-Future capabilities include:
-
-- Capacity Planning Engine
-- Overtime Recommendation Engine
-- AI Workforce Assistant
-- Enterprise MLOps & Operational Monitoring
-- Production Deployment
-- Executive Dashboards
-
----
-
-# Engineering Journey
-
-The project has been developed using an incremental enterprise engineering methodology in which every implementation introduces a complete architectural capability.
-
-Current architectural milestones include:
-
-| Milestone | Status |
-|-----------|--------|
-| Enterprise Data Engineering Foundation | ✅ Complete |
-| Enterprise AI Engineering Foundation | ✅ Complete |
-| Enterprise Workforce Decision Intelligence | 🚧 Planned |
-| Enterprise Production Platform | 📅 Future |
-
-This engineering approach ensures that every capability becomes a permanent part of the platform architecture and can be extended without redesigning existing components.
-
----
-
-# Repository Structure
-
-```text
-AI-Workforce-Capacity-Planning-Platform/
-│
-├── docs/
-│   ├── architecture/
-│   ├── implementation/
-│   ├── reference/
-│   └── README.md
-│
-├── notebooks/
-│
-├── src/
-│
-├── tests/
-│
-├── exports/
-│
 ├── README.md
-├── PROJECT_TIMELINE.md
-└── CHANGELOG.md
+
+├── 01_Project_Overview/
+│   └── PROJECT_OVERVIEW.md
+
+├── 02_Architecture/
+│   ├── PLATFORM_ARCHITECTURE.md
+│   └── ADR/
+
+├── 03_Implementation/
+│   ├── IMPLEMENTATION_22.md
+│   ├── IMPLEMENTATION_23.md
+│   ├── IMPLEMENTATION_24.md
+│   ├── IMPLEMENTATION_25.md
+│   └── IMPLEMENTATION_26.md
+
+├── 04_Reference/
+│   ├── PROJECT_TIMELINE.md
+│   └── CHANGELOG.md
 ```
 
-The repository is organized to separate architecture, implementation, validation, documentation, and reusable source code into clearly defined engineering domains.
+---
+
+# Recommended Reading Order
+
+For first-time readers, the recommended sequence is:
+
+1. Root README
+2. Project Overview
+3. Platform Architecture
+4. Architecture Decision Records
+5. Project Timeline
+6. Implementation Documents
+7. Changelog
+
+This progression moves from business context to technical architecture and finally to implementation history.
 
 ---
 
-# Technology Stack
+# Documentation Categories
 
-## Languages
+## Project Documentation
 
-- Python
+Explains:
 
-## Data Engineering
-
-- Apache Spark
-- Databricks
-- Delta Lake
-- Parquet
-
-## Machine Learning
-
-- Scikit-learn
-- XGBoost
-- LightGBM
-- CatBoost
-- Prophet
-- ARIMA
-- SARIMA
-- LSTM *(planned evaluation)*
-
-## Data Management
-
-- Kaggle
-- Unity Catalog
-- Enterprise Metadata Framework
-
-## Development
-
-- Git
-- GitHub
-- Databricks Git
+- business objectives
+- project scope
+- engineering philosophy
+- platform goals
 
 ---
 
-# Documentation
+## Architecture Documentation
 
-The repository documentation is organized as an integrated engineering knowledge base.
+Explains:
+
+- system architecture
+- package organization
+- dependency relationships
+- execution flow
+- architectural decisions
+
+---
+
+## Implementation Documentation
+
+Describes each completed implementation, including:
+
+- objectives
+- architectural changes
+- enterprise capabilities
+- validation approach
+
+---
+
+## Reference Documentation
+
+Provides:
+
+- engineering timeline
+- release history
+- architectural evolution
+
+---
+
+# Engineering Standards
+
+All documentation follows the same principles:
+
+- synchronized with implementation
+- architecture-first
+- version controlled
+- enterprise terminology
+- production-quality formatting
+
+Documentation is updated only after implementation validation has completed.
+
+---
+
+# Current Release
+
+Version
+
+```
+3.0.0 Release Candidate
+```
+
+Completed implementations
+
+- Enterprise Data Engineering Foundation
+- Enterprise AI Engineering Foundation
+- Enterprise Workforce Decision Intelligence
+- Enterprise Reporting
+- Enterprise Monitoring
+- Enterprise API
+- Enterprise Application
+- Enterprise Runner
+
+---
+
+# Repository Documentation
 
 | Document | Purpose |
 |----------|---------|
-| `README.md` | Executive project overview |
-| `PROJECT_TIMELINE.md` | Master architectural roadmap |
-| `CHANGELOG.md` | Engineering history |
-| `docs/README.md` | Documentation portal |
-| `docs/architecture/` | Enterprise architecture |
-| `docs/implementation/` | Implementation guides |
-| `docs/architecture/adr/` | Architecture Decision Records |
-
-The documentation evolves together with the platform and reflects the current implementation rather than future intentions unless explicitly identified as roadmap content.
+| README.md | Repository landing page |
+| PROJECT_OVERVIEW.md | Business and project overview |
+| PLATFORM_ARCHITECTURE.md | Technical architecture |
+| PROJECT_TIMELINE.md | Engineering evolution |
+| CHANGELOG.md | Release history |
 
 ---
 
-# Current Project Status
+# Documentation Philosophy
 
-**Current Release**
+Documentation is treated as a first-class engineering artifact.
 
-Documentation Release **v2.4.0**
+Every architectural decision, implementation, and release milestone is documented to ensure long-term maintainability and traceability.
 
-**Completed Architectural Foundations**
-
-- ✅ Enterprise Data Engineering Foundation
-- ✅ Enterprise AI Engineering Foundation
-
-**Current Repository Status**
-
-Enterprise Architecture Complete
-
-Enterprise Documentation Complete
-
-Repository Ready for Public Portfolio Publication
+The documentation evolves with the platform and reflects the current implementation state.
 
 ---
 
-# Roadmap
+# Summary
 
-The next engineering phase focuses on transforming enterprise forecasting into operational workforce decision intelligence.
-
-Planned initiatives include:
-
-- Capacity Planning Engine
-- Overtime Recommendation Engine
-- AI Workforce Assistant
-- Enterprise MLOps
-- Executive Dashboards
-- Production Deployment
-
-Each future implementation will build directly upon the completed enterprise architecture without requiring structural redesign.
-
----
-
-# Getting Started
-
-Clone the repository.
-
-```bash
-git clone https://github.com/isskabre/AI-Workforce-Capacity-Planning-Platform.git
-```
-
-Review the documentation in the following order:
-
-1. README.md
-2. PROJECT_TIMELINE.md
-3. Platform Architecture
-4. Architecture Decision Records
-5. Implementation Documentation
-6. CHANGELOG.md
-
-This sequence provides a complete understanding of the platform's business objectives, engineering philosophy, architecture, implementation strategy, and evolution.
-
----
-
-# Engineering Principles
-
-The platform is developed according to the following principles:
-
-- Enterprise-first architecture
-- Incremental engineering
-- Modular platform design
-- Validation-first development
-- Reusable AI services
-- Immutable engineering contracts
-- Documentation-driven development
-- Long-term maintainability
-
-These principles guide every architectural decision throughout the platform lifecycle.
-
----
-
-# Acknowledgements
-
-This project was created as an enterprise AI engineering portfolio demonstrating modern approaches to:
-
-- Enterprise Data Engineering
-- Machine Learning Engineering
-- Forecasting Systems
-- AI Platform Architecture
-- Workforce Decision Intelligence
-- Production-Ready Software Engineering
-
-The platform continues to evolve through incremental architectural milestones while maintaining a strong emphasis on engineering quality, scalability, governance, and maintainability.
-
----
-
-**Documentation Release:** v2.4.0  
-**Repository Status:** Active Development  
-**Architecture Status:** Enterprise AI Engineering Foundation Complete
-
+The documentation directory provides a structured view of the AI Workforce Capacity Planning Platform, enabling engineers, reviewers, and hiring managers to understand the project from high-level business objectives down to individual implementation details.

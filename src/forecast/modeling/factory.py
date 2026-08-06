@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.factory
+    src.forecast.modeling.factory
 
 Description:
     Provides the centralized registry and factory responsible for discovering,
@@ -26,16 +26,16 @@ from dataclasses import dataclass, field
 from threading import RLock
 from typing import Any
 
-from forecast.modeling.configuration import (
+from src.forecast.modeling.configuration import (
     DEFAULT_ENTERPRISE_FORECAST_CONFIGURATION,
     EnterpriseForecastConfiguration,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     BaseForecastModel,
     ForecastModelCapability,
     ForecastModelCategory,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastConfigurationError,
     ForecastModelNotFoundError,
     ForecastModelingError,

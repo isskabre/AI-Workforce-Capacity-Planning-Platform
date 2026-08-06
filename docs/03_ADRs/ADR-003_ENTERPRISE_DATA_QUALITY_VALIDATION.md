@@ -5,8 +5,8 @@
 | **ADR** | ADR-003 |
 | **Title** | Enterprise Data Quality Validation Framework |
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Decision Date** | 2026-07-31 |
 | **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
 | **Category** | Enterprise Data Governance |
@@ -406,7 +406,7 @@ This architectural decision continues to provide the governance foundation requi
 | Attribute | Value |
 |------------|-------|
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Supersedes** | ADR-003 Version 2.3.0 |
 | **Next Related ADR** | ADR-004 — Enterprise Metadata Management Framework |

@@ -5,8 +5,8 @@
 | **ADR** | ADR-001 |
 | **Title** | Enterprise Lakehouse & Medallion Architecture |
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Decision Date** | 2026-07-31 |
 | **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
 | **Category** | Enterprise Data Engineering |
@@ -476,7 +476,7 @@ By separating data acquisition, quality management, metadata, forecasting, and a
 | Attribute | Value |
 |------------|-------|
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Supersedes** | ADR-001 Version 2.3.0 |
 | **Next Related ADR** | ADR-002 — Parameter-Driven Platform Configuration |

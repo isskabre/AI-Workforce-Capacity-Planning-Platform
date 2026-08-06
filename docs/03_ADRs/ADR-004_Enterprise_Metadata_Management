@@ -5,8 +5,8 @@
 | **ADR** | ADR-004 |
 | **Title** | Enterprise Metadata Management Framework |
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Decision Date** | 2026-07-31 |
 | **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
 | **Category** | Enterprise Metadata & Governance |
@@ -394,7 +394,7 @@ This architectural decision continues to strengthen platform governance while en
 | Attribute | Value |
 |------------|-------|
 | **Status** | Accepted |
-| **Document Version** | 2.4.0 |
-| **Architecture Version** | Enterprise Platform Architecture v2.4 |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
 | **Supersedes** | ADR-004 Version 2.3.0 |
 | **Next Related ADR** | ADR-005 — Enterprise Demand Intelligence Architecture |

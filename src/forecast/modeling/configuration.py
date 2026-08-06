@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.configuration
+    src.forecast.modeling.configuration
 
 Description:
     Defines immutable, strongly typed configuration objects for enterprise

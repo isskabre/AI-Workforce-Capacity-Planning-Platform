@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 13 - Enterprise Evaluation Framework
 
 Module:
-    forecast.modeling.metrics
+    src.forecast.modeling.metrics
 
 Description:
     Defines immutable forecasting metric contracts shared by evaluation,
@@ -20,9 +20,8 @@ from __future__ import annotations
 
 import math
 from collections.abc import Mapping
-from dataclasses import asdict, dataclass
-from typing import Any
 from dataclasses import asdict, dataclass, fields
+from typing import Any
 
 
 @dataclass(frozen=True, slots=True)

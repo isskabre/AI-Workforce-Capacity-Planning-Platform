@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.results
+    src.forecast.modeling.results
 
 Description:
     Defines immutable, standardized result objects returned by enterprise
@@ -28,7 +28,7 @@ from enum import StrEnum
 from typing import Any
 from uuid import uuid4
 
-from forecast.modeling.artifacts import ForecastArtifact
+from src.forecast.modeling.artifacts import ForecastArtifact
 
 
 class ForecastExecutionStatus(StrEnum):

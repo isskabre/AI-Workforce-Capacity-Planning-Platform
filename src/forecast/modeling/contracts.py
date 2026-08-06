@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.contracts
+    src.forecast.modeling.contracts
 
 Description:
     Defines the abstract contracts and protocols implemented by every
@@ -28,13 +28,13 @@ from os import PathLike
 from typing import TYPE_CHECKING, Any, Protocol, Self, runtime_checkable
 
 if TYPE_CHECKING:
-    from forecast.modeling.artifacts import ForecastArtifact
-    from forecast.modeling.contexts import (
+    from src.forecast.modeling.artifacts import ForecastArtifact
+    from src.forecast.modeling.contexts import (
         ForecastEvaluationContext,
         ForecastPredictionContext,
         ForecastTrainingContext,
     )
-    from forecast.modeling.results import (
+    from src.forecast.modeling.results import (
         ForecastEvaluationResult,
         ForecastPredictionResult,
         ForecastTrainingResult,

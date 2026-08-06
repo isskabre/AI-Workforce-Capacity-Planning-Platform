@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.exceptions
+    src.forecast.modeling.exceptions
 
 Description:
     Defines the standardized exception hierarchy used throughout the

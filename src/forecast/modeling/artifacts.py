@@ -3,7 +3,7 @@ AI Workforce Capacity Planning Platform
 Implementation 11 - Enterprise Forecast Modeling Framework
 
 Module:
-    forecast.modeling.artifacts
+    src.forecast.modeling.artifacts
 
 Description:
     Defines immutable artifact metadata produced by trained forecasting
@@ -30,7 +30,7 @@ from enum import StrEnum
 from typing import Any
 from uuid import uuid4
 
-from forecast.modeling.contracts import ForecastModelCategory
+from src.forecast.modeling.contracts import ForecastModelCategory
 
 
 class ForecastArtifactStatus(StrEnum):
