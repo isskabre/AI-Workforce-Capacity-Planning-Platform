@@ -27,17 +27,17 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import Any
 
-from forecast.model_registry.registry import (
+from src.forecast.model_registry.registry import (
     EnterpriseModelRegistry,
     ForecastModelRegistration,
 )
-from forecast.modeling.artifacts import (
+from src.forecast.modeling.artifacts import (
     ForecastArtifactStatus,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     ForecastModelCategory,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastRegistryError,
 )
 

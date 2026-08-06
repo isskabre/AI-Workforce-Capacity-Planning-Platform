@@ -16,23 +16,26 @@ Version:
     2.8.0
 """
 
-from forecast.model_registry.catalog import (
+from src.forecast.model_registry.catalog import (
     EnterpriseModelCatalog,
     ForecastModelCatalogQuery,
     ForecastModelCatalogResult,
 )
-from forecast.model_registry.promotion import (
+
+from src.forecast.model_registry.promotion import (
     EnterpriseModelPromotionService,
     ForecastLifecycleState,
     ForecastPromotionAction,
     ForecastPromotionRecord,
     ForecastPromotionResult,
 )
-from forecast.model_registry.registry import (
+
+from src.forecast.model_registry.registry import (
     EnterpriseModelRegistry,
     ForecastModelRegistration,
 )
-from forecast.model_registry.versioning import (
+
+from src.forecast.model_registry.versioning import (
     EnterpriseModelVersioning,
     ForecastModelVersion,
     ForecastModelVersionEntry,

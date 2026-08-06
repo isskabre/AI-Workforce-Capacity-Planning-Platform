@@ -26,11 +26,12 @@ import re
 from dataclasses import dataclass
 from typing import Any, Final
 
-from forecast.model_registry.registry import (
+from src.forecast.model_registry.registry import (
     EnterpriseModelRegistry,
     ForecastModelRegistration,
 )
-from forecast.modeling.exceptions import (
+
+from src.forecast.modeling.exceptions import (
     ForecastRegistryError,
 )
 

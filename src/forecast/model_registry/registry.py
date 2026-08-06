@@ -31,14 +31,14 @@ from threading import RLock
 from typing import Any
 from uuid import uuid4
 
-from forecast.modeling.artifacts import (
+from src.forecast.modeling.artifacts import (
     ForecastArtifact,
     ForecastArtifactStatus,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     ForecastModelCategory,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastRegistryError,
 )
 
