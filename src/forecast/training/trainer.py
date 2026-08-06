@@ -23,19 +23,19 @@ Version:
 
 from __future__ import annotations
 
-from forecast.algorithms.base.forecast_model import (
+from src.forecast.algorithms.base.forecast_model import (
     EnterpriseForecastModel,
 )
-from forecast.modeling.contexts import (
+from src.forecast.modeling.contexts import (
     ForecastTrainingContext,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     ForecastModelState,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastTrainingError,
 )
-from forecast.modeling.results import (
+from src.forecast.modeling.results import (
     ForecastTrainingResult,
 )
 

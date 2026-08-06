@@ -25,19 +25,19 @@ from __future__ import annotations
 from collections.abc import Mapping
 from types import MappingProxyType
 
-from forecast.algorithms.base.forecast_model import (
+from src.forecast.algorithms.base.forecast_model import (
     EnterpriseForecastModel,
 )
-from forecast.modeling.contexts import (
+from src.forecast.modeling.contexts import (
     ForecastTrainingContext,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastTrainingError,
 )
-from forecast.modeling.results import (
+from src.forecast.modeling.results import (
     ForecastTrainingResult,
 )
-from forecast.training.trainer import (
+from src.forecast.training.trainer import (
     EnterpriseForecastTrainer,
 )
 

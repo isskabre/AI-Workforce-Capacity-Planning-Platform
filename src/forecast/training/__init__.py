@@ -13,13 +13,13 @@ Version:
     2.5.0
 """
 
-from forecast.training.callbacks import (
+from src.forecast.training.callbacks import (
     TrainingCallback,
 )
-from forecast.training.orchestrator import (
+from src.forecast.training.orchestrator import (
     EnterpriseForecastTrainingOrchestrator,
 )
-from forecast.training.trainer import (
+from src.forecast.training.trainer import (
     EnterpriseForecastTrainer,
 )
 
