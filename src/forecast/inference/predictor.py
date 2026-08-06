@@ -25,17 +25,17 @@ from collections.abc import Mapping, Sequence
 from datetime import datetime
 from typing import Any
 
-from forecast.modeling.contexts import (
+from src.forecast.modeling.contexts import (
     ForecastPredictionContext,
 )
-from forecast.modeling.contracts import (
+from src.forecast.modeling.contracts import (
     BaseForecastModel,
 )
-from forecast.modeling.exceptions import (
+from src.forecast.modeling.exceptions import (
     ForecastInferenceError,
     ForecastPredictionError,
 )
-from forecast.modeling.results import (
+from src.forecast.modeling.results import (
     ForecastPredictionResult,
 )
 

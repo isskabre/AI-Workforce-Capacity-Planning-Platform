@@ -20,13 +20,13 @@ Version:
     2.7.0
 """
 
-from forecast.inference.batch_predictor import (
+from src.forecast.inference.batch_predictor import (
     EnterpriseForecastBatchPredictor,
     ForecastBatchPredictionItem,
     ForecastBatchPredictionRequest,
     ForecastBatchPredictionResult,
 )
-from forecast.inference.predictor import (
+from src.forecast.inference.predictor import (
     EnterpriseForecastPredictor,
 )
 
