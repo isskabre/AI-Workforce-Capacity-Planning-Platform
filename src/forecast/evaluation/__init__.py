@@ -16,14 +16,14 @@ Version:
     2.6.0
 """
 
-from forecast.evaluation.comparison import (
+from src.forecast.evaluation.comparison import (
     EnterpriseForecastComparison,
     ForecastComparisonResult,
 )
-from forecast.evaluation.evaluator import (
+from src.forecast.evaluation.evaluator import (
     EnterpriseForecastEvaluator,
 )
-from forecast.evaluation.metrics import (
+from src.forecast.evaluation.metrics import (
     EnterpriseForecastMetrics,
 )
 

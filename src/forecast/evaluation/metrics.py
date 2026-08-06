@@ -25,7 +25,7 @@ from typing import Any
 
 import numpy as np
 
-from forecast.modeling.metrics import ForecastMetrics
+from src.forecast.modeling.metrics import ForecastMetrics
 
 
 class EnterpriseForecastMetrics:
