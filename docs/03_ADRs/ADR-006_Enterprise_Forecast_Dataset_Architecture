@@ -1,179 +1,199 @@
 # ADR-006 — Enterprise Forecast Dataset Architecture
 
-**Status:** Accepted
+| Attribute | Value |
+|------------|-------|
+| **ADR** | ADR-006 |
+| **Title** | Enterprise Forecast Dataset Architecture |
+| **Status** | Accepted |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
+| **Decision Date** | 2026-07-31 |
+| **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
+| **Category** | Enterprise AI Data Engineering |
 
-**Date:** 2026-07-31
+---
 
-**Version:** 2.3.0
+# Decision Summary
 
-**Decision Owner:** AI Workforce Capacity Planning Platform Engineering Team
+This Architecture Decision Record establishes the **Enterprise Forecast Dataset Framework** as the standardized architecture responsible for producing machine-learning-ready datasets for enterprise forecasting.
+
+Rather than allowing individual forecasting algorithms to implement their own dataset preparation logic, the platform centralizes dataset construction within a reusable enterprise framework responsible for feature alignment, target generation, forecast horizon management, dataset partitioning, metadata generation, and inference dataset preparation.
+
+This architectural decision creates a standardized interface between the Enterprise Data Engineering Foundation and the Enterprise AI Engineering Foundation, ensuring reproducible experimentation, objective model comparison, and long-term maintainability.
+
+---
+
+# Status
+
+**Accepted**
+
+The Enterprise Forecast Dataset Framework is the authoritative mechanism for preparing datasets consumed by every forecasting workflow within the AI Workforce Capacity Planning Platform.
+
+All forecasting algorithms, regardless of implementation technology, must consume standardized datasets generated through this framework.
 
 ---
 
 # Context
 
-Enterprise forecasting systems require more than high-quality features.
+Enterprise forecasting requires considerably more than historical operational data.
 
-Although the Enterprise Demand Intelligence Engine produces standardized business intelligence, forecasting models require supervised learning datasets that correctly align historical observations, predictive features, forecast horizons, and target variables.
+Reliable forecasting depends upon standardized supervised learning datasets created through consistent processing of enterprise demand intelligence.
 
-Allowing each forecasting model to prepare its own training dataset introduces several architectural and operational challenges:
+Forecast dataset preparation includes responsibilities such as:
 
-- inconsistent target generation
-- duplicated dataset preparation logic
-- inconsistent forecast horizons
-- unreliable model comparison
-- difficult experiment reproducibility
-- feature leakage
-- increased maintenance effort
+- feature alignment
+- target generation
+- forecast horizon management
+- temporal consistency
+- training dataset creation
+- validation dataset creation
+- testing dataset creation
+- inference dataset preparation
+- dataset metadata generation
 
-As additional forecasting algorithms are introduced—including statistical, machine learning, and deep learning models—the platform requires a standardized mechanism for generating consistent training and inference datasets.
+Allowing every forecasting algorithm to independently prepare datasets introduces duplicated preprocessing logic, inconsistent feature engineering, reduced reproducibility, and unreliable model comparison.
 
-The Forecast Dataset Framework provides this capability.
+The platform therefore required a reusable enterprise framework responsible for generating standardized forecasting datasets independent of forecasting algorithms.
+
+---
+
+# Problem Statement
+
+The platform required a forecasting dataset architecture capable of:
+
+- generating standardized supervised learning datasets
+- supporting multiple forecast horizons
+- preserving feature consistency
+- preparing reproducible training datasets
+- generating inference datasets
+- producing dataset metadata
+- supporting future forecasting algorithms
+- separating dataset preparation from model implementation
+
+Without a centralized framework, forecasting implementations would duplicate preprocessing logic while producing inconsistent analytical inputs.
 
 ---
 
 # Decision
 
-The platform adopts an independent **Enterprise Forecast Dataset Framework** positioned between the Enterprise Demand Intelligence layer and the Forecast Modeling Framework.
+The AI Workforce Capacity Planning Platform formally adopts the **Enterprise Forecast Dataset Framework**.
 
-The framework is responsible for transforming Enterprise Demand Intelligence into standardized supervised learning datasets.
+The framework is responsible for transforming Enterprise Demand Intelligence into standardized forecasting datasets suitable for enterprise AI engineering.
 
-Forecasting models are prohibited from performing independent dataset preparation.
+Core responsibilities include:
 
-Instead, every forecasting model consumes datasets generated through the Enterprise Forecast Dataset Framework.
+- feature alignment
+- target generation
+- forecast horizon management
+- supervised dataset construction
+- inference dataset preparation
+- dataset metadata generation
+- reproducible dataset creation
 
-This architecture guarantees consistency across experimentation, evaluation, deployment, and future model retraining.
+Forecasting models consume standardized datasets rather than implementing their own preprocessing pipelines.
 
 ---
 
 # Architecture
 
 ```text
-           Enterprise Demand Intelligence
-                        │
-                        ▼
-        Enterprise Forecast Dataset Framework
-                        │
-        ┌───────────────┼────────────────┐
-        ▼               ▼                ▼
- Feature Selection  Target Generation  Horizon Builder
-        │               │                │
-        ├───────────────┼────────────────┤
-        ▼               ▼                ▼
- Training Dataset  Validation Dataset  Inference Dataset
-                        │
-                        ▼
+           Enterprise Demand Intelligence Engine
+                           │
+                           ▼
+          Enterprise Forecast Dataset Framework
+                           │
+      ┌────────────────────┼────────────────────┐
+      ▼                    ▼                    ▼
+ Feature Alignment   Target Generation   Horizon Management
+      │                    │                    │
+      ├────────────────────┼────────────────────┤
+      ▼                    ▼                    ▼
+ Training Dataset   Validation Dataset    Testing Dataset
+      │                    │                    │
+      ├────────────────────┼────────────────────┤
+      ▼                    ▼                    ▼
+ Inference Dataset   Dataset Metadata   Dataset Certification
+                           │
+                           ▼
          Enterprise Forecast Modeling Framework
+                           │
+                           ▼
+          Enterprise AI Engineering Foundation
 ```
 
----
-
-# Responsibilities
-
-The Enterprise Forecast Dataset Framework is responsible for producing reproducible, model-independent forecasting datasets.
-
-Its responsibilities include:
-
-- feature selection
-- target generation
-- feature and target alignment
-- forecast horizon management
-- supervised dataset creation
-- inference dataset generation
-- dataset reproducibility
-- forecast metadata generation
-
-The framework does **not** train forecasting models.
-
-Its responsibility ends with producing standardized datasets for downstream AI components.
+The Enterprise Forecast Dataset Framework establishes the standardized architectural boundary between enterprise data engineering and enterprise AI engineering.
 
 ---
 
-# Forecast Dataset Components
+# Dataset Strategy
 
----
+Dataset preparation is organized into reusable enterprise processing stages.
 
-## Feature Selection
+## Feature Alignment
 
-The framework selects certified predictive variables generated by the Enterprise Demand Intelligence Engine.
-
-Examples include:
-
-- calendar intelligence
-- temporal intelligence
-- operational metrics
-- historical demand measures
-- engineered forecasting features
+Ensures business features remain consistent across every forecasting workflow.
 
 ---
 
 ## Target Generation
 
-The framework generates prediction targets for supervised learning.
-
-Examples include:
-
-- next-day workload
-- multi-day demand
-- configurable prediction horizons
-
-Target generation is standardized for every forecasting model.
+Creates supervised learning targets according to the configured forecast horizon.
 
 ---
 
-## Forecast Horizon Builder
+## Forecast Horizon Management
 
-The framework supports configurable forecast windows.
-
-Examples include:
-
-- 1-day forecasts
-- 7-day forecasts
-- 14-day forecasts
-- configurable enterprise horizons
-
-Forecast horizons are managed through the Enterprise Configuration Framework.
+Supports standardized forecasting horizons while preserving consistent dataset structure.
 
 ---
 
-## Dataset Partitioning
+## Dataset Construction
 
-The framework prepares datasets for downstream experimentation.
-
-Supported outputs include:
+Produces reproducible:
 
 - training datasets
 - validation datasets
 - testing datasets
 - inference datasets
 
-Time-aware partitioning preserves chronological integrity and prevents data leakage.
+---
+
+## Dataset Metadata
+
+Generates standardized metadata including:
+
+- dataset identity
+- forecast horizon
+- feature definitions
+- target variables
+- temporal coverage
+- generation timestamp
+- dataset version
 
 ---
 
-# Processing Lifecycle
+# Rationale
 
-```text
-Enterprise Demand Intelligence
-             │
-             ▼
-Certified Features
-             │
-             ▼
-Target Generation
-             │
-             ▼
-Forecast Horizon Alignment
-             │
-             ▼
-Dataset Partitioning
-             │
-             ▼
-Training Dataset
-             │
-             ▼
-Forecast Models
-```
+Forecast dataset preparation is an enterprise engineering responsibility rather than a forecasting model responsibility.
+
+Separating dataset generation from forecasting algorithms provides:
+
+- reproducible experimentation
+- standardized model comparison
+- reusable preprocessing
+- simplified algorithm integration
+- consistent forecasting inputs
+
+This architectural decision directly supports:
+
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+It establishes the standardized input contract for every forecasting algorithm introduced into the platform.
 
 ---
 
@@ -181,158 +201,206 @@ Forecast Models
 
 ## Standardization
 
-Every forecasting model consumes identical training data.
+Every forecasting algorithm receives identical dataset structures.
 
 ---
 
 ## Reproducibility
 
-Training datasets can be regenerated from the same certified inputs.
+Training datasets can always be regenerated from Enterprise Demand Intelligence.
 
 ---
 
-## Fair Model Comparison
+## Maintainability
 
-All forecasting algorithms are evaluated using equivalent datasets.
-
----
-
-## Reduced Data Leakage
-
-Time-aware dataset generation prevents future information from leaking into historical training observations.
+Feature engineering logic is implemented once rather than duplicated across forecasting models.
 
 ---
 
-## Separation of Concerns
+## Experiment Consistency
 
-Dataset engineering remains independent of model implementation.
-
----
-
-## Future Scalability
-
-New forecasting models can be introduced without modifying dataset preparation logic.
+Forecasting models are evaluated using identical datasets.
 
 ---
 
-# Consequences
+## AI Readiness
 
-## Positive
-
-- standardized supervised datasets
-- simplified experimentation
-- consistent model evaluation
-- improved reproducibility
-- reusable forecasting pipeline
-- cleaner architecture
-- future production readiness
+Provides the standardized input layer supporting enterprise AI engineering.
 
 ---
 
-## Trade-offs
+## Scalability
 
-- additional processing stage
-- additional metadata management
-- increased storage requirements
+Additional forecasting algorithms can be introduced without redesigning dataset preparation.
 
-These trade-offs are acceptable because they improve reliability, maintainability, and scientific rigor.
+---
+
+# Trade-offs
+
+The framework introduces:
+
+- centralized preprocessing
+- metadata management
+- additional storage
+- additional processing
+
+These trade-offs are acceptable because they significantly improve consistency, governance, and long-term maintainability.
 
 ---
 
 # Alternatives Considered
 
-## Dataset Preparation Inside Each Forecast Model
+## Model-Specific Dataset Preparation
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
-- duplicated logic
+- duplicated preprocessing
 - inconsistent datasets
-- unreliable benchmarking
-- difficult maintenance
+- difficult comparison
+- poor maintainability
 
 ---
 
-## Direct Training from Demand Intelligence
+## Notebook-Level Feature Engineering
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
-- forecasting datasets require supervised target alignment
-- inconsistent horizon generation
-- increased feature leakage risk
-- poor experiment reproducibility
+- tightly coupled implementations
+- duplicated logic
+- inconsistent forecasting inputs
+- reduced governance
 
 ---
 
-## Manual Dataset Construction
+## Direct Model Training from Demand Intelligence
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
-- error-prone
-- inconsistent execution
-- unsuitable for enterprise automation
-- difficult governance
+- inconsistent preprocessing
+- fragmented experimentation
+- limited reproducibility
+- poor architectural separation
 
 ---
 
-# Rationale
+# Consequences
 
-The Enterprise Forecast Dataset Framework establishes a clear architectural boundary between business intelligence and predictive modeling.
+## Positive Consequences
 
-This separation enables:
+The decision establishes:
 
-- standardized supervised learning
+- reusable forecasting datasets
+- standardized feature engineering
 - reproducible experimentation
-- consistent model benchmarking
-- future automated retraining
-- enterprise MLOps integration
-- scalable forecasting workflows
+- simplified algorithm integration
+- objective model comparison
+- enterprise AI consistency
 
-The framework also provides a foundation for future capabilities including:
+Forecast dataset preparation becomes a permanent enterprise capability supporting every forecasting workflow.
 
+---
+
+# Relationship to Current Architecture
+
+The Enterprise Forecast Dataset Framework represents the final capability within the Enterprise Data Engineering Foundation and the formal transition into the Enterprise AI Engineering Foundation.
+
+## Enterprise Data Engineering Foundation
+
+Consumes outputs from:
+
+- Enterprise Lakehouse Architecture
+- Enterprise Data Quality Validation Framework
+- Enterprise Metadata Management Framework
+- Enterprise Demand Intelligence Architecture
+
+## Enterprise AI Engineering Foundation
+
+Provides standardized datasets for:
+
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+This architectural decision establishes the standardized interface connecting governed enterprise data with enterprise artificial intelligence engineering.
+
+---
+
+# Future Evolution
+
+The Enterprise Forecast Dataset Framework naturally supports future capabilities including:
+
+- multivariate forecasting
+- probabilistic forecasting
+- hierarchical forecasting
 - Feature Store integration
-- MLflow experiment tracking
-- automated model retraining
-- model registry
-- online inference pipelines
-- real-time forecasting
+- automated retraining
+- Enterprise MLOps
+- Workforce Decision Intelligence
+- production forecasting services
+
+These capabilities extend the framework while preserving the architectural decision documented in this ADR.
 
 ---
 
 # Decision Outcome
 
-The AI Workforce Capacity Planning Platform formally adopts an independent Enterprise Forecast Dataset Framework.
+The AI Workforce Capacity Planning Platform formally adopts the Enterprise Forecast Dataset Framework as its permanent forecasting dataset architecture.
 
-All forecasting models must consume datasets generated by this framework.
+Every forecasting workflow must consume standardized datasets generated through this framework before model training, evaluation, inference, or model registration.
 
-Forecast dataset generation becomes the official enterprise mechanism for preparing training, validation, testing, and inference datasets.
-
-This decision completes the architectural foundation required for the Enterprise Forecast Modeling Framework introduced in Implementation 11.
+This decision completes the Enterprise Data Engineering Foundation and establishes the standardized interface supporting the Enterprise AI Engineering Foundation.
 
 ---
 
 # Related Documents
 
+### Repository Documentation
+
+- README.md
 - PROJECT_OVERVIEW.md
+- PROJECT_TIMELINE.md
+- CHANGELOG.md
+
+### Architecture Documentation
+
 - PLATFORM_ARCHITECTURE.md
-- IMPLEMENTATION_10_FORECAST_DATASET_FRAMEWORK.md
 - ADR-001 — Enterprise Lakehouse & Medallion Architecture
+- ADR-002 — Parameter-Driven Platform Configuration
+- ADR-003 — Enterprise Data Quality Validation Framework
 - ADR-004 — Enterprise Metadata Management Framework
 - ADR-005 — Enterprise Demand Intelligence Architecture
 
+### Implementation Documentation
+
+- IMPLEMENTATION_09_ENTERPRISE_DEMAND_INTELLIGENCE_ENGINE.md
+- IMPLEMENTATION_10_ENTERPRISE_FORECAST_DATASET_FRAMEWORK.md
+
 ---
 
-**Status:** Accepted
+# Conclusion
 
-**Architecture Version:** Enterprise Platform Architecture v2.3
+The adoption of the Enterprise Forecast Dataset Framework establishes forecasting dataset preparation as a reusable enterprise capability rather than a forecasting model responsibility.
 
-**Supersedes:** None
+By separating dataset generation from forecasting algorithms, the platform provides consistent experimentation, reproducible model development, objective evaluation, and standardized AI engineering workflows.
 
-**Completes:** Enterprise Architecture Decision Record Series (ADR-001 through ADR-006)
+This architectural decision completes the Enterprise Data Engineering Foundation while providing the governed interface through which the Enterprise AI Engineering Foundation consumes trusted, machine-learning-ready datasets.
 
-**Next Engineering Milestone:** Implementation 11 — Enterprise Forecast Modeling Framework
+---
+
+| Attribute | Value |
+|------------|-------|
+| **Status** | Accepted |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
+| **Supersedes** | ADR-006 Version 2.3.0 |
+| **Previous Related ADR** | ADR-005 — Enterprise Demand Intelligence Architecture |
+| **Next Architectural Phase** | Enterprise Workforce Decision Intelligence |

@@ -3,19 +3,107 @@
 # MAGIC # AI Workforce Capacity Planning Platform
 # MAGIC ## Notebook 01 — Public Dataset Evaluation and Selection
 # MAGIC
+# MAGIC **Implementation:** 28 — Enterprise Release Validation  
+# MAGIC **Platform release:** v3.0.0  
+# MAGIC **Notebook version:** 3.0.0  
+# MAGIC
+# MAGIC ### Purpose
+# MAGIC
+# MAGIC Evaluate and select the public dataset used by the AI Workforce Capacity
+# MAGIC Planning Platform for workload forecasting, feature engineering, capacity
+# MAGIC planning, and overtime decision support.
+# MAGIC
 # MAGIC ### Business objective
+# MAGIC
 # MAGIC Select a public dataset that can support daily operational workload
 # MAGIC forecasting, feature engineering, capacity simulation, and overtime
 # MAGIC recommendations for a distribution-center scenario.
 # MAGIC
 # MAGIC ### Core decision
+# MAGIC
 # MAGIC The platform forecasts **operational workload**, not overtime directly.
-# MAGIC Forecast workload will later be converted into required labor hours,
-# MAGIC available capacity, capacity gap, and recommended overtime.
+# MAGIC
+# MAGIC Forecast workload is subsequently translated into required labor capacity,
+# MAGIC available capacity, capacity gaps, and overtime recommendations.
 
 # COMMAND ----------
 
 # MAGIC %run ./00_project_setup
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## Platform Bootstrap Contract
+# MAGIC
+# MAGIC Validate that Notebook 01 is executing against the approved v3.0.0  
+# MAGIC platform bootstrap before dataset evaluation begins.
+
+# COMMAND ----------
+
+# =============================================================================
+# AI Workforce Capacity Planning Platform
+# Implementation 28 — Enterprise Release Validation
+# Notebook 01 — Platform Bootstrap Contract Validation
+# =============================================================================
+
+EXPECTED_PLATFORM_RELEASE = "v3.0.0"
+
+required_bootstrap_symbols = (
+    "PLATFORM_RELEASE",
+    "PROJECT_NAME",
+    "PROJECT_KEY",
+    "PROJECT_VERSION",
+    "PROJECT_ROOT",
+    "CONFIGURATION_STATUS",
+    "STORAGE_STATUS",
+    "RUNTIME_STATUS",
+)
+
+missing_bootstrap_symbols = [
+    symbol
+    for symbol in required_bootstrap_symbols
+    if symbol not in globals()
+]
+
+if missing_bootstrap_symbols:
+    raise RuntimeError(
+        "Notebook 01 is missing required platform bootstrap symbols: "
+        f"{missing_bootstrap_symbols}"
+    )
+
+if PLATFORM_RELEASE != EXPECTED_PLATFORM_RELEASE:
+    raise RuntimeError(
+        "Notebook 01 platform release mismatch: "
+        f"expected {EXPECTED_PLATFORM_RELEASE!r}, "
+        f"received {PLATFORM_RELEASE!r}."
+    )
+
+if CONFIGURATION_STATUS != "PASSED":
+    raise RuntimeError(
+        "Notebook 01 requires CONFIGURATION_STATUS='PASSED'."
+    )
+
+if STORAGE_STATUS != "PASSED":
+    raise RuntimeError(
+        "Notebook 01 requires STORAGE_STATUS='PASSED'."
+    )
+
+if RUNTIME_STATUS != "READY":
+    raise RuntimeError(
+        "Notebook 01 requires RUNTIME_STATUS='READY'."
+    )
+
+print("=" * 72)
+print("NOTEBOOK 01 — PLATFORM BOOTSTRAP CONTRACT")
+print("=" * 72)
+print(f"Platform release     : {PLATFORM_RELEASE}")
+print(f"Project              : {PROJECT_NAME}")
+print(f"Project version      : {PROJECT_VERSION}")
+print(f"Configuration status : {CONFIGURATION_STATUS}")
+print(f"Storage status       : {STORAGE_STATUS}")
+print(f"Runtime status       : {RUNTIME_STATUS}")
+print("Bootstrap contract   : PASSED")
+print("=" * 72)
 
 # COMMAND ----------
 

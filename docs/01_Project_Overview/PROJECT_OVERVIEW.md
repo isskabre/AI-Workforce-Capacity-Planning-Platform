@@ -2,418 +2,263 @@
 
 # Project Overview
 
-**Document Version:** 2.3.0  
-**Status:** Active  
-**Project Phase:** Enterprise Data Engineering Foundation Complete  
-**Current Milestone:** Documentation Release v2.3.0  
-**Next Engineering Milestone:** Implementation 11 – Enterprise Forecast Modeling Framework
+Version: 3.0.0
+
+Status: Release Candidate
 
 ---
 
 # Executive Summary
 
-The **AI Workforce Capacity Planning Platform** is an enterprise-grade Artificial Intelligence and Decision Intelligence platform designed to forecast warehouse workload, estimate workforce requirements, support operational planning, and provide explainable recommendations for overtime and labor allocation.
+The AI Workforce Capacity Planning Platform is an enterprise AI and Data Engineering project that provides intelligent workforce forecasting, capacity planning, staffing optimization, and operational decision support.
 
-The platform is being developed using a modern **Lakehouse Architecture** and follows enterprise software engineering principles that emphasize modularity, scalability, governance, validation, reproducibility, and maintainability.
+The platform was designed to demonstrate production-quality software engineering practices while solving a real operational planning problem.
 
-Rather than focusing exclusively on machine learning, the project first establishes a complete Enterprise Data Engineering Foundation capable of supporting reliable forecasting and future AI applications.
-
-This approach mirrors how enterprise organizations build production AI platforms—starting with governed, validated, and reusable data before introducing predictive models.
+Rather than focusing solely on machine learning models, the project emphasizes the complete AI engineering lifecycle, including data processing, forecasting, optimization, application architecture, validation, monitoring, deployment, and documentation.
 
 ---
 
 # Business Problem
 
-Warehouse and distribution center operations operate in highly dynamic environments where customer demand changes daily.
+Operational organizations must continuously answer questions such as:
 
-Operations leaders must continuously answer critical planning questions such as:
-
-- Will tomorrow's workload exceed available labor capacity?
+- How much work is expected tomorrow?
 - How many associates are required?
-- Should overtime be scheduled?
-- Can customer service levels be maintained without increasing labor costs?
-- Which operational factors are driving forecasted demand?
+- Will overtime be necessary?
+- Is current staffing sufficient?
+- What operational recommendations should be made?
 
-Traditionally, these decisions rely heavily on historical experience and manual analysis.
+Traditional spreadsheet-based planning is difficult to scale and often relies on manual analysis.
 
-While experienced managers often make effective decisions, manual planning presents several operational challenges:
-
-- Reactive staffing decisions
-- Increased overtime expenses
-- Labor shortages
-- Underutilized workforce capacity
-- Reduced operational efficiency
-- Difficulty scaling planning across multiple facilities
-- Limited forecasting visibility
-
-The objective of this platform is to replace reactive planning with proactive, data-driven decision support.
+This platform automates those decisions using enterprise AI engineering principles.
 
 ---
 
-# Business Vision
+# Project Objectives
 
-The long-term vision is to create an Enterprise Decision Intelligence Platform capable of assisting warehouse operations through intelligent forecasting and explainable recommendations.
+The platform was built to:
 
-Instead of simply predicting future workload, the platform will eventually provide actionable operational guidance.
-
-Examples include:
-
-- Forecast future workload.
-- Estimate required workforce.
-- Predict capacity shortages.
-- Recommend overtime strategies.
-- Simulate planning scenarios.
-- Explain forecast drivers.
-- Support operational planning through conversational AI.
-
-The platform is designed to evolve from a forecasting solution into an intelligent operational planning assistant.
+- Forecast operational demand
+- Estimate workforce requirements
+- Support staffing decisions
+- Improve overtime planning
+- Monitor platform health
+- Generate enterprise reports
+- Provide reusable AI infrastructure
+- Demonstrate production-ready AI engineering
 
 ---
 
-# Enterprise Objectives
+# Platform Scope
 
-The platform has six primary engineering objectives.
+The project includes the complete enterprise AI workflow.
 
----
+## Data Foundation
 
-## 1. Establish an Enterprise Data Foundation
-
-Create a governed, reusable, metadata-driven data platform capable of supporting multiple datasets and future operational use cases.
-
-Key objectives include:
-
-- standardized ingestion
-- scalable storage
-- reusable pipelines
-- governed datasets
-- reproducible processing
+- data ingestion
+- metadata management
+- validation
+- feature engineering
 
 ---
 
-## 2. Deliver Enterprise Data Quality
+## AI Intelligence
 
-Ensure all downstream analytics and AI models consume trusted data.
-
-Objectives include:
-
-- automated validation
-- reusable validation rules
-- persistent validation evidence
-- enterprise governance
-- quality monitoring
+- demand intelligence
+- forecasting
+- model evaluation
+- prediction
 
 ---
 
-## 3. Implement Enterprise Metadata Management
+## Decision Intelligence
 
-Enable enterprise discoverability, lineage preparation, and dataset governance.
-
-Capabilities include:
-
-- dataset catalog
-- schema profiling
-- dataset statistics
-- fingerprint generation
-- metadata persistence
+- workforce planning
+- staffing optimization
+- operational recommendations
 
 ---
 
-## 4. Build Enterprise Demand Intelligence
+## Enterprise Services
 
-Transform historical operational records into business-ready demand intelligence.
-
-Demand Intelligence provides:
-
-- calendar intelligence
-- temporal analytics
-- demand aggregation
-- operational metrics
-- forecasting features
+- reporting
+- monitoring
+- API layer
+- application layer
+- runner framework
 
 ---
 
-## 5. Create Machine Learning Ready Data Products
+# Major Components
 
-Generate reproducible forecasting datasets suitable for multiple machine learning models.
+## Demand Intelligence
 
-Objectives include:
-
-- feature alignment
-- target generation
-- forecast horizons
-- dataset reproducibility
-- model-ready datasets
+Transforms historical operational data into forecasting features.
 
 ---
 
-## 6. Enable Enterprise AI Decision Support
+## Forecasting Framework
 
-Provide explainable operational recommendations through machine learning and artificial intelligence.
-
-Future capabilities include:
-
-- workload forecasting
-- capacity planning
-- overtime recommendations
-- AI assistant
-- operational simulations
-- executive dashboards
+Provides reusable forecasting infrastructure, training, prediction, evaluation, and model comparison.
 
 ---
 
-# Enterprise Design Principles
+## Workforce Domain
 
-The platform is engineered using enterprise software engineering principles.
-
----
-
-## Metadata-Driven Architecture
-
-Platform behavior is controlled through metadata whenever possible rather than embedded business logic.
-
-Benefits include:
-
-- improved maintainability
-- simplified onboarding
-- reduced duplication
-- easier platform evolution
+Represents workforce capacity, staffing requirements, overtime, and operational constraints.
 
 ---
 
-## Configuration over Hardcoding
+## Planning Engine
 
-Business configuration is centralized to eliminate hardcoded operational values.
-
-This allows runtime behavior to evolve without modifying implementation logic.
+Produces workforce planning recommendations based on forecasted demand.
 
 ---
 
-## Modular Architecture
+## Optimization Engine
 
-Every implementation introduces an independent platform capability.
-
-Modules can evolve independently while preserving overall platform stability.
+Evaluates planning alternatives and supports operational decision making.
 
 ---
 
-## Validation First
+## Reporting
 
-Data quality is verified before downstream processing.
-
-Validation occurs throughout the enterprise pipeline to ensure reliable forecasting inputs.
+Generates enterprise-ready planning reports.
 
 ---
 
-## Reproducibility
+## Monitoring
 
-Every dataset, transformation, and forecast input can be regenerated using controlled source data and platform configuration.
-
----
-
-## Enterprise Scalability
-
-The architecture supports future expansion through reusable services rather than notebook-specific implementations.
+Tracks runtime health, metrics, and observability.
 
 ---
 
-# Platform Architecture Overview
+## Application Layer
 
-The platform follows a layered enterprise architecture.
+Coordinates enterprise services through dependency composition.
 
-```text
-Operational Data Sources
-            │
-            ▼
-Enterprise Dataset Acquisition
-            │
-            ▼
-Landing Zone
-            │
-            ▼
-Bronze Layer
-            │
-            ▼
-Silver Layer
-            │
-            ▼
-Gold Layer
-            │
-            ▼
-Enterprise Validation Framework
-            │
-            ▼
-Enterprise Metadata Framework
-            │
-            ▼
-Demand Intelligence Engine
-            │
-            ▼
-Forecast Dataset Framework
-            │
-            ▼
-Forecast Modeling Framework
-            │
-            ▼
-Capacity Planning Engine
-            │
-            ▼
-Overtime Recommendation Engine
-            │
-            ▼
-AI Workforce Assistant
+---
+
+## Runner Framework
+
+Controls application startup, execution, and shutdown.
+
+---
+
+# Repository Organization
+
+```
+src/
+docs/
+notebooks/
+exports/
 ```
 
 ---
 
-# Current Platform Capabilities
+# Technology Stack
 
-The following enterprise capabilities have been fully implemented.
+## Languages
 
-## Enterprise Data Foundation
+- Python
 
-- Dataset acquisition framework
-- Provider abstraction
-- Landing architecture
-- Bronze layer
-- Silver layer
-- Gold layer
+## Platform
 
----
+- Databricks
 
-## Enterprise Configuration
+## Data
 
-- Centralized parameter framework
-- Modular configuration
-- Runtime validation
-- Shared platform configuration
+- Apache Spark
+- Delta Lake
+
+## Development
+
+- Git
+- GitHub
 
 ---
 
-## Enterprise Validation
+# Engineering Practices
 
-- Rule-based validation engine
-- Bronze validation
-- Silver validation
-- Gold validation
-- Validation reporting
-- Validation evidence
+The project follows enterprise engineering practices.
 
----
+These include:
 
-## Enterprise Metadata
-
-- Dataset profiling
-- Metadata catalog
-- Dataset fingerprinting
-- Dataset statistics
-- Metadata persistence
-- Catalog services
+- Clean Architecture
+- SOLID principles
+- Domain-Driven Design
+- Immutable domain models
+- Dependency Injection
+- Modular package design
+- Validation-first development
 
 ---
 
-## Enterprise Demand Intelligence
+# Validation Philosophy
 
-- Calendar intelligence
-- Historical demand aggregation
-- Temporal feature engineering
-- Business demand metrics
-- Forecast feature preparation
+Every implementation follows the same process.
 
----
+1. Design review
+2. Implementation
+3. Validation notebook execution
+4. Issue resolution
+5. Git commit
+6. Documentation update
 
-## Enterprise Forecast Dataset Framework
-
-- Forecast dataset generation
-- Feature alignment
-- Target generation
-- Forecast horizon preparation
-- Machine-learning-ready datasets
+Code is committed only after successful validation.
 
 ---
 
-# Implementation Progress
+# Current Project Status
 
-| Implementation | Status |
-|---------------|--------|
-| 01 — Project Initialization | ✅ Complete |
-| 02 — Enterprise Dataset Evaluation | ✅ Complete |
-| 03 — Enterprise Dataset Registry | ✅ Complete |
-| 04 — Enterprise Dataset Acquisition & Data Foundation | ✅ Complete |
-| 05 — Enterprise Parameter Framework | ✅ Complete |
-| 06 — Enterprise Configuration Framework | ✅ Complete |
-| 07 — Enterprise Data Quality Validation | ✅ Complete |
-| 08 — Enterprise Metadata Management | ✅ Complete |
-| 09 — Enterprise Demand Intelligence Engine | ✅ Complete |
-| 10 — Enterprise Forecast Dataset Framework | ✅ Complete |
-| Documentation Release v2.3.0 | 🚧 In Progress |
-| 11 — Enterprise Forecast Modeling Framework | ▶ Next |
+The following platform capabilities have been completed.
 
----
+- Enterprise metadata
+- Demand intelligence
+- Forecasting framework
+- Workforce domain
+- Planning engine
+- Optimization engine
+- Reporting
+- Monitoring
+- API layer
+- Application layer
+- Runner framework
 
-# Future Platform Roadmap
-
-The platform roadmap extends beyond forecasting into enterprise operational intelligence.
-
-Planned capabilities include:
-
-- Enterprise Forecast Modeling
-- Forecast Evaluation
-- Capacity Planning
-- Workforce Simulation
-- Overtime Recommendation Engine
-- AI Workforce Assistant
-- Enterprise MLOps
-- Automated Retraining
-- Model Monitoring
-- Executive Dashboards
-- Production Deployment
-
----
-
-# Success Criteria
-
-The platform will be considered production-ready when it can:
-
-- Produce reliable workload forecasts.
-- Estimate workforce requirements.
-- Identify projected capacity gaps.
-- Recommend overtime strategies with supporting evidence.
-- Explain forecasting decisions.
-- Monitor model performance.
-- Support continuous model improvement.
-- Operate as a scalable enterprise decision-support platform.
+The platform is currently in the Release Candidate stage.
 
 ---
 
 # Intended Audience
 
-This documentation is intended for:
+This repository is intended for:
 
-- Enterprise Architects
 - Data Engineers
-- AI Engineers
 - Machine Learning Engineers
+- AI Engineers
 - Software Engineers
-- Technical Leads
-- Operations Leaders
-- Platform Maintainers
-- Technical Reviewers
+- Technical Architects
+- Hiring Managers
+- Recruiters
+- Graduate Students
+
+---
+
+# Future Evolution
+
+The architecture supports future enhancements, including:
+
+- additional forecasting algorithms
+- streaming data processing
+- real-time decision support
+- cloud-native deployment
+- advanced optimization techniques
+- enterprise integrations
 
 ---
 
 # Conclusion
 
-The AI Workforce Capacity Planning Platform is more than a forecasting project.
+The AI Workforce Capacity Planning Platform demonstrates the complete lifecycle of an enterprise AI application, from data engineering and forecasting to planning, optimization, deployment, and operational support.
 
-It represents a complete enterprise engineering initiative that combines modern Data Engineering, Artificial Intelligence, and Decision Intelligence into a scalable platform capable of supporting operational planning at enterprise scale.
-
-By completing the Enterprise Data Engineering Foundation before introducing forecasting models, the platform establishes a governed, validated, and reproducible environment that enables trustworthy AI development and long-term operational sustainability.
-
-The completion of **Implementation 10** marks the successful conclusion of the Enterprise Data Engineering Foundation and prepares the platform for **Implementation 11 – Enterprise Forecast Modeling Framework**, where predictive modeling becomes the next major engineering milestone.
-
----
-
-**Document Version:** 2.3.0  
-**Status:** Active  
-**Current Phase:** Enterprise Data Engineering Foundation Complete  
-**Next Milestone:** Implementation 11 – Enterprise Forecast Modeling Framework
+The project emphasizes software engineering quality, modular architecture, and production readiness while remaining extensible for future enterprise use cases.

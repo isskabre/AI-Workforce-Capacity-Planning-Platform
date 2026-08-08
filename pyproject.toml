@@ -1,0 +1,59 @@
+# =============================================================================
+# AI Workforce Capacity Planning Platform
+# Implementation 28 — Enterprise Release Validation
+#
+# Project Dependency and Packaging Configuration
+# Platform Release: v3.0.0
+# =============================================================================
+
+[build-system]
+requires = [
+    "setuptools>=75",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "ai-workforce-capacity-planning-platform"
+version = "3.0.0"
+description = "Enterprise AI Workforce Capacity Planning and Forecasting Platform"
+requires-python = ">=3.12"
+
+dependencies = [
+    "numpy>=1.26,<3",
+    "pandas>=2.2,<3",
+]
+
+
+# -----------------------------------------------------------------------------
+# Optional dependency groups
+# -----------------------------------------------------------------------------
+
+[project.optional-dependencies]
+
+# Machine-learning dependencies.
+#
+# Required when using the deep-learning forecasting subsystem:
+#     src.forecast.algorithms.lstm
+#
+# PyTorch is intentionally version-bounded rather than pinned to a
+# Databricks-specific CUDA build. Runtime-specific builds are controlled
+# by the deployment environment.
+ml = [
+    "torch>=2.0,<3",
+]
+
+# Development and release-validation dependencies.
+dev = [
+    "pytest>=8,<9",
+]
+
+
+# -----------------------------------------------------------------------------
+# Package discovery
+# -----------------------------------------------------------------------------
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

@@ -1,14 +1,18 @@
 """
-Enterprise Forecast Dataset Package
+Enterprise Forecast Framework.
 
-Public interfaces for building, splitting, validating, and persisting
-versioned forecast datasets.
+Public interfaces for constructing, splitting, validating, and persisting
+versioned forecast datasets used throughout the AI Workforce Capacity
+Planning Platform.
 
-Notebook and application code should import package interfaces from this
-module rather than importing internal implementation modules directly.
+The package also contains dedicated subpackages for modeling, algorithms,
+training, evaluation, inference, and model registry operations.
+
+Notebook and application code should import dataset-level interfaces from
+this module rather than importing their implementation modules directly.
 """
 
-from forecast.constants import (
+from .constants import (
     DATE_COLUMN,
     DEFAULT_FORECAST_HORIZON,
     DEFAULT_TEST_RATIO,
@@ -19,16 +23,16 @@ from forecast.constants import (
     FORECAST_DATASET_VERSION,
     TEMPORAL_SPLIT_STRATEGY,
 )
-from forecast.models import (
+from .models import (
     DatasetSplit,
     ForecastDatasetBundle,
     ForecastDatasetMetadata,
     ForecastDatasetSummary,
     ForecastPersistenceResult,
 )
-from forecast.persistence import ForecastDatasetPersistence
-from forecast.service import ForecastDatasetService
-from forecast.splitter import ForecastDatasetSplitter
+from .persistence import ForecastDatasetPersistence
+from .service import ForecastDatasetService
+from .splitter import ForecastDatasetSplitter
 
 
 __all__ = [

@@ -1,315 +1,370 @@
 # AI Workforce Capacity Planning Platform
 
-> **An Enterprise AI Platform for Workforce Forecasting, Capacity Planning, and Operational Decision Intelligence**
+> Enterprise AI Platform for Workforce Forecasting, Capacity Planning, and Operational Decision Intelligence
 
-![Platform Status](https://img.shields.io/badge/Status-Enterprise%20Data%20Engineering%20Foundation%20Complete-success)
-![Version](https://img.shields.io/badge/Version-v2.3.0-blue)
-![Documentation](https://img.shields.io/badge/Documentation-Enterprise%20Ready-brightgreen)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![Version](https://img.shields.io/badge/version-v3.0.0-blue)
+![Status](https://img.shields.io/badge/status-Release_Candidate-success)
+![Python](https://img.shields.io/badge/python-3.11+-blue)
+![Databricks](https://img.shields.io/badge/platform-Databricks-red)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
 # Executive Summary
 
-The **AI Workforce Capacity Planning Platform** is an enterprise-grade Decision Intelligence platform designed to help warehouse and distribution center operations forecast workload, estimate workforce requirements, optimize labor planning, and support overtime decisions using Artificial Intelligence.
+The AI Workforce Capacity Planning Platform is a production-quality enterprise AI platform designed to forecast operational demand, estimate workforce requirements, optimize staffing decisions, and provide explainable decision support for logistics operations.
 
-Unlike many machine learning projects that begin directly with model development, this platform first establishes a complete **Enterprise Data Engineering Foundation** built on governance, validation, metadata management, reproducibility, and modular architecture.
+The project was engineered using enterprise software engineering principles, emphasizing modular architecture, maintainability, testability, observability, and production readiness.
 
-The result is a scalable platform prepared for production-grade forecasting and AI-driven operational decision support.
-
----
-
-# Business Problem
-
-Warehouse operations make labor planning decisions every day.
-
-Typical questions include:
-
-- How much work will arrive tomorrow?
-- Do we have enough associates?
-- Should overtime be scheduled?
-- Will customer service levels be maintained?
-- Which operational factors are driving demand?
-
-Many organizations still answer these questions using spreadsheets, manual analysis, and historical experience.
-
-This platform replaces reactive planning with **predictive, data-driven decision support**.
+Unlike notebook-centric machine learning projects, this platform is implemented as a reusable Python package with Databricks serving as the execution environment.
 
 ---
 
-# Platform Vision
+# Business Objectives
 
-The long-term vision is to build an Enterprise AI platform capable of:
+The platform enables organizations to:
 
-- Forecasting operational demand
-- Estimating workforce requirements
-- Predicting capacity shortages
-- Recommending overtime strategies
-- Explaining AI predictions
-- Supporting operational decision-making through conversational AI
-
-The platform evolves through incremental enterprise implementations, where each implementation delivers an independently validated capability.
+- Forecast operational workload
+- Estimate future staffing requirements
+- Optimize overtime planning
+- Monitor workforce health
+- Evaluate forecast quality
+- Produce operational reports
+- Support enterprise AI decision making
 
 ---
 
-# Enterprise Architecture
+# Platform Architecture
 
 ```text
-Enterprise Data Sources
-          │
-          ▼
-Enterprise Dataset Acquisition
-          │
-          ▼
-Landing
-          │
-          ▼
-Bronze
-          │
-          ▼
-Silver
-          │
-          ▼
-Gold
-          │
-          ▼
-Enterprise Validation Framework
-          │
-          ▼
-Enterprise Metadata Framework
-          │
-          ▼
-Enterprise Demand Intelligence Engine
-          │
-          ▼
-Enterprise Forecast Dataset Framework
-          │
-          ▼
-Enterprise Forecast Modeling Framework
-          │
-          ▼
-Capacity Planning Engine
-          │
-          ▼
-Overtime Recommendation Engine
-          │
-          ▼
-AI Workforce Assistant
+                  +-------------------+
+                  |     API Layer     |
+                  +-------------------+
+                           |
+                  +-------------------+
+                  | Application Layer |
+                  +-------------------+
+                           |
+                  +-------------------+
+                  | Runner Framework  |
+                  +-------------------+
+                           |
+        +-------------------------------------------+
+        | Business Intelligence Modules             |
+        +-------------------------------------------+
+
+          Demand Intelligence
+
+          Forecasting
+
+          Workforce Planning
+
+          Staffing Optimization
+
+          Reporting
+
+          Monitoring
+
+          Validation
+
+          Metadata
+
+          Configuration
 ```
-
----
-
-# Current Platform Status
-
-## Completed
-
-- Enterprise Data Foundation
-- Enterprise Dataset Registry
-- Enterprise Dataset Acquisition Framework
-- Enterprise Parameter Framework
-- Enterprise Configuration Framework
-- Enterprise Data Quality Validation Framework
-- Enterprise Metadata Management Framework
-- Enterprise Demand Intelligence Engine
-- Enterprise Forecast Dataset Framework
-- Enterprise Documentation Suite
-
-## Current Release
-
-**Documentation Release v2.3.0**
-
-## Next Milestone
-
-**Implementation 11 — Enterprise Forecast Modeling Framework**
-
----
-
-# Enterprise Engineering Principles
-
-The platform follows modern enterprise engineering practices.
-
-- Metadata-driven architecture
-- Configuration over hardcoding
-- Lakehouse Medallion Architecture
-- Validation-first processing
-- Modular platform design
-- Reproducible pipelines
-- Architecture Decision Records (ADRs)
-- Enterprise documentation
-- Production-oriented engineering
-
----
-
-# Technology Stack
-
-## Platform
-
-- Databricks
-- Apache Spark
-- Python
-- Delta Lake
-- Parquet
-
-## Data Engineering
-
-- Pandas
-- NumPy
-- Databricks Workflows
-- Lakehouse Architecture
-
-## Machine Learning (Current & Planned)
-
-- Scikit-learn
-- XGBoost
-- LightGBM
-- CatBoost
-- Prophet
-- ARIMA
-- SARIMA
-- LSTM
-- GRU
-- MLflow
 
 ---
 
 # Repository Structure
 
 ```text
-AI-Workforce-Capacity-Planning-Platform/
-│
-├── docs/
-│   ├── README.md
-│   ├── PROJECT_OVERVIEW.md
-│   ├── PROJECT_TIMELINE.md
-│   ├── PLATFORM_ARCHITECTURE.md
-│   ├── CHANGELOG.md
-│   ├── 03_ADRs/
-│   └── 04_Implementations/
-│
-├── notebooks/
-│
-├── src/
-│
-├── tests/
-│
-└── README.md
+src/
+
+    api/
+
+    application/
+
+    bootstrap/
+
+    demand/
+
+    forecast/
+
+    metadata/
+
+    monitoring/
+
+    optimization/
+
+    orchestration/
+
+    overtime/
+
+    planning/
+
+    reporting/
+
+    runner/
+
+    staffing/
+
+    validation/
+
+    workforce/
 ```
 
 ---
 
-# Documentation
+# Enterprise Modules
 
-The project documentation is organized as an enterprise documentation suite.
+## Demand Intelligence
 
-| Document | Description |
-|----------|-------------|
-| Project Overview | Business vision, objectives, and platform scope |
-| Platform Architecture | Enterprise architecture and platform design |
-| Project Timeline | Engineering roadmap and implementation history |
-| Changelog | Platform release history |
-| Architecture Decision Records | Engineering decisions and rationale |
-| Implementation Documents | Detailed implementation documentation |
+Responsible for enterprise demand analytics and feature engineering.
 
----
+### Capabilities
 
-# Implementation Roadmap
-
-## Enterprise Data Engineering Foundation
-
-| Implementation | Status |
-|---------------|--------|
-| 01 — Project Initialization | ✅ |
-| 02 — Enterprise Dataset Evaluation | ✅ |
-| 03 — Enterprise Dataset Registry | ✅ |
-| 04 — Enterprise Dataset Acquisition | ✅ |
-| 05 — Enterprise Parameter Framework | ✅ |
-| 06 — Enterprise Configuration Framework | ✅ |
-| 07 — Enterprise Data Quality Validation | ✅ |
-| 08 — Enterprise Metadata Management | ✅ |
-| 09 — Enterprise Demand Intelligence | ✅ |
-| 10 — Enterprise Forecast Dataset Framework | ✅ |
+- Demand profiling
+- Business features
+- Forecasting datasets
+- Metadata generation
 
 ---
 
-## Enterprise AI Engineering Roadmap
+## Forecasting
 
-| Implementation | Status |
-|---------------|--------|
-| 11 — Enterprise Forecast Modeling Framework | ▶ Next |
-| 12 — Forecast Evaluation & Model Selection | Planned |
-| 13 — Capacity Planning Engine | Planned |
-| 14 — Overtime Recommendation Engine | Planned |
-| 15 — AI Workforce Assistant | Planned |
-| 16 — Enterprise MLOps & Model Monitoring | Planned |
-| 17 — Production Deployment & Executive Dashboard | Planned |
+Implements enterprise forecasting infrastructure.
 
----
+### Capabilities
 
-# Why This Project Is Different
-
-Many forecasting projects focus exclusively on machine learning.
-
-This platform emphasizes **enterprise software engineering** as the foundation for trustworthy AI.
-
-Key differentiators include:
-
-- Enterprise Lakehouse Architecture
-- Architecture Decision Records
-- Metadata-driven engineering
-- Centralized configuration
-- Independent validation framework
-- Enterprise metadata management
-- Demand Intelligence layer
-- Forecast Dataset Framework
-- Documentation-first engineering
-- Production-ready architecture
+- Forecasting models
+- Evaluation framework
+- Prediction framework
+- Model comparison
+- Forecasting metrics
 
 ---
 
-# Current Development Phase
+## Workforce
 
-**Phase I**
+Provides workforce domain models.
 
-✅ Enterprise Data Engineering Foundation — Complete
+### Capabilities
 
-**Phase II**
-
-▶ Enterprise Forecast Modeling Framework — Starting
+- Workforce capacity
+- Staffing gaps
+- Overtime estimation
+- Planning models
 
 ---
 
-# Future Enhancements
+## Planning
 
-Planned platform capabilities include:
+Enterprise capacity planning engine.
 
-- Multi-model forecasting
-- Model benchmarking
-- Automated retraining
-- Feature Store integration
-- MLflow integration
-- Model Registry
-- Capacity optimization
-- Explainable AI
-- Executive dashboards
-- Real-time inference
-- Enterprise MLOps
+### Capabilities
+
+- Planning services
+- Optimization inputs
+- Recommendations
+- Planning reports
+
+---
+
+## Optimization
+
+Decision optimization algorithms.
+
+### Capabilities
+
+- Optimization services
+- Optimization models
+- Optimization engine
+
+---
+
+## Reporting
+
+Enterprise reporting framework.
+
+### Capabilities
+
+- Report generation
+- Report models
+- Reporting services
+
+---
+
+## Monitoring
+
+Enterprise observability package.
+
+### Capabilities
+
+- Health monitoring
+- Metrics
+- Health checks
+- Monitoring services
+
+---
+
+## API
+
+Production REST API layer.
+
+### Capabilities
+
+- API services
+- Endpoints
+- Request models
+
+---
+
+## Application
+
+Enterprise application composition layer.
+
+### Capabilities
+
+- Dependency wiring
+- Application services
+- Lifecycle management
+
+---
+
+## Runner
+
+Production execution framework.
+
+### Capabilities
+
+- Startup
+- Shutdown
+- Runtime management
+- Lifecycle
+- Configuration
+
+---
+
+# Engineering Principles
+
+The platform follows:
+
+- Clean Architecture
+- Domain-Driven Design
+- SOLID Principles
+- Dependency Injection
+- Immutable Domain Models
+- Enterprise Validation
+- Production Logging
+- Modular Package Design
+
+---
+
+# Validation Strategy
+
+Every implementation follows the same engineering workflow:
+
+1. Build production code.
+2. Execute the corresponding validation notebook.
+3. Diagnose and remediate failures.
+4. Re-run validation.
+5. Commit only after validation passes.
+
+No implementation is considered complete without successful validation.
+
+Release-level validation additionally verifies:
+
+- Canonical `src.*` Python import namespaces
+- Package public APIs
+- `__all__` contracts
+- Package and object identity
+- Dependency boundaries
+- Runtime lifecycle contracts
+- Cross-package integration behavior
+
+---
+
+# Technology Stack
+
+- Python 3.11+
+- Databricks
+- Apache Spark
+- Delta Lake
+- Pandas
+- NumPy
+- Dataclasses
+- Git
+- GitHub
+
+---
+
+# Development Workflow
+
+```text
+Architecture Review
+        |
+        v
+Implementation
+        |
+        v
+Validation
+        |
+        v
+Remediation
+        |
+        v
+Commit
+        |
+        v
+Push
+        |
+        v
+Documentation
+        |
+        v
+Release
+```
+
+---
+
+# Current Status
+
+| Module | Status |
+|---|---|
+| Enterprise Metadata | Complete |
+| Demand Intelligence | Complete |
+| Forecasting Framework | Complete |
+| Workforce Domain | Complete |
+| Planning Engine | Complete |
+| Optimization Engine | Complete |
+| Reporting | Complete |
+| Monitoring | Complete |
+| API Layer | Complete |
+| Application Layer | Complete |
+| Runner Framework | Complete |
+
+---
+
+# Release Status
+
+**Current Version:** `v3.0.0 Release Candidate`
+
+The platform has completed its implementation roadmap and enterprise release-validation cycle.
+
+Implementation 28 standardized the platform on the canonical `src.*` Python namespace and validated package imports, public APIs, dependency boundaries, and runtime integration across the source tree.
 
 ---
 
 # License
 
-This project is released under the MIT License.
+MIT License
 
 ---
 
-# Acknowledgements
+# Author
 
-This project was developed as an enterprise portfolio platform demonstrating modern Data Engineering, Artificial Intelligence, Machine Learning, and Enterprise Software Architecture principles.
+**Issouf KABRE**
 
-Its objective is not only to produce accurate forecasting models but also to demonstrate how production-quality AI platforms should be designed, documented, and evolved.
+University of Pittsburgh  
+Master of Data Science
 
----
-
-**Current Version:** Documentation Release **v2.3.0**
-
-**Next Milestone:** Implementation 11 — Enterprise Forecast Modeling Framework
+Enterprise AI & Data Engineering Portfolio

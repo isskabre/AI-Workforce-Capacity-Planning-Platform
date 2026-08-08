@@ -1,20 +1,43 @@
 # ADR-002 — Parameter-Driven Platform Configuration
 
-**Status:** Accepted
+| Attribute | Value |
+|------------|-------|
+| **ADR** | ADR-002 |
+| **Title** | Parameter-Driven Platform Configuration |
+| **Status** | Accepted |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
+| **Decision Date** | 2026-07-31 |
+| **Decision Owner** | AI Workforce Capacity Planning Platform Engineering Team |
+| **Category** | Enterprise Platform Architecture |
 
-**Date:** 2026-07-31
+---
 
-**Version:** 2.3.0
+# Decision Summary
 
-**Decision Owner:** AI Workforce Capacity Planning Platform Engineering Team
+This Architecture Decision Record establishes the **Parameter-Driven Platform Configuration Architecture** as the standard configuration strategy for the AI Workforce Capacity Planning Platform.
+
+Rather than embedding operational values inside notebooks or implementation modules, all runtime behavior is controlled through centralized configuration domains managed by the Enterprise Configuration Framework.
+
+This decision separates business configuration from implementation logic, improves maintainability, enables environment portability, and provides a stable configuration foundation for enterprise data engineering, AI engineering, and future production deployment.
+
+---
+
+# Status
+
+**Accepted**
+
+This decision governs how runtime configuration is managed throughout the AI Workforce Capacity Planning Platform.
+
+All platform components are expected to consume validated configuration through the Enterprise Configuration Framework rather than hardcoded implementation values.
 
 ---
 
 # Context
 
-Enterprise AI platforms require flexibility to support multiple environments, datasets, forecasting horizons, storage locations, machine learning models, and business policies.
+Enterprise AI platforms must support multiple environments, datasets, storage locations, forecasting horizons, machine learning models, and evolving business policies.
 
-Embedding configuration values directly inside notebooks or Python modules introduces several long-term challenges:
+Embedding configuration directly inside notebooks or Python modules introduces long-term engineering challenges including:
 
 - duplicated configuration
 - inconsistent runtime behavior
@@ -23,29 +46,46 @@ Embedding configuration values directly inside notebooks or Python modules intro
 - increased deployment risk
 - reduced scalability
 
-As the AI Workforce Capacity Planning Platform evolved beyond a single notebook into a modular enterprise platform, configuration management became a core architectural concern.
+As the AI Workforce Capacity Planning Platform evolved from notebook experimentation into a modular enterprise architecture, centralized configuration became a foundational architectural requirement.
 
-The platform required a centralized configuration framework capable of supporting both current implementations and future production deployments without requiring code changes for normal operational adjustments.
+The platform therefore required a configuration architecture capable of supporting both current implementations and future production environments without requiring code changes for normal operational adjustments.
+
+---
+
+# Problem Statement
+
+The platform required a configuration architecture capable of:
+
+- separating configuration from implementation
+- supporting multiple execution environments
+- centralizing enterprise settings
+- validating runtime configuration
+- minimizing duplicated configuration
+- supporting future production deployment
+- enabling long-term maintainability
+- scaling as additional architectural capabilities are introduced
+
+Without centralized configuration, every notebook and service would become responsible for managing its own runtime behavior, resulting in duplicated logic, inconsistent execution, and increased maintenance effort.
 
 ---
 
 # Decision
 
-The platform adopts a **Parameter-Driven Configuration Architecture**.
+The AI Workforce Capacity Planning Platform formally adopts a **Parameter-Driven Configuration Architecture**.
 
-All runtime behavior is controlled through centralized configuration rather than hardcoded implementation logic.
+All runtime behavior is controlled through centralized configuration managed by the Enterprise Configuration Framework.
 
 Notebook **00_project_setup** serves as the platform bootstrap and configuration entry point.
 
-It is responsible for:
+Its responsibilities include:
 
 - loading enterprise configuration
 - validating runtime settings
 - exposing shared platform constants
-- initializing storage paths
+- initializing storage locations
 - preparing notebook execution
 
-All downstream notebooks inherit configuration through this centralized contract.
+Every downstream notebook and enterprise service consumes configuration through this shared contract.
 
 ---
 
@@ -64,39 +104,38 @@ All downstream notebooks inherit configuration through this centralized contract
         ├──────────────────┼──────────────────┤
         ▼                  ▼                  ▼
  Forecast Config    Metadata Config   Validation Config
+        │                  │                  │
+        ├──────────────────┼──────────────────┤
+        ▼                  ▼                  ▼
+ Capacity Planning     AI Configuration   Runtime Settings
                            │
                            ▼
-                 Runtime Configuration
-                           │
-                           ▼
-             Enterprise Notebook Execution
+                Enterprise Platform Services
 ```
+
+The Enterprise Configuration Framework provides a centralized configuration layer supporting every architectural capability throughout the platform.
 
 ---
 
 # Configuration Domains
 
-The platform separates configuration into independent domains.
-
----
-
 ## Project Configuration
 
-Defines platform identity.
+Defines platform identity and execution context.
 
 Examples include:
 
 - project name
-- version
-- environment
-- project root
-- execution metadata
+- platform version
+- execution environment
+- runtime metadata
+- engineering defaults
 
 ---
 
 ## Storage Configuration
 
-Centralizes storage locations.
+Centralizes enterprise storage locations.
 
 Examples include:
 
@@ -106,139 +145,165 @@ Examples include:
 - Gold
 - Metadata
 - Registry
-- Validation
 - Models
 - Reports
+- Validation
+- Experiments
 
 ---
 
 ## Pipeline Configuration
 
-Controls enterprise pipeline execution.
+Controls enterprise data engineering execution.
 
 Examples include:
 
-- execution behavior
 - logging
 - checkpointing
-- pipeline defaults
+- execution behavior
+- scheduling defaults
+- runtime options
 
 ---
 
 ## Forecast Configuration
 
-Defines forecasting behavior without embedding business logic inside models.
+Defines forecasting behavior.
 
 Examples include:
 
-- forecast horizon
-- supported forecast window
-- default horizon
-- model configuration
-- experiment settings
+- forecast horizons
+- model defaults
+- experiment configuration
+- training settings
+- inference settings
 
 ---
 
-## Capacity Planning Configuration
+## Metadata Configuration
 
-Supports workforce planning.
+Defines metadata framework behavior.
+
+Examples include:
+
+- profiling
+- catalog settings
+- fingerprint generation
+- metadata persistence
+
+---
+
+## Validation Configuration
+
+Controls Enterprise Validation Framework behavior.
+
+Examples include:
+
+- validation thresholds
+- rule activation
+- quality policies
+- reporting options
+
+---
+
+## Capacity Planning Configuration *(Future)*
+
+Supports enterprise workforce planning.
 
 Examples include:
 
 - productivity assumptions
-- planning parameters
-- business thresholds
-- simulation defaults
+- planning thresholds
+- simulation settings
+- workforce policies
 
 ---
 
-## AI Configuration
+## AI Configuration *(Future)*
 
-Defines future AI assistant behavior.
+Supports future enterprise AI capabilities.
 
 Examples include:
 
-- explanation settings
-- response configuration
 - provider selection
-- AI runtime defaults
+- explanation settings
+- recommendation policies
+- conversational AI behavior
 
 ---
 
-# Runtime Validation
+# Rationale
 
-Every execution validates configuration before processing begins.
+Configuration is an enterprise architectural concern rather than an implementation detail.
 
-Validation includes:
+Separating configuration from business logic enables the platform to evolve independently of operational settings while providing consistent runtime behavior across notebooks and enterprise services.
 
-- required configuration present
-- numeric boundaries
-- storage path availability
-- supported forecast horizons
-- required project metadata
+This architectural decision directly supports:
 
-Pipeline execution terminates immediately if validation fails.
+- Enterprise Data Engineering Foundation
+- Enterprise Configuration Framework
+- Enterprise Data Quality Validation Framework
+- Enterprise Metadata Management Framework
+- Enterprise Demand Intelligence Engine
+- Enterprise Forecast Dataset Framework
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+The decision also establishes a clear migration path toward enterprise production environments without requiring downstream implementation changes.
 
 ---
 
 # Benefits
 
-## Centralized Management
+## Centralized Configuration
 
-Configuration exists in one location.
+Configuration exists in a single governed location.
 
 ---
 
 ## Environment Portability
 
-DEV, TEST, and PROD environments can use different configuration values without modifying implementation code.
+Different execution environments can use independent configuration without modifying implementation code.
 
 ---
 
 ## Maintainability
 
-Configuration updates do not require notebook modifications.
+Configuration changes do not require notebook or service modifications.
 
 ---
 
 ## Reusability
 
-All notebooks consume the same validated configuration.
+All enterprise components consume the same validated configuration.
 
 ---
 
 ## Scalability
 
-New configuration domains can be introduced without changing existing consumers.
+New configuration domains can be introduced without affecting existing consumers.
 
 ---
 
-## Backward Compatibility
+## Production Readiness
 
-Previously validated notebooks remain operational while the configuration framework evolves.
-
----
-
-# Consequences
-
-## Positive
-
-- consistent runtime behavior
-- simplified maintenance
-- easier environment migration
-- reusable notebook architecture
-- improved governance
-- future production readiness
+The architecture supports future enterprise deployment through standardized configuration management.
 
 ---
 
-## Trade-offs
+# Trade-offs
 
-- notebooks depend on the shared bootstrap contract
-- configuration validation becomes mandatory
+The architecture introduces:
+
+- dependency on a centralized bootstrap process
+- mandatory configuration validation
 - additional framework maintenance
 
-These trade-offs are acceptable because they significantly improve platform consistency and long-term maintainability.
+These trade-offs are acceptable because they significantly improve consistency, governance, and long-term maintainability.
 
 ---
 
@@ -246,84 +311,151 @@ These trade-offs are acceptable because they significantly improve platform cons
 
 ## Hardcoded Configuration
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
 - duplicated values
-- difficult maintenance
 - environment-specific code
+- difficult maintenance
 - increased operational risk
 
 ---
 
 ## Notebook-Specific Configuration
 
-Rejected.
+**Decision:** Rejected
 
 Reasons:
 
 - inconsistent execution
-- duplicated logic
-- poor scalability
-- difficult governance
+- duplicated configuration
+- poor governance
+- limited scalability
 
 ---
 
 ## External Configuration Service
 
-Deferred.
+**Decision:** Deferred
 
-Reasons:
+Enterprise configuration services such as Databricks Secrets, Azure App Configuration, or AWS Systems Manager Parameter Store remain valid future production options.
 
-While enterprise configuration services (such as Azure App Configuration, AWS Systems Manager Parameter Store, or Databricks Secrets) may be introduced in future production deployments, they would add unnecessary complexity during the current development phase.
-
-The selected architecture provides a clear migration path without changing downstream notebook implementations.
+The selected architecture preserves a straightforward migration path while avoiding unnecessary complexity during platform development.
 
 ---
 
-# Rationale
+# Consequences
 
-Configuration is an enterprise concern rather than an implementation detail.
+## Positive Consequences
 
-Separating configuration from business logic allows the platform to evolve independently of operational settings.
+The decision establishes:
 
-This decision also enables future capabilities including:
+- standardized runtime behavior
+- reusable enterprise configuration
+- simplified maintenance
+- improved governance
+- environment portability
+- production readiness
 
-- multiple deployment environments
-- configurable forecast horizons
-- provider-specific overrides
-- enterprise scheduling
-- production orchestration
-- MLOps integration
+Every architectural component now operates under a consistent configuration contract.
 
-without modifying notebook implementations.
+---
+
+# Relationship to Current Architecture
+
+The Parameter-Driven Configuration Architecture has become a foundational capability supporting both completed architectural phases.
+
+## Enterprise Data Engineering Foundation
+
+Supports:
+
+- Enterprise Dataset Acquisition Framework
+- Enterprise Lakehouse Architecture
+- Enterprise Data Quality Validation Framework
+- Enterprise Metadata Management Framework
+- Enterprise Demand Intelligence Engine
+- Enterprise Forecast Dataset Framework
+
+## Enterprise AI Engineering Foundation
+
+Supports:
+
+- Enterprise Forecast Modeling Framework
+- Enterprise Forecast Algorithm Library
+- Enterprise Training Framework
+- Enterprise Evaluation Framework
+- Enterprise Inference Framework
+- Enterprise Model Registry
+
+This decision enables consistent runtime behavior across the entire platform while preserving architectural modularity.
+
+---
+
+# Future Evolution
+
+The configuration architecture naturally supports future enterprise capabilities including:
+
+- Enterprise Workforce Decision Intelligence
+- Capacity Planning Engine
+- Overtime Recommendation Engine
+- AI Workforce Assistant
+- Enterprise MLOps
+- Production deployment
+- Environment-specific configuration
+- Cloud-native configuration services
+- Executive dashboards
+
+These capabilities can be introduced without changing the architectural decision established by this ADR.
 
 ---
 
 # Decision Outcome
 
-The AI Workforce Capacity Planning Platform formally adopts a centralized, parameter-driven configuration architecture.
+The AI Workforce Capacity Planning Platform formally adopts a centralized **Parameter-Driven Configuration Architecture**.
 
-All runtime behavior must be controlled through validated configuration domains rather than hardcoded implementation values.
+All runtime behavior is governed through validated enterprise configuration rather than embedded implementation logic.
 
-Future implementations are expected to consume configuration exclusively through the Enterprise Configuration Framework.
+This decision remains the permanent configuration strategy supporting the long-term evolution of the platform.
 
 ---
 
 # Related Documents
 
+### Repository Documentation
+
+- README.md
 - PROJECT_OVERVIEW.md
+- PROJECT_TIMELINE.md
+- CHANGELOG.md
+
+### Architecture Documentation
+
 - PLATFORM_ARCHITECTURE.md
+- ADR-001 — Enterprise Lakehouse & Medallion Architecture
+- ADR-003 — Enterprise Data Quality Validation Framework
+
+### Implementation Documentation
+
 - IMPLEMENTATION_05_ENTERPRISE_PARAMETER_FRAMEWORK.md
 - IMPLEMENTATION_06_ENTERPRISE_CONFIGURATION_FRAMEWORK.md
 
 ---
 
-**Status:** Accepted
+# Conclusion
 
-**Architecture Version:** Enterprise Platform Architecture v2.3
+The adoption of a Parameter-Driven Configuration Architecture established a consistent and scalable approach to runtime configuration across the AI Workforce Capacity Planning Platform.
 
-**Supersedes:** None
+By separating configuration from implementation logic, the platform improves maintainability, governance, portability, and production readiness while enabling both the Enterprise Data Engineering Foundation and the Enterprise AI Engineering Foundation to evolve through a shared configuration contract.
 
-**Next Related ADR:** ADR-003 — Enterprise Data Quality Validation Framework
+This architectural decision continues to support the platform's progression toward Enterprise Workforce Decision Intelligence and future production deployment.
+
+---
+
+| Attribute | Value |
+|------------|-------|
+| **Status** | Accepted |
+| **Document Version** | 3.0.0 |
+| **Architecture Version** | Architecture Version: Enterprise Platform Architecture v3.0 |
+| **Supersedes** | ADR-002 Version 2.3.0 |
+| **Next Related ADR** | ADR-003 — Enterprise Data Quality Validation Framework |
