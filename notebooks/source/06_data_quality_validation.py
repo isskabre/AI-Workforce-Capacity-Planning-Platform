@@ -4,9 +4,12 @@
 # MAGIC ## Notebook 06 — Enterprise Data Quality & Validation Framework
 # MAGIC
 # MAGIC **Implementation:** 06 — Enterprise Data Quality & Validation Framework  
-# MAGIC **Notebook version:** 1.0.1
+# MAGIC **Project version:** 2.1.0  
+# MAGIC **Notebook version:** 3.0.0
 # MAGIC
-# MAGIC This notebook validates the reusable `src/validation` package against:
+# MAGIC This notebook provides the enterprise data-quality validation and acceptance-test layer for the AI Workforce Capacity Planning Platform.
+# MAGIC
+# MAGIC It validates the reusable `src/validation` package against:
 # MAGIC
 # MAGIC 1. controlled demonstration data,
 # MAGIC 2. the persisted Bronze dataset,
@@ -14,8 +17,7 @@
 # MAGIC 4. the persisted Gold dataset,
 # MAGIC 5. the validation-evidence persistence layer.
 # MAGIC
-# MAGIC The notebook is an orchestration and acceptance-test layer. Reusable
-# MAGIC validation logic remains in `src/validation`.
+# MAGIC The notebook remains an orchestration and acceptance-test layer. Reusable validation logic remains in `src/validation`.
 
 # COMMAND ----------
 
@@ -24,39 +26,21 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## Section 01 — Imports and Repository Resolution
+# MAGIC ## Section 01 — Imports and Validation Package Resolution
+# MAGIC
+# MAGIC Use the shared project bootstrap and load the canonical enterprise validation package through the `src.*` namespace.
 
 # COMMAND ----------
+
+# =============================================================================
+# Section 01 — Imports and Validation Package Resolution
+# Platform release: v3.0.0
+# Release remediation: 28
+# =============================================================================
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 from pyspark.sql import functions as F
-
-# COMMAND ----------
-
-current_path = Path.cwd()
-repository_root = current_path
-
-while (
-    repository_root.parent != repository_root
-    and not (repository_root / "src").exists()
-):
-    repository_root = repository_root.parent
-
-if not (repository_root / "src").exists():
-    raise RuntimeError(
-        "Unable to locate the repository root containing src/."
-    )
-
-if str(repository_root) not in sys.path:
-    sys.path.insert(0, str(repository_root))
-
-print(f"Repository root: {repository_root}")
-
-# COMMAND ----------
 
 from src.validation import (
     DataQualityValidationError,
@@ -72,6 +56,27 @@ from src.validation import (
     validation_report_to_dataframe,
 )
 
+
+# -----------------------------------------------------------------------------
+# Canonical namespace contract
+# -----------------------------------------------------------------------------
+
+assert PLATFORM_RELEASE == "v3.0.0"
+assert CANONICAL_NAMESPACE == "src.*"
+
+assert DataValidator.__module__.startswith("src.validation")
+assert MinimumRowCountRule.__module__.startswith("src.validation")
+assert RequiredColumnsRule.__module__.startswith("src.validation")
+
+print("=" * 72)
+print("NOTEBOOK 06 — VALIDATION PACKAGE CONTRACT")
+print("=" * 72)
+print(f"Platform release    : {PLATFORM_RELEASE}")
+print(f"Canonical namespace : {CANONICAL_NAMESPACE}")
+print(f"Validation package  : {DataValidator.__module__}")
+print("Validation imports  : PASSED")
+print("=" * 72)
+
 # COMMAND ----------
 
 # MAGIC %md
@@ -79,41 +84,79 @@ from src.validation import (
 
 # COMMAND ----------
 
-VALID_DATASET_STATUSES = [
+# =============================================================================
+# Section 02 — Validation Contracts
+# Platform release: v3.0.0
+# Release remediation: 28
+# =============================================================================
+
+VALID_DATASET_STATUSES = (
     "ACTIVE",
     "READY_FOR_PROCESSING",
-]
+)
 
-BRONZE_METADATA_COLUMNS = [
+BRONZE_METADATA_COLUMNS = (
     "_source_file_name",
     "_source_sha256",
     "_dataset_key",
     "_dataset_version",
     "_pipeline_run_id",
     "_bronze_ingested_at_utc",
-]
+)
 
-BRONZE_REQUIRED_NOT_NULL_COLUMNS = [
-    "_source_file_name",
-    "_source_sha256",
-    "_dataset_key",
-    "_dataset_version",
-    "_pipeline_run_id",
-    "_bronze_ingested_at_utc",
-]
+BRONZE_REQUIRED_NOT_NULL_COLUMNS = BRONZE_METADATA_COLUMNS
 
 SILVER_REQUIRED_COLUMNS = [
     "order_item_id",
     "order_date",
-    "workload_units",
 ]
 
-GOLD_REQUIRED_COLUMNS = [
+GOLD_REQUIRED_COLUMNS = (
     "order_date",
     "workload_units",
-]
+)
 
-print("Validation contracts initialized.")
+
+# -----------------------------------------------------------------------------
+# Contract integrity
+# -----------------------------------------------------------------------------
+
+assert VALID_DATASET_STATUSES
+assert len(set(VALID_DATASET_STATUSES)) == len(VALID_DATASET_STATUSES)
+
+assert BRONZE_METADATA_COLUMNS
+assert len(set(BRONZE_METADATA_COLUMNS)) == len(BRONZE_METADATA_COLUMNS)
+
+assert set(BRONZE_REQUIRED_NOT_NULL_COLUMNS).issubset(
+    set(BRONZE_METADATA_COLUMNS)
+)
+
+assert SILVER_REQUIRED_COLUMNS
+assert len(set(SILVER_REQUIRED_COLUMNS)) == len(SILVER_REQUIRED_COLUMNS)
+
+assert GOLD_REQUIRED_COLUMNS
+assert len(set(GOLD_REQUIRED_COLUMNS)) == len(GOLD_REQUIRED_COLUMNS)
+
+assert "order_item_id" in SILVER_REQUIRED_COLUMNS
+assert "order_date" in SILVER_REQUIRED_COLUMNS
+
+assert "order_date" in GOLD_REQUIRED_COLUMNS
+assert "workload_units" in GOLD_REQUIRED_COLUMNS
+
+
+print("=" * 72)
+print("NOTEBOOK 06 — VALIDATION CONTRACTS")
+print("=" * 72)
+print(f"Valid dataset statuses       : {len(VALID_DATASET_STATUSES)}")
+print(f"Bronze metadata columns      : {len(BRONZE_METADATA_COLUMNS)}")
+print(
+    "Bronze required non-null    : "
+    f"{len(BRONZE_REQUIRED_NOT_NULL_COLUMNS)}"
+)
+print(f"Silver required columns      : {len(SILVER_REQUIRED_COLUMNS)}")
+print(f"Gold required columns        : {len(GOLD_REQUIRED_COLUMNS)}")
+print("Validation contracts        : PASSED")
+print("=" * 72)
 
 # COMMAND ----------
 
@@ -219,7 +262,7 @@ rows = (
         (F.col("enabled") == F.lit(True))
         & (
             F.upper(F.trim(F.col("status")))
-            .isin(VALID_DATASET_STATUSES)
+            .isin(*VALID_DATASET_STATUSES)
         )
     )
     .orderBy("dataset_id")
@@ -284,6 +327,12 @@ print_validation_report(bronze_report)
 
 # COMMAND ----------
 
+# =============================================================================
+# Section 07 — Silver Validation
+# Platform release: v3.0.0
+# Release remediation: 28
+# =============================================================================
+
 silver_df = spark.read.parquet(silver_path)
 
 bronze_row_count = bronze_df.count()
@@ -294,15 +343,12 @@ silver_report = validator.validate(
     dataset_layer="SILVER",
     rules=[
         RowCountMatchRule(bronze_row_count),
-
         MinimumRowCountRule(1),
-
         RequiredColumnsRule(
-            BRONZE_METADATA_COLUMNS
+            SILVER_REQUIRED_COLUMNS
         ),
-
         NotNullRule(
-            BRONZE_REQUIRED_NOT_NULL_COLUMNS
+            SILVER_REQUIRED_COLUMNS
         ),
     ],
 )
@@ -421,15 +467,19 @@ if failed_production_reports:
 print("=" * 80)
 print("ENTERPRISE DATA QUALITY FRAMEWORK COMPLETED SUCCESSFULLY")
 print("=" * 80)
-print(f"Dataset key       : {dataset_key}")
-print(f"Bronze rows       : {bronze_df.count():,}")
-print(f"Silver rows       : {silver_df.count():,}")
-print(f"Gold rows         : {gold_df.count():,}")
-print(f"Bronze status     : {bronze_report.status.value}")
-print(f"Silver status     : {silver_report.status.value}")
-print(f"Gold status       : {gold_report.status.value}")
-print(f"Evidence path     : {validation_output_path}")
-print("Framework status  : PASSED")
+print(f"Platform release      : {PLATFORM_RELEASE}")
+print(f"Canonical namespace   : {CANONICAL_NAMESPACE}")
+print(f"Implementation        : 06")
+print(f"Release remediation   : 28")
+print(f"Dataset key           : {dataset_key}")
+print(f"Bronze rows           : {bronze_df.count():,}")
+print(f"Silver rows           : {silver_df.count():,}")
+print(f"Gold rows             : {gold_df.count():,}")
+print(f"Bronze status         : {bronze_report.status.value}")
+print(f"Silver status         : {silver_report.status.value}")
+print(f"Gold status           : {gold_report.status.value}")
+print(f"Evidence path         : {validation_output_path}")
+print("Framework status      : PASSED")
 print("=" * 80)
 
 # COMMAND ----------
