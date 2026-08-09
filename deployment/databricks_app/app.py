@@ -378,10 +378,10 @@ def render_decision_summary(
         "planning_date",
     )
 
-    confidence = payload_value(
+    forecast_confidence = payload_value(
         payload,
-        "recommendation_confidence",
-        "confidence",
+        "forecast_confidence",
+        default=None,
     )
 
     summary_column_1, summary_column_2, summary_column_3 = (
@@ -406,9 +406,9 @@ def render_decision_summary(
 
     with summary_column_3:
         st.metric(
-            label="Recommendation Confidence",
+            label="Forecast Confidence",
             value=format_percentage(
-                confidence
+                forecast_confidence
             ),
         )
 
@@ -507,14 +507,8 @@ def render_recommendation(
         "priority",
     )
 
-    confidence = payload_value(
-        payload,
-        "recommendation_confidence",
-        "confidence",
-    )
-
-    recommendation_column_1, recommendation_column_2, recommendation_column_3 = (
-        st.columns(3)
+    recommendation_column_1, recommendation_column_2 = (
+        st.columns(2)
     )
 
     with recommendation_column_1:
@@ -530,14 +524,6 @@ def render_recommendation(
             label="Optimization Priority",
             value=normalize_display_text(
                 optimization_priority
-            ),
-        )
-
-    with recommendation_column_3:
-        st.metric(
-            label="Decision Confidence",
-            value=format_percentage(
-                confidence
             ),
         )
 
