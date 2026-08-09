@@ -189,9 +189,9 @@ class EnterpriseDecisionReportFormatter:
             f"Planning Date: {report.planning_date.isoformat()}",
             (
                 "Generated At: "
-                f"{report.generated_at_utc.strftime(
+                + report.generated_at_utc.strftime(
                     self._configuration.datetime_format
-                )}"
+                )
             ),
             "",
             "Summary",
