@@ -1,6 +1,6 @@
 """
 AI Workforce Capacity Planning Platform
-Implementation 30.1 — Enterprise Workforce Decision Workspace
+Implementation 30.2 — Enterprise Decision Workspace Enhancement
 
 Module:
     deployment.databricks_app.app
@@ -117,6 +117,79 @@ DECISION_REQUEST_STATE_KEY = (
     "enterprise_decision_request"
 )
 
+SCENARIO_PRESET_STATE_KEY = "decision_scenario_preset"
+
+SCENARIO_INPUT_KEYS = {
+    "expected_order_lines": "expected_order_lines_input",
+    "available_associates": "available_associates_input",
+    "productivity_lines_per_hour": "productivity_input",
+    "scheduled_hours": "scheduled_hours_input",
+    "forecast_confidence": "forecast_confidence_input",
+    "recurring_shortage_days": "recurring_shortage_days_input",
+    "recurring_surplus_days": "recurring_surplus_days_input",
+    "overtime_dependency_days": "overtime_dependency_days_input",
+    "planning_horizon_days": "planning_horizon_days_input",
+}
+
+DECISION_SCENARIO_PRESETS = {
+    "Balanced Capacity": {
+        "description": (
+            "Demand and available workforce are approximately aligned."
+        ),
+        "expected_order_lines": 10_000.0,
+        "available_associates": 59,
+        "productivity_lines_per_hour": 20.0,
+        "scheduled_hours": 10.0,
+        "forecast_confidence": 0.90,
+        "recurring_shortage_days": 0,
+        "recurring_surplus_days": 0,
+        "overtime_dependency_days": 0,
+        "planning_horizon_days": 30,
+    },
+    "Capacity Surplus": {
+        "description": (
+            "Available workforce materially exceeds the workload requirement."
+        ),
+        "expected_order_lines": 8_000.0,
+        "available_associates": 55,
+        "productivity_lines_per_hour": 20.0,
+        "scheduled_hours": 10.0,
+        "forecast_confidence": 0.90,
+        "recurring_shortage_days": 0,
+        "recurring_surplus_days": 5,
+        "overtime_dependency_days": 0,
+        "planning_horizon_days": 30,
+    },
+    "Moderate Shortage": {
+        "description": (
+            "Available workforce is below the expected workload requirement."
+        ),
+        "expected_order_lines": 12_000.0,
+        "available_associates": 60,
+        "productivity_lines_per_hour": 20.0,
+        "scheduled_hours": 10.0,
+        "forecast_confidence": 0.90,
+        "recurring_shortage_days": 2,
+        "recurring_surplus_days": 0,
+        "overtime_dependency_days": 1,
+        "planning_horizon_days": 30,
+    },
+    "Severe / Persistent Shortage": {
+        "description": (
+            "A material workforce shortage persists across multiple planning days."
+        ),
+        "expected_order_lines": 12_000.0,
+        "available_associates": 50,
+        "productivity_lines_per_hour": 20.0,
+        "scheduled_hours": 10.0,
+        "forecast_confidence": 0.90,
+        "recurring_shortage_days": 7,
+        "recurring_surplus_days": 0,
+        "overtime_dependency_days": 5,
+        "planning_horizon_days": 30,
+    },
+}
+
 
 # ============================================================
 # Streamlit Configuration
@@ -152,7 +225,7 @@ def bootstrap_platform() -> tuple[Any, Any]:
                 DEPLOYMENT_ENVIRONMENT
             ),
             "deployment_adapter": DEPLOYMENT_ADAPTER,
-            "implementation": "30.1",
+            "implementation": "30.2",
         },
     )
 
@@ -231,6 +304,52 @@ def call_api(
         )
 
     return response
+
+
+# ============================================================
+# Decision Scenario Preset Helpers
+# ============================================================
+
+def initialize_scenario_state() -> None:
+    """
+    Initialize Streamlit widget state without performing business logic.
+    """
+
+    defaults = DECISION_SCENARIO_PRESETS["Severe / Persistent Shortage"]
+
+    if SCENARIO_PRESET_STATE_KEY not in st.session_state:
+        st.session_state[SCENARIO_PRESET_STATE_KEY] = "Custom"
+
+    for field_name, widget_key in SCENARIO_INPUT_KEYS.items():
+        if widget_key not in st.session_state:
+            st.session_state[widget_key] = defaults[field_name]
+
+
+def apply_scenario_preset(
+    preset_name: str,
+) -> None:
+    """
+    Populate planning inputs from one presentation-layer scenario preset.
+
+    Presets define operational inputs only. They intentionally contain no
+    staffing, overtime, optimization, or recommendation business logic.
+    """
+
+    preset = DECISION_SCENARIO_PRESETS[preset_name]
+
+    for field_name, widget_key in SCENARIO_INPUT_KEYS.items():
+        st.session_state[widget_key] = preset[field_name]
+
+    st.session_state[SCENARIO_PRESET_STATE_KEY] = preset_name
+
+    st.session_state.pop(
+        DECISION_RESPONSE_STATE_KEY,
+        None,
+    )
+    st.session_state.pop(
+        DECISION_REQUEST_STATE_KEY,
+        None,
+    )
 
 
 # ============================================================
@@ -699,6 +818,61 @@ st.caption(
     "validated enterprise decision orchestration workflow."
 )
 
+initialize_scenario_state()
+
+st.subheader(
+    "Decision Scenario Presets"
+)
+
+st.caption(
+    "Load a representative operating condition, review the populated "
+    "inputs, and submit it through the same Enterprise API decision workflow."
+)
+
+preset_columns = st.columns(
+    len(DECISION_SCENARIO_PRESETS)
+)
+
+for preset_column, (
+    preset_name,
+    preset_configuration,
+) in zip(
+    preset_columns,
+    DECISION_SCENARIO_PRESETS.items(),
+):
+    with preset_column:
+        if st.button(
+            preset_name,
+            key=(
+                "scenario_preset_"
+                + preset_name.lower()
+                .replace(" ", "_")
+                .replace("/", "_")
+            ),
+            use_container_width=True,
+        ):
+            apply_scenario_preset(
+                preset_name
+            )
+            st.rerun()
+
+        st.caption(
+            preset_configuration[
+                "description"
+            ]
+        )
+
+active_scenario = st.session_state.get(
+    SCENARIO_PRESET_STATE_KEY,
+    "Custom",
+)
+
+if active_scenario in DECISION_SCENARIO_PRESETS:
+    st.info(
+        f"Active scenario: **{active_scenario}**. "
+        "You may adjust any populated input before running the decision."
+    )
+
 with st.form(
     "enterprise_workforce_decision_form",
     clear_on_submit=False,
@@ -721,8 +895,11 @@ with st.form(
         expected_order_lines_input = st.number_input(
             label="Expected Order Lines",
             min_value=1.0,
-            value=12_000.0,
+            value=float(
+                st.session_state["expected_order_lines_input"]
+            ),
             step=500.0,
+            key="expected_order_lines_input",
             format="%.0f",
             help=(
                 "Expected workload expressed as "
@@ -733,8 +910,11 @@ with st.form(
         available_associates_input = st.number_input(
             label="Available Associates",
             min_value=0,
-            value=50,
+            value=int(
+                st.session_state["available_associates_input"]
+            ),
             step=1,
+            key="available_associates_input",
             help=(
                 "Associates currently available "
                 "for the planning period."
@@ -745,8 +925,11 @@ with st.form(
         productivity_input = st.number_input(
             label="Productivity — Lines per Hour",
             min_value=0.01,
-            value=20.0,
+            value=float(
+                st.session_state["productivity_input"]
+            ),
             step=1.0,
+            key="productivity_input",
             format="%.2f",
             help=(
                 "Expected average associate "
@@ -757,8 +940,11 @@ with st.form(
         scheduled_hours_input = st.number_input(
             label="Scheduled Hours",
             min_value=0.01,
-            value=10.0,
+            value=float(
+                st.session_state["scheduled_hours_input"]
+            ),
             step=0.5,
+            key="scheduled_hours_input",
             format="%.2f",
             help=(
                 "Scheduled working hours for "
@@ -770,8 +956,11 @@ with st.form(
             label="Forecast Confidence",
             min_value=0.0,
             max_value=1.0,
-            value=0.90,
+            value=float(
+                st.session_state["forecast_confidence_input"]
+            ),
             step=0.01,
+            key="forecast_confidence_input",
             help=(
                 "Confidence associated with the "
                 "demand expectation."
@@ -791,8 +980,11 @@ with st.form(
                 st.number_input(
                     label="Recurring Shortage Days",
                     min_value=0,
-                    value=0,
+                    value=int(
+                        st.session_state["recurring_shortage_days_input"]
+                    ),
                     step=1,
+                    key="recurring_shortage_days_input",
                 )
             )
 
@@ -800,8 +992,11 @@ with st.form(
                 st.number_input(
                     label="Overtime Dependency Days",
                     min_value=0,
-                    value=0,
+                    value=int(
+                        st.session_state["overtime_dependency_days_input"]
+                    ),
                     step=1,
+                    key="overtime_dependency_days_input",
                 )
             )
 
@@ -810,8 +1005,11 @@ with st.form(
                 st.number_input(
                     label="Recurring Surplus Days",
                     min_value=0,
-                    value=0,
+                    value=int(
+                        st.session_state["recurring_surplus_days_input"]
+                    ),
                     step=1,
+                    key="recurring_surplus_days_input",
                 )
             )
 
@@ -820,8 +1018,11 @@ with st.form(
                     label="Planning Horizon Days",
                     min_value=1,
                     max_value=365,
-                    value=30,
+                    value=int(
+                        st.session_state["planning_horizon_days_input"]
+                    ),
                     step=1,
+                    key="planning_horizon_days_input",
                 )
             )
 
@@ -1065,8 +1266,8 @@ with st.expander(
 st.divider()
 
 st.caption(
-    "Implementation 30.1 • "
-    "Enterprise Workforce Decision Workspace • "
+    "Implementation 30.2 • "
+    "Enterprise Decision Workspace Enhancement • "
     "Paid Databricks reference deployment • "
     "Platform v3.0.0"
 )
