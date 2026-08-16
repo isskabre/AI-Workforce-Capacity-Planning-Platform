@@ -19,6 +19,7 @@ Description:
         - Collect workforce planning inputs.
         - Submit transport-neutral enterprise decision requests.
         - Present workforce capacity and staffing recommendations.
+        - Present decision results in a manager-first visual hierarchy.
         - Surface manager-facing interpretation of Enterprise API outputs.
         - Surface optimization and recommendation intelligence.
         - Preserve platform-health and bootstrap diagnostics.
@@ -487,6 +488,10 @@ def render_decision_summary(
         "Decision Summary"
     )
 
+    st.caption(
+        "Execution status, planning date, and demand forecast confidence."
+    )
+
     workflow_status = payload_value(
         payload,
         "workflow_status",
@@ -543,6 +548,10 @@ def render_capacity_analysis(
 
     st.subheader(
         "Workforce Capacity Analysis"
+    )
+
+    st.caption(
+        "Compare expected workload with available and required workforce capacity."
     )
 
     expected_order_lines = payload_value(
@@ -603,16 +612,25 @@ def render_capacity_analysis(
         )
 
 
-def render_recommendation(
+def render_manager_action_view(
     *,
     payload: Mapping[str, Any],
 ) -> None:
     """
-    Render staffing and optimization recommendations.
+    Render the primary manager-facing interpretation of Enterprise API outputs.
+
+    This presentation layer does not calculate or override workforce,
+    staffing, overtime, or optimization decisions. It only surfaces
+    values already returned by the Enterprise API.
     """
 
     st.subheader(
-        "Operational Recommendation"
+        "Recommended Manager Action"
+    )
+
+    st.caption(
+        "Operational action and resource requirements returned by the "
+        "validated Enterprise API decision workflow."
     )
 
     staffing_recommendation = payload_value(
@@ -627,23 +645,83 @@ def render_recommendation(
         "priority",
     )
 
-    recommendation_column_1, recommendation_column_2 = (
-        st.columns(2)
+    associate_gap = payload_value(
+        payload,
+        "associate_gap",
+        "workforce_gap",
     )
 
-    with recommendation_column_1:
+    recommended_associates = payload_value(
+        payload,
+        "recommended_associates",
+        default=None,
+    )
+
+    overtime_hours = payload_value(
+        payload,
+        "overtime_hours",
+        default=None,
+    )
+
+    optimization_status = payload_value(
+        payload,
+        "optimization_status",
+        default=None,
+    )
+
+    primary_column_1, primary_column_2, primary_column_3 = (
+        st.columns(3)
+    )
+
+    with primary_column_1:
         st.metric(
-            label="Staffing Recommendation",
+            label="Recommended Action",
             value=normalize_display_text(
                 staffing_recommendation
             ),
         )
 
-    with recommendation_column_2:
+    with primary_column_2:
         st.metric(
-            label="Optimization Priority",
+            label="Decision Priority",
             value=normalize_display_text(
                 optimization_priority
+            ),
+        )
+
+    with primary_column_3:
+        st.metric(
+            label="Capacity Gap",
+            value=format_number(
+                associate_gap
+            ),
+        )
+
+    resource_column_1, resource_column_2, resource_column_3 = (
+        st.columns(3)
+    )
+
+    with resource_column_1:
+        st.metric(
+            label="Recommended Associates",
+            value=format_number(
+                recommended_associates
+            ),
+        )
+
+    with resource_column_2:
+        st.metric(
+            label="Overtime Hours",
+            value=format_number(
+                overtime_hours
+            ),
+        )
+
+    with resource_column_3:
+        st.metric(
+            label="Optimization Status",
+            value=normalize_display_text(
+                optimization_status
             ),
         )
 
@@ -656,95 +734,12 @@ def render_recommendation(
     )
 
     if rationale:
+        st.markdown(
+            "**Decision Rationale**"
+        )
         st.info(
             str(rationale)
         )
-
-
-def render_manager_action_view(
-    *,
-    payload: Mapping[str, Any],
-) -> None:
-    """
-    Render a manager-facing interpretation of Enterprise API outputs.
-
-    This presentation layer does not calculate or override workforce,
-    staffing, overtime, or optimization decisions. It only surfaces
-    values already returned by the Enterprise API.
-    """
-
-    st.subheader("Manager Action View")
-
-    associate_gap = payload_value(
-        payload, "associate_gap", "workforce_gap"
-    )
-    staffing_recommendation = payload_value(
-        payload, "staffing_recommendation", "recommendation"
-    )
-    optimization_priority = payload_value(
-        payload, "optimization_priority", "priority"
-    )
-    optimization_status = payload_value(
-        payload, "optimization_status", default=None
-    )
-    recommended_associates = payload_value(
-        payload, "recommended_associates", default=None
-    )
-    overtime_hours = payload_value(
-        payload, "overtime_hours", default=None
-    )
-
-    action_column_1, action_column_2, action_column_3 = st.columns(3)
-
-    with action_column_1:
-        st.metric(
-            label="Capacity Gap",
-            value=format_number(associate_gap),
-        )
-
-    with action_column_2:
-        st.metric(
-            label="Recommended Action",
-            value=normalize_display_text(staffing_recommendation),
-        )
-
-    with action_column_3:
-        st.metric(
-            label="Decision Priority",
-            value=normalize_display_text(optimization_priority),
-        )
-
-    resource_column_1, resource_column_2, resource_column_3 = st.columns(3)
-
-    with resource_column_1:
-        st.metric(
-            label="Recommended Associates",
-            value=format_number(recommended_associates),
-        )
-
-    with resource_column_2:
-        st.metric(
-            label="Overtime Hours",
-            value=format_number(overtime_hours),
-        )
-
-    with resource_column_3:
-        st.metric(
-            label="Optimization Status",
-            value=normalize_display_text(optimization_status),
-        )
-
-    rationale = payload_value(
-        payload,
-        "recommendation_rationale",
-        "rationale",
-        "decision_rationale",
-        default=None,
-    )
-
-    if rationale:
-        st.markdown("**Decision Rationale**")
-        st.info(str(rationale))
 
 
 def render_decision_payload(
@@ -771,18 +766,20 @@ def render_decision_payload(
 
     st.divider()
 
-    render_recommendation(
-        payload=payload,
-    )
-
-    st.divider()
-
     render_manager_action_view(
         payload=payload,
     )
 
+    st.markdown(
+        "#### Technical Decision Details"
+    )
+
+    st.caption(
+        "Engineering and audit information retained for validation and traceability."
+    )
+
     with st.expander(
-        "Complete Enterprise Decision Payload"
+        "Enterprise Decision Payload"
     ):
         st.json(payload)
 
@@ -911,6 +908,11 @@ st.caption(
     "validated enterprise decision orchestration workflow."
 )
 
+st.markdown(
+    "**Workflow:** Select a scenario or adjust inputs → review the planning "
+    "context → run the enterprise workforce decision."
+)
+
 initialize_scenario_state()
 
 st.subheader(
@@ -918,8 +920,8 @@ st.subheader(
 )
 
 st.caption(
-    "Load a representative operating condition, review the populated "
-    "inputs, and submit it through the same Enterprise API decision workflow."
+    "Use a representative operating condition as a starting point, then "
+    "review or adjust the populated inputs before submitting the decision."
 )
 
 preset_columns = st.columns(
@@ -963,7 +965,8 @@ active_scenario = st.session_state.get(
 if active_scenario in DECISION_SCENARIO_PRESETS:
     st.info(
         f"Active scenario: **{active_scenario}**. "
-        "You may adjust any populated input before running the decision."
+        "Review the populated inputs below and adjust them if needed before "
+        "running the decision."
     )
 
 with st.form(
@@ -1120,7 +1123,7 @@ with st.form(
             )
 
     submitted = st.form_submit_button(
-        label="Run Workforce Decision",
+        label="Evaluate Workforce Decision",
         type="primary",
         use_container_width=True,
     )
@@ -1220,7 +1223,8 @@ if decision_response is not None:
     ):
 
         st.success(
-            "Enterprise workforce decision completed successfully."
+            "Enterprise workforce decision completed successfully. "
+            "Review the recommended action below."
         )
 
         render_decision_payload(
@@ -1360,7 +1364,7 @@ st.divider()
 
 st.caption(
     "Implementation 30.2 • "
-    "Enterprise Decision Workspace Enhancement • "
+    "Enterprise Decision Workspace Enhancement — UX Finalization • "
     "Paid Databricks reference deployment • "
     "Platform v3.0.0"
 )
