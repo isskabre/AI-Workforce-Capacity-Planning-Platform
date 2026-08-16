@@ -19,6 +19,7 @@ Description:
         - Collect workforce planning inputs.
         - Submit transport-neutral enterprise decision requests.
         - Present workforce capacity and staffing recommendations.
+        - Surface manager-facing interpretation of Enterprise API outputs.
         - Surface optimization and recommendation intelligence.
         - Preserve platform-health and bootstrap diagnostics.
         - Avoid duplicating business-domain logic in the UI layer.
@@ -660,6 +661,92 @@ def render_recommendation(
         )
 
 
+def render_manager_action_view(
+    *,
+    payload: Mapping[str, Any],
+) -> None:
+    """
+    Render a manager-facing interpretation of Enterprise API outputs.
+
+    This presentation layer does not calculate or override workforce,
+    staffing, overtime, or optimization decisions. It only surfaces
+    values already returned by the Enterprise API.
+    """
+
+    st.subheader("Manager Action View")
+
+    associate_gap = payload_value(
+        payload, "associate_gap", "workforce_gap"
+    )
+    staffing_recommendation = payload_value(
+        payload, "staffing_recommendation", "recommendation"
+    )
+    optimization_priority = payload_value(
+        payload, "optimization_priority", "priority"
+    )
+    optimization_status = payload_value(
+        payload, "optimization_status", default=None
+    )
+    recommended_associates = payload_value(
+        payload, "recommended_associates", default=None
+    )
+    overtime_hours = payload_value(
+        payload, "overtime_hours", default=None
+    )
+
+    action_column_1, action_column_2, action_column_3 = st.columns(3)
+
+    with action_column_1:
+        st.metric(
+            label="Capacity Gap",
+            value=format_number(associate_gap),
+        )
+
+    with action_column_2:
+        st.metric(
+            label="Recommended Action",
+            value=normalize_display_text(staffing_recommendation),
+        )
+
+    with action_column_3:
+        st.metric(
+            label="Decision Priority",
+            value=normalize_display_text(optimization_priority),
+        )
+
+    resource_column_1, resource_column_2, resource_column_3 = st.columns(3)
+
+    with resource_column_1:
+        st.metric(
+            label="Recommended Associates",
+            value=format_number(recommended_associates),
+        )
+
+    with resource_column_2:
+        st.metric(
+            label="Overtime Hours",
+            value=format_number(overtime_hours),
+        )
+
+    with resource_column_3:
+        st.metric(
+            label="Optimization Status",
+            value=normalize_display_text(optimization_status),
+        )
+
+    rationale = payload_value(
+        payload,
+        "recommendation_rationale",
+        "rationale",
+        "decision_rationale",
+        default=None,
+    )
+
+    if rationale:
+        st.markdown("**Decision Rationale**")
+        st.info(str(rationale))
+
+
 def render_decision_payload(
     *,
     response: APIResponse,
@@ -685,6 +772,12 @@ def render_decision_payload(
     st.divider()
 
     render_recommendation(
+        payload=payload,
+    )
+
+    st.divider()
+
+    render_manager_action_view(
         payload=payload,
     )
 
